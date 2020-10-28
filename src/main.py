@@ -4,7 +4,7 @@ import array as arr
 import time
 from functools import reduce
 from libscrc import modbus
-nodos=[[0],[1,2,3],[1 ,2]]
+nodos=[[1],[1,2,3],[1 ,2]]
 test_frame=b'\x05\x00\x01\x0e\x00\x02\x00\x07\x01\x08\xff\x04\x00\x01\x00\x04\xb5\xd7\x9a'
 send_pre = [5,0,1,14,0,2,0,7,1,8]
 def init_serial_port():
@@ -33,22 +33,34 @@ def get_modbus_pdu(id, slaves):
             adu.append(crc[1])
             adu.append(crc[0])
             return adu
-def poll_loras():
+def lora_send(frame):
+    print("sending...")
+    ser = serial.Serial('/dev/ttyUSB2',timeout=3)
+    ser.write(bytearray(frame))
+    print("Sent")
+    print("wating answer...")
+    expected_size = 22+2*frame[15]
+    input_data=ser.read_until(size=expected_size)
+    print("Data received")
+    return input_data
+    
+    
+def poll_loras(nodos):
     
     for lora_id,slaves in enumerate(nodos):
         modbus_pdu=get_modbus_pdu(lora_id, slaves)
-        print(modbus_pdu)
+        if modbus_pdu!=None:           
+            lora_pdu=send_pre+modbus_pdu
+            check_sum=reduce(lambda x, y: x ^ y, lora_pdu) 
+            lora_pdu.append(check_sum)
+            print(lora_pdu)
+            answer=lora_send(lora_pdu)
+            print(answer)
 
 if __name__ == "__main__":
     print("Hello World")
     init_serial_port()
-    poll_loras()
-    #print(send_pre)
-    #res = reduce(lambda x, y: x ^ y, send_pre) 
-    #crc =modbus(test_frame)
-    #print((crc).to_bytes(2,"big"))
-# printing result  
-    #print("The Bitwise XOR of list elements are : " + str(res))
+    poll_loras(nodos)
     
     
     

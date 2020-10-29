@@ -1,0 +1,13 @@
+{
+	"ID": 12,
+	"Serial Port": "/dev/ttyUSB2",
+	"nodos": {
+		"0": null,
+		"1": null,
+		"2": [
+			1,
+			2
+		]
+	}
+
+}

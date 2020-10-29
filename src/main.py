@@ -4,20 +4,22 @@ import array as arr
 import time
 from functools import reduce
 from libscrc import modbus
-nodos=[[0],[0],[1 ,2],[2,1]]
-test_frame=b'\x05\x00\x01\x0e\x00\x02\x00\x07\x01\x08\xff\x04\x00\x01\x00\x04\xb5\xd7\x9a'
+import json
 send_pre = [5,0,1,14,0,2,0,7,1,8]
-def init_serial_port():
+
+def init_serial_port(Port):
     try:
-        ser = serial.Serial('/dev/ttyUSB2',timeout=3)
+        ser = serial.Serial(Port,timeout=0.6)
     except:
         print("Serial port does not exists")
+        quit()
         return
     print("Port ",ser.name," opened")
     ser.close
     print("port closed")
+    
 def get_modbus_pdu(id, slaves):
-    if len(slaves)==1 and slaves[0]==0:
+    if slaves==None:
             print("Empty")
             return
     else:
@@ -36,17 +38,17 @@ def get_modbus_pdu(id, slaves):
         
 def lora_send(frame):
     print("sending...")
-    ser = serial.Serial('/dev/ttyUSB2',timeout=3)
+    ser = serial.Serial(config_dic['Serial Port'],timeout=3)
     ser.write(bytearray(frame))
     print("Sent")
-    print("wating answer...")
+    print("Waiting answer...")
     expected_size = 22+2*frame[15]
     input_data=ser.read_until(size=expected_size)
     print("Data received")
     return input_data
     
     
-def poll_loras(nodos):
+def poll_loras(conf):
     
     for lora_id,slaves in enumerate(nodos):
         modbus_pdu=get_modbus_pdu(lora_id, slaves)
@@ -57,11 +59,29 @@ def poll_loras(nodos):
             lora_pdu.append(check_sum)
             print(lora_pdu)
             answer=lora_send(lora_pdu)
-            print(answer)
+            print(list(answer))
 
 if __name__ == "__main__":
-    print("Hello World")
-    init_serial_port()
+    print("App started")
+    config_file=open("config.json")
+    config_dic=json.load(config_file)
+    
+    print("ID: ",config_dic['ID'])
+    print("Serial Port: ",config_dic['Serial Port'])
+    print(config_dic['nodos'])
+    
+    nodos=[]
+    config_nodos= config_dic['nodos']
+    for i in config_nodos:
+        nodos.append(config_nodos[i])
+        print(config_nodos[i])
+    init_serial_port(config_dic['Serial Port'])
     poll_loras(nodos)
+    
+    print("spce")
+    
+    
+
+
     
     

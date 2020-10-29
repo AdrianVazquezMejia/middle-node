@@ -1,6 +1,6 @@
 {
 	"ID": "0x0012",
-	"Serial Port": "/dev/ttyUSB2",
+	"Serial Port": "/dev/ttyUSB0",
 	"nodos":{ 
 		"0": null,
 		"1": null,

@@ -6,6 +6,10 @@ from functools import reduce
 from libscrc import modbus
 import json
 send_pre = [5,0,1,14,0,2,0,7,1,8]
+def save2file(file, data):
+    energy_file.seek(0)
+    energy_file.truncate()
+    json.dump(data, file) 
 
 def init_serial_port(Port):
     try:
@@ -29,7 +33,7 @@ def get_modbus_pdu(id, slaves):
             adu.append(0)
             adu.append(1)
             adu.append(0)  
-            quantity =len(slaves)
+            quantity =len(slaves)*2
             adu.append(quantity)
             crc=(modbus(bytearray(adu))).to_bytes(2,'big')
             adu.append(crc[1])
@@ -47,7 +51,23 @@ def lora_send(frame):
     print("Data received")
     return input_data
     
-    
+def parse_modbus(frame):
+    crc_r=modbus(frame)
+    data =[]
+    if crc_r==0:
+        print("modbus correct")
+        print(frame)
+        quantity = (len(frame)-5)//4
+        print(quantity)
+        for i in range(quantity):
+            pulses= int(frame[3+i*4:7+i*4].hex(),16)
+            print(pulses)
+            data.append(pulses)
+        print(data)
+        return data
+        
+                  
+        
 def poll_loras(nodos):
     
     for lora_id,slaves in enumerate(nodos):
@@ -58,16 +78,22 @@ def poll_loras(nodos):
             lora_pdu=send_pre+modbus_pdu
             check_sum=reduce(lambda x, y: x ^ y, lora_pdu) 
             lora_pdu.append(check_sum)
-            #print(lora_pdu)
             answer=lora_send(lora_pdu)
-            #print(list(answer))
             expected_size = 22+2*lora_pdu[15]
+            
             if len(answer)==expected_size:
                 modbus_r= answer[16:expected_size-1]
+                data=parse_modbus(modbus_r)
                 print(list(modbus_r))
-                crc_r=modbus(modbus_r)
-                if crc_r==0:
-                    print("modbus correct")
+                quantity = (len(modbus_r)-5)//4
+                lora_hex =(lora_id).to_bytes(2,"big")
+                for i in range(quantity):
+                    serial_nodo = lora_hex+(i+1).to_bytes(1,'big')
+                    energy[serial_nodo.hex()]=data[i]
+                print(energy)
+            energy_file.seek(0)
+            energy_file.truncate()
+            json.dump(energy, energy_file)
 
 
     
@@ -97,10 +123,9 @@ if __name__ == "__main__":
                 if serial_nodo.hex() not in energy.keys():
                     energy[serial_nodo.hex()]=0
             print("Energy ",energy)
-            energy_file.seek(0)
-            energy_file.truncate()
-            json.dump(energy, energy_file)
-            energy_file.close()
+            save2file(energy_file,energy)
+
+            
     
        
         
@@ -108,12 +133,10 @@ if __name__ == "__main__":
         
     
     init_serial_port(config_dic['Serial Port'])
-    #while True:
-    #    poll_loras(nodos)
-    id_hex=(12).to_bytes(2,'big')
-    s=id_hex+b'\x01'
-    print(s)
-    print(s.hex())
+    while True:
+        poll_loras(nodos)
+    energy_file.close()
+
     
 
 

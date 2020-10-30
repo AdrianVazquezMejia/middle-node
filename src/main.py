@@ -126,16 +126,13 @@ if __name__ == "__main__":
             save2file(energy_file,energy)
 
             
-    
-       
-        
-        
-        
-    
     init_serial_port(config_dic['Serial Port'])
-    while True:
-        poll_loras(nodos)
     energy_file.close()
+    while True:
+        energy_file=open('../output/energy.json','r+')
+        energy=json.load(energy_file)
+        poll_loras(nodos)
+        energy_file.close()
 
     
 

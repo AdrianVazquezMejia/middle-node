@@ -5,7 +5,17 @@ import time
 from functools import reduce
 from libscrc import modbus
 import json
+import requests
+import datetime
 send_pre = [5,0,1,14,0,2,0,7,1,8]
+thing_speak ={    "write_api_key": "PYF7YMZNOM3TJVSM",
+                        "updates": [{
+                                    "created_at": "2020-10-30 13:38:2 -0400",
+                                    "field1": 0,
+                                    "field2": 0
+                                    }
+                                    ]    
+            }
 def save2file(file, data):
     energy_file.seek(0)
     energy_file.truncate()
@@ -47,8 +57,9 @@ def lora_send(frame):
     print("Sent")
     print("Waiting answer...")
     expected_size = 22+2*frame[15]
-    input_data=ser.read_until(size=expected_size)
+    input_data=ser.read(size=expected_size)
     print("Data received")
+    print(len(input_data))
     return input_data
     
 def parse_modbus(frame):
@@ -64,9 +75,7 @@ def parse_modbus(frame):
             print(pulses)
             data.append(pulses)
         print(data)
-        return data
-        
-                  
+        return data                
         
 def poll_loras(nodos):
     
@@ -80,7 +89,7 @@ def poll_loras(nodos):
             lora_pdu.append(check_sum)
             answer=lora_send(lora_pdu)
             expected_size = 22+2*lora_pdu[15]
-            
+            print(list(answer))
             if len(answer)==expected_size:
                 modbus_r= answer[16:expected_size-1]
                 data=parse_modbus(modbus_r)
@@ -96,6 +105,23 @@ def poll_loras(nodos):
             json.dump(energy, energy_file)
 
 
+def post(data):
+    print("posting...")
+    now=datetime.datetime.now()
+    now =str(now)+" -0400"
+    print(now)
+    update_data=thing_speak['updates'][0]
+    update_data['created_at']=now
+    update_data['field1']=data['000201']
+    update_data['field2']=data['000202']
+    thing_speak['updates'][0]=update_data
+    print(thing_speak)
+    headers = {'Content-type': 'application/json'}
+    r = requests.post('https://api.thingspeak.com/channels/1212777/bulk_update.json', json=thing_speak,headers=headers)
+    print("Status code is :",r.status_code)
+    
+    
+        
     
 if __name__ == "__main__":
     print("App started")
@@ -109,7 +135,6 @@ if __name__ == "__main__":
     print(config_dic['nodos'])
     
     nodos=[]
-    
     node_id= int(config_dic['ID'],16)
     
     # Manage the json to stores the energy
@@ -124,18 +149,17 @@ if __name__ == "__main__":
                     energy[serial_nodo.hex()]=0
             print("Energy ",energy)
             save2file(energy_file,energy)
-
-            
+         
     init_serial_port(config_dic['Serial Port'])
     energy_file.close()
+    counter=0
     while True:
         energy_file=open('../output/energy.json','r+')
         energy=json.load(energy_file)
         poll_loras(nodos)
         energy_file.close()
-
-    
-
-
-    
-    
+        if counter==120:
+            post(energy)
+            counter=0
+        counter+=1
+        print("Print in :", 120-counter, " s")

@@ -18,8 +18,8 @@ thing_speak ={    "write_api_key": "PYF7YMZNOM3TJVSM",
                                     ]    
             }
 def save2file(file, data):
-    energy_file.seek(0)
-    energy_file.truncate()
+    file.seek(0)
+    file.truncate()
     json.dump(data, file) 
 
 def init_serial_port(Port):
@@ -28,10 +28,11 @@ def init_serial_port(Port):
     except:
         print("Serial port does not exists")
         quit()
-        return
+        return False
     print("Port ",ser.name," opened")
     ser.close
     print("port closed")
+    return True
     
 def get_modbus_pdu(id, slaves):
     if slaves==None:
@@ -99,11 +100,11 @@ def poll_loras(nodos):
                 lora_hex =(lora_id).to_bytes(2,"big")
                 for i in range(quantity):
                     serial_nodo = lora_hex+(i+1).to_bytes(1,'big')
-                    energy[serial_nodo.hex()]=data[i]
-                print(energy)
+                    energy_dic[serial_nodo.hex()]=data[i]
+                print(energy_dic)
             energy_file.seek(0)
             energy_file.truncate()
-            json.dump(energy, energy_file)
+            json.dump(energy_dic, energy_file)
 
 
 def post(data):
@@ -129,36 +130,29 @@ if __name__ == "__main__":
     node = centralnode("config.json")
     
     energy_file=open(node.energy_path,'r+')
-    energy = json.load(energy_file)
+    energy_dic = json.load(energy_file)
     
-
-    print(node.rtus)
-    
-    nodos=[]
-    
-    # Manage the json to stores the energy
-    config_nodos= node.rtus
-    for index,i in enumerate(config_nodos):
-        nodos.append(config_nodos[i])
-        if config_nodos[i]!=None:
-            for j in config_nodos[i]:
-                id_hex=(index).to_bytes(2,'big')
-                serial_nodo=id_hex+(j).to_bytes(1,'big')
-                if serial_nodo.hex() not in energy.keys():
-                    energy[serial_nodo.hex()]=0
-            print("Energy ",energy)
-            save2file(energy_file,energy)
-         
+    for lora in node.loras:
+        for slave in lora['slaves']:
+            id_meter=(lora['loraid']).to_bytes(2,'big')+(slave).to_bytes(1,'big')
+            if id_meter.hex() not in energy_dic.keys():
+                     energy_dic[id_meter.hex()]=0
+        print("Energy updated ",energy_dic)
+        save2file(energy_file,energy_dic)
+                 
     init_serial_port(node.lora_port)
-    energy_file.close()
-    counter=0
-    while True:
-        energy_file=open('../output/energy.json','r+')
-        energy=json.load(energy_file)
-        poll_loras(nodos)
-        energy_file.close()
-        if counter==120:
-            post(energy)
-            counter=0
-        counter+=1
-        print("Print in :", 120-counter, " s")
+    
+    print("App Finished")
+    # energy_file.close()
+    # counter=0
+    #===========================================================================
+    #while True:
+    #    energy_file=open(node.energy_path,'r+')
+    #    energy_dic=json.load(energy_file)
+    #    poll_loras(nodos)
+    #   energy_file.close()
+    #    if counter==120:
+    #        post(energy_dic)
+    #        counter=0
+    #    counter+=1
+    #    print("Print in :", 120-counter, " s")

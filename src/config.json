@@ -1,13 +1,10 @@
 {
 	"ID": "0x0012",
 	"Serial Port": "/dev/ttyUSB0",
-	"rtus":{ 
-		"0": null,
-		"1": null,
-		"2":[
-			1,
-			2
-		 ]
-	},
+	"loras":[ { 
+		"loraid":2,
+		"slaves":[1 ,2]
+		}
+	],
 	"energy_path":"../output/energy.json"	
 }

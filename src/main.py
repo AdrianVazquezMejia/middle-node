@@ -7,6 +7,7 @@ from libscrc import modbus
 import json
 import requests
 import datetime
+from centralnode import centralnode
 send_pre = [5,0,1,14,0,2,0,7,1,8]
 thing_speak ={    "write_api_key": "PYF7YMZNOM3TJVSM",
                         "updates": [{
@@ -52,7 +53,7 @@ def get_modbus_pdu(id, slaves):
         
 def lora_send(frame):
     print("sending...")
-    ser = serial.Serial(config_dic['Serial Port'],timeout=14)
+    ser = serial.Serial(node.lora_port,timeout=14)
     ser.write(bytearray(frame))
     print("Sent")
     print("Waiting answer...")
@@ -125,20 +126,18 @@ def post(data):
     
 if __name__ == "__main__":
     print("App started")
-    config_file=open("config.json",'r')
-    config_dic=json.load(config_file)
-    energy_file=open('../output/energy.json','r+')
+    node = centralnode("config.json")
+    
+    energy_file=open(node.energy_path,'r+')
     energy = json.load(energy_file)
     
-    print("ID: ",config_dic['ID'])
-    print("Serial Port: ",config_dic['Serial Port'])
-    print(config_dic['nodos'])
+
+    print(node.rtus)
     
     nodos=[]
-    node_id= int(config_dic['ID'],16)
     
     # Manage the json to stores the energy
-    config_nodos= config_dic['nodos']
+    config_nodos= node.rtus
     for index,i in enumerate(config_nodos):
         nodos.append(config_nodos[i])
         if config_nodos[i]!=None:
@@ -150,7 +149,7 @@ if __name__ == "__main__":
             print("Energy ",energy)
             save2file(energy_file,energy)
          
-    init_serial_port(config_dic['Serial Port'])
+    init_serial_port(node.lora_port)
     energy_file.close()
     counter=0
     while True:

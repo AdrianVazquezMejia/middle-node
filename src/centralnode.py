@@ -54,13 +54,12 @@ class loranode:
         self.id=dic['loraid']
         self.slaves=dic['slaves']
         self.maxpoll_size= 56
-        self.lastpollsize = len(self.slaves)%self.maxpoll_size
+        self.lastpollsize = len(self.slaves)*2%self.maxpoll_size
         
-    
     def quantity_poll(self):
-        n = len(self.slaves)//self.maxpoll_size
+        n = len(self.slaves)*2//self.maxpoll_size
         if self.lastpollsize !=0:
             n+=1
-        return n ###########################   
+        return n   
         
         

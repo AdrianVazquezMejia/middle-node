@@ -96,7 +96,7 @@ def parse_modbus(frame):
             pulses= int(frame[3+i*4:7+i*4].hex(),16)
             print(pulses)
             data.append(pulses)
-        print(data)
+        print("data: ",data)
         return data                
         
 def poll_loras(loras):
@@ -114,33 +114,17 @@ def poll_loras(loras):
             payload=get_modbus_adu(lora.id,4,1+i*max,quant)
             print("result",node.send(payload))
             response= node.receive()
-            print(response)
-    #===========================================================================
-    # for lora_id,slaves in enumerate(nodos):
-    #     print("Polling Lora: ",lora_id)
-    #     modbus_pdu=get_modbus_pdu(lora_id, slaves)
-    #     if modbus_pdu!=None:
-    #         send_pre[5]=lora_id          
-    #         lora_pdu=send_pre+modbus_pdu
-    #         check_sum=reduce(lambda x, y: x ^ y, lora_pdu) 
-    #         lora_pdu.append(check_sum)
-    #         answer=lora_send(lora_pdu)
-    #         expected_size = 22+2*lora_pdu[15]
-    #         print(list(answer))
-    #         if len(answer)==expected_size:
-    #             modbus_r= answer[16:expected_size-1]
-    #             data=parse_modbus(modbus_r)
-    #             print(list(modbus_r))
-    #             quantity = (len(modbus_r)-5)//4
-    #             lora_hex =(lora_id).to_bytes(2,"big")
-    #             for i in range(quantity):
-    #                 serial_nodo = lora_hex+(i+1).to_bytes(1,'big')
-    #                 energy_dic[serial_nodo.hex()]=data[i]
-    #             print(energy_dic)
-    #         energy_file.seek(0)
-    #         energy_file.truncate()
-    #         json.dump(energy_dic, energy_file)
-    #===========================================================================
+            if response == None:
+                continue
+            data=parse_modbus(response)
+            
+            lora_hex =(lora.id).to_bytes(2,"big")
+            for j,_ in enumerate(data):
+                index = i* max // 2 + j+1
+                serial_meter = lora_hex+(index).to_bytes(1,'big')
+                print("index: ",serial_meter)
+                energy_dic[serial_meter.hex()]=data[i]
+                save2file(energy_file,energy_dic)
 
 
 def post(data):

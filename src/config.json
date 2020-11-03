@@ -1,5 +1,5 @@
 {
-	"ID": "0x0012",
+	"ID": "0x0001",
 	"Serial Port": "/dev/ttyUSB0",
 	"loras":[ { 
 		"loraid":2,

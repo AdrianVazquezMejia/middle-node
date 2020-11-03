@@ -8,6 +8,7 @@ import json
 import requests
 import datetime
 from centralnode import centralnode
+from centralnode import loranode
 send_pre = [5,0,1,14,0,2,0,7,1,8]
 thing_speak ={    "write_api_key": "PYF7YMZNOM3TJVSM",
                         "updates": [{
@@ -39,7 +40,7 @@ def get_modbus_pdu(id, slaves):
             print("Empty")
             return
     else:
-            adu=[]
+            adu = []
             adu.append(id) 
             adu.append(4)
             adu.append(0)
@@ -51,7 +52,26 @@ def get_modbus_pdu(id, slaves):
             adu.append(crc[1])
             adu.append(crc[0])
             return adu
-        
+
+def get_modbus_adu(id,code,start_add,quantity):
+    if quantity>125:
+        return   
+    adu = []
+    adu.append(id)
+    adu.append(code)
+    start = (start_add).to_bytes(2,'big')
+    adu.append(start[0])
+    adu.append(start[1])
+    q = (quantity).to_bytes(2,'big')
+    adu.append(q[0])
+    adu.append(q[1])
+    crc=(modbus(bytearray(adu))).to_bytes(2,'big')
+    adu.append(crc[1])
+    adu.append(crc[0])
+    print("modbus adu to send: ",adu)
+    return adu
+    
+       
 def lora_send(frame):
     print("sending...")
     ser = serial.Serial(node.lora_port,timeout=14)
@@ -79,32 +99,48 @@ def parse_modbus(frame):
         print(data)
         return data                
         
-def poll_loras(nodos):
-    
-    for lora_id,slaves in enumerate(nodos):
-        print("Polling Lora: ",lora_id)
-        modbus_pdu=get_modbus_pdu(lora_id, slaves)
-        if modbus_pdu!=None:
-            send_pre[5]=lora_id          
-            lora_pdu=send_pre+modbus_pdu
-            check_sum=reduce(lambda x, y: x ^ y, lora_pdu) 
-            lora_pdu.append(check_sum)
-            answer=lora_send(lora_pdu)
-            expected_size = 22+2*lora_pdu[15]
-            print(list(answer))
-            if len(answer)==expected_size:
-                modbus_r= answer[16:expected_size-1]
-                data=parse_modbus(modbus_r)
-                print(list(modbus_r))
-                quantity = (len(modbus_r)-5)//4
-                lora_hex =(lora_id).to_bytes(2,"big")
-                for i in range(quantity):
-                    serial_nodo = lora_hex+(i+1).to_bytes(1,'big')
-                    energy_dic[serial_nodo.hex()]=data[i]
-                print(energy_dic)
-            energy_file.seek(0)
-            energy_file.truncate()
-            json.dump(energy_dic, energy_file)
+def poll_loras(loras):
+    print("star polling")
+    for lora_dic in loras:
+        lora = loranode(lora_dic)
+        print(lora.slaves)
+        n=lora.quantity_poll()
+        for i in range(n):
+            print("poll ",i)
+            max=lora.maxpoll_size
+            quant = max
+            if i == n-1:
+                quant = lora.lastpollsize
+            payload=get_modbus_adu(lora.id,4,1+i*max,quant)
+            print("result",node.send(payload))
+            response= node.receive()
+            print(response)
+    #===========================================================================
+    # for lora_id,slaves in enumerate(nodos):
+    #     print("Polling Lora: ",lora_id)
+    #     modbus_pdu=get_modbus_pdu(lora_id, slaves)
+    #     if modbus_pdu!=None:
+    #         send_pre[5]=lora_id          
+    #         lora_pdu=send_pre+modbus_pdu
+    #         check_sum=reduce(lambda x, y: x ^ y, lora_pdu) 
+    #         lora_pdu.append(check_sum)
+    #         answer=lora_send(lora_pdu)
+    #         expected_size = 22+2*lora_pdu[15]
+    #         print(list(answer))
+    #         if len(answer)==expected_size:
+    #             modbus_r= answer[16:expected_size-1]
+    #             data=parse_modbus(modbus_r)
+    #             print(list(modbus_r))
+    #             quantity = (len(modbus_r)-5)//4
+    #             lora_hex =(lora_id).to_bytes(2,"big")
+    #             for i in range(quantity):
+    #                 serial_nodo = lora_hex+(i+1).to_bytes(1,'big')
+    #                 energy_dic[serial_nodo.hex()]=data[i]
+    #             print(energy_dic)
+    #         energy_file.seek(0)
+    #         energy_file.truncate()
+    #         json.dump(energy_dic, energy_file)
+    #===========================================================================
 
 
 def post(data):
@@ -142,9 +178,14 @@ if __name__ == "__main__":
                  
     init_serial_port(node.lora_port)
     
+    energy_file.close()
+    energy_file=open(node.energy_path,'r+')
+    energy_dic=json.load(energy_file)
+    poll_loras(node.loras)
+    energy_file.close()
     print("App Finished")
-    # energy_file.close()
-    # counter=0
+    
+    #counter=0
     #===========================================================================
     #while True:
     #    energy_file=open(node.energy_path,'r+')

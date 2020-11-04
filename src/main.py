@@ -9,6 +9,7 @@ import requests
 import datetime
 from centralnode import centralnode
 from centralnode import loranode
+#from builtins import True, False
 send_pre = [5,0,1,14,0,2,0,7,1,8]
 thing_speak ={    "write_api_key": "PYF7YMZNOM3TJVSM",
                         "updates": [{
@@ -35,23 +36,6 @@ def init_serial_port(Port):
     print("port closed")
     return True
     
-def get_modbus_pdu(id, slaves):
-    if slaves==None:
-            print("Empty")
-            return
-    else:
-            adu = []
-            adu.append(id) 
-            adu.append(4)
-            adu.append(0)
-            adu.append(1)
-            adu.append(0)  
-            quantity =len(slaves)*2
-            adu.append(quantity)
-            crc=(modbus(bytearray(adu))).to_bytes(2,'big')
-            adu.append(crc[1])
-            adu.append(crc[0])
-            return adu
 
 def get_modbus_adu(id,code,start_add,quantity):
     if quantity>125:
@@ -70,20 +54,7 @@ def get_modbus_adu(id,code,start_add,quantity):
     adu.append(crc[0])
     print("modbus adu to send: ",adu)
     return adu
-    
-       
-def lora_send(frame):
-    print("sending...")
-    ser = serial.Serial(node.lora_port,timeout=14)
-    ser.write(bytearray(frame))
-    print("Sent")
-    print("Waiting answer...")
-    expected_size = 22+2*frame[15]
-    input_data=ser.read(size=expected_size)
-    print("Data received")
-    print(len(input_data))
-    return input_data
-    
+      
 def parse_modbus(frame):
     crc_r=modbus(frame)
     data =[]
@@ -126,7 +97,6 @@ def poll_loras(loras):
                 energy_dic[serial_meter.hex()]=data[i]
                 save2file(energy_file,energy_dic)
 
-
 def post(data):
     print("posting...")
     now=datetime.datetime.now()
@@ -140,29 +110,55 @@ def post(data):
     print(thing_speak)
     headers = {'Content-type': 'application/json'}
     r = requests.post('https://api.thingspeak.com/channels/1212777/bulk_update.json', json=thing_speak,headers=headers)
-    print("Status code is :",r.status_code)
-    
-    
-        
+    print("Status code is :",r.status_code)        
     
 if __name__ == "__main__":
     print("App started")
-    node = centralnode("config.json")
+    node = centralnode("../json/config.json")
     
     energy_file=open(node.energy_path,'r+')
     energy_dic = json.load(energy_file)
     
+    post_file = open(node.post_path,'r+')
+    post_dic = json.load(post_file)
+    print("post dic", post_dic)
+    updates=post_dic['updates']
+    print(updates)
+    
     for lora in node.loras:
         for slave in lora['slaves']:
-            id_meter=(lora['loraid']).to_bytes(2,'big')+(slave).to_bytes(1,'big')
+            id_meter=(lora['loraid']).to_bytes(2,'big')+(slave).to_bytes(1,'big')#
             if id_meter.hex() not in energy_dic.keys():
                      energy_dic[id_meter.hex()]=0
         print("Energy updated ",energy_dic)
         save2file(energy_file,energy_dic)
-                 
+    energy_file.close()            
+    
+    
+    for lora in node.loras:
+        for slave in lora['slaves']:
+            id_meter=(lora['loraid']).to_bytes(2,'big')+(slave).to_bytes(1,'big')
+            print("idmeter: ", id_meter.hex())
+            isUpdate = False
+            for i in updates:
+                isUpdate = False
+                if id_meter.hex() == i['meterid']:
+                    isUpdate = True
+                    break
+            if not isUpdate:
+                meter_dic ={}
+                meter_dic["meterid"]= id_meter.hex()
+                meter_dic["energy"] = 0
+                now=datetime.datetime.now()
+                now =str(now)+" -0400"
+                meter_dic["date"] =now
+                updates.append(meter_dic)
+                print("appending ",updates) 
+    post_dic['updates']=updates
+    save2file(post_file, post_dic)
+    
     init_serial_port(node.lora_port)
     
-    energy_file.close()
     energy_file=open(node.energy_path,'r+')
     energy_dic=json.load(energy_file)
     poll_loras(node.loras)

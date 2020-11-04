@@ -10,6 +10,7 @@ class centralnode:
         self.id = config_dic['ID']
         self.lora_port = config_dic['Serial Port']
         self.energy_path = config_dic['energy_path']
+        self.post_path = config_dic['post_path']
         self.loras = config_dic['loras']
         
         print("This node ID: ",config_dic['ID'])

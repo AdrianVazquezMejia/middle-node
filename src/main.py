@@ -7,8 +7,10 @@ from libscrc import modbus
 import json
 import requests
 import datetime
-send_pre = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
-thing_speak = {    "write_api_key": "PYF7YMZNOM3TJVSM",
+from centralnode import centralnode
+from centralnode import loranode
+send_pre = [5,0,1,14,0,2,0,7,1,8]
+thing_speak ={    "write_api_key": "PYF7YMZNOM3TJVSM",
                         "updates": [{
                                     "created_at": "2020-10-30 13:38:2 -0400",
                                     "field1": 0,
@@ -16,155 +18,195 @@ thing_speak = {    "write_api_key": "PYF7YMZNOM3TJVSM",
                                     }
                                     ]    
             }
-
-
 def save2file(file, data):
-    energy_file.seek(0)
-    energy_file.truncate()
+    file.seek(0)
+    file.truncate()
     json.dump(data, file) 
-
 
 def init_serial_port(Port):
     try:
-        ser = serial.Serial(Port, timeout=0.6)
+        ser = serial.Serial(Port,timeout=0.6)
     except:
         print("Serial port does not exists")
         quit()
-        return
-    print("Port ", ser.name, " opened")
+        return False
+    print("Port ",ser.name," opened")
     ser.close
     print("port closed")
-
+    return True
     
-def get_modbus_pdu(id, slaves):
-    if slaves == None:
-            print("Empty")
-            return
-    else:
-            adu = []
-            adu.append(id) 
-            adu.append(4)
-            adu.append(0)
-            adu.append(1)
-            adu.append(0)  
-            quantity = len(slaves) * 2
-            adu.append(quantity)
-            crc = (modbus(bytearray(adu))).to_bytes(2, 'big')
-            adu.append(crc[1])
-            adu.append(crc[0])
-            return adu
 
-        
-def lora_send(frame):
-    print("sending...")
-    ser = serial.Serial(config_dic['Serial Port'], timeout=14)
-    ser.write(bytearray(frame))
-    print("Sent")
-    print("Waiting answer...")
-    expected_size = 22 + 2 * frame[15]
-    input_data = ser.read(size=expected_size)
-    print("Data received")
-    print(len(input_data))
-    return input_data
-
-    
+def get_modbus_adu(id,code,start_add,quantity):
+    if quantity>125:
+        return   
+    adu = []
+    adu.append(id)
+    adu.append(code)
+    start = (start_add).to_bytes(2,'big')
+    adu.append(start[0])
+    adu.append(start[1])
+    q = (quantity).to_bytes(2,'big')
+    adu.append(q[0])
+    adu.append(q[1])
+    crc=(modbus(bytearray(adu))).to_bytes(2,'big')
+    adu.append(crc[1])
+    adu.append(crc[0])
+    print("modbus adu to send: ",adu)
+    return adu
+      
 def parse_modbus(frame):
-    crc_r = modbus(frame)
-    data = []
-    if crc_r == 0:
+    crc_r=modbus(frame)
+    data =[]
+    if crc_r==0:
         print("modbus correct")
-        print(frame)
-        quantity = (len(frame) - 5) // 4
-        print(quantity)
+        print(list(frame))
+        quantity = (len(frame)-5)//4
         for i in range(quantity):
-            pulses = int(frame[3 + i * 4:7 + i * 4].hex(), 16)
-            print(pulses)
+            pulses= int(frame[3+i*4:7+i*4].hex(),16)
             data.append(pulses)
-        print(data)
-        return data                
-
+        print("data: ",data)
+        return data
+    else:
+        print("CRC error")
+        return                
         
-def poll_loras(nodos):
-    
-    for lora_id, slaves in enumerate(nodos):
-        print("Polling Lora: ", lora_id)
-        modbus_pdu = get_modbus_pdu(lora_id, slaves)
-        if modbus_pdu != None:
-            send_pre[5] = lora_id          
-            lora_pdu = send_pre + modbus_pdu
-            check_sum = reduce(lambda x, y: x ^ y, lora_pdu) 
-            lora_pdu.append(check_sum)
-            answer = lora_send(lora_pdu)
-            expected_size = 22 + 2 * lora_pdu[15]
-            print(list(answer))
-            if len(answer) == expected_size:
-                modbus_r = answer[16:expected_size - 1]
-                data = parse_modbus(modbus_r)
-                print(list(modbus_r))
-                quantity = (len(modbus_r) - 5) // 4
-                lora_hex = (lora_id).to_bytes(2, "big")
-                for i in range(quantity):
-                    serial_nodo = lora_hex + (i + 1).to_bytes(1, 'big')
-                    energy[serial_nodo.hex()] = data[i]
-                print(energy)
-            energy_file.seek(0)
-            energy_file.truncate()
-            json.dump(energy, energy_file)
-
-
-def post(data):
+def poll_loras(loras):
+    print("Start polling")
+    for lora_dic in loras:
+        lora = loranode(lora_dic)
+        print(lora.slaves)
+        n=lora.quantity_poll()
+        for i in range(n):
+            print("Poll ",i+1,"th")
+            max=lora.maxpoll_size
+            quant = max
+            if i == n-1:
+                quant = lora.lastpollsize
+            payload=get_modbus_adu(lora.id,4,1+i*max,quant)
+            print("result",node.send(payload))
+            response= node.receive()
+            if response == None:
+                continue
+            data=parse_modbus(response)
+            
+            if data == None:
+                continue
+            lora_hex =(lora.id).to_bytes(2,"big")
+            for j,_ in enumerate(data):
+                index = i* max // 2 + j+1
+                serial_meter = lora_hex+(index).to_bytes(1,'big')
+                energy_dic[serial_meter.hex()]=data[i]
+                save2file(energy_file,energy_dic)
+                
+                for meter_dic in updates:
+                    if serial_meter.hex() == meter_dic['meterid']:                
+                        meter_dic["energy"] = data[i]
+                        now=datetime.datetime.now()
+                        now =str(now)+" -0400"
+                        meter_dic["date"] = now
+                        print("updated  ", meter_dic)
+                        break 
+                    
+                post_dic['updates']=updates
+                save2file(post_file, post_dic)
+ 
+def post_thingS(data):
     print("posting...")
-    now = datetime.datetime.now()
-    now = str(now) + " -0400"
+    now=datetime.datetime.now()
+    now =str(now)+" -0400"
     print(now)
-    update_data = thing_speak['updates'][0]
-    update_data['created_at'] = now
-    update_data['field1'] = data['000201']
-    update_data['field2'] = data['000202']
-    thing_speak['updates'][0] = update_data
+    update_data=thing_speak['updates'][0]
+    update_data['created_at']=now
+    update_data['field1']=data['000201']
+    update_data['field2']=data['000202']
+    thing_speak['updates'][0]=update_data
     print(thing_speak)
     headers = {'Content-type': 'application/json'}
-    r = requests.post('https://api.thingspeak.com/channels/1212777/bulk_update.json', json=thing_speak, headers=headers)
-    print("Status code is :", r.status_code)
-        
+    r = requests.post('https://api.thingspeak.com/channels/1212777/bulk_update.json', json=thing_speak,headers=headers)
+    print("Status code is :",r.status_code)        
     
+def post_scada(data_dic):
+    print("Posting to Scada")
+    print("Data to post: ", data_dic)
+    headers = {'Content-type': 'application/json'}
+    r = requests.post('https://api.thingspeak.com/channels/1212777/bulk_update.json', json=data_dic,headers=headers)
+    print("Status code is :",r.status_code)
+    
+     
 if __name__ == "__main__":
     print("App started")
-    config_file = open("config.json", 'r')
-    config_dic = json.load(config_file)
-    energy_file = open('../output/energy.json', 'r+')
-    energy = json.load(energy_file)
+    node = centralnode("../json/config.json")
     
-    print("ID: ", config_dic['ID'])
-    print("Serial Port: ", config_dic['Serial Port'])
-    print(config_dic['nodos'])
+    energy_file=open(node.energy_path,'r+')
+    energy_dic = json.load(energy_file)
     
-    nodos = []
-    node_id = int(config_dic['ID'], 16)
+    post_file = open(node.post_path,'r+')
+    post_dic = json.load(post_file)
+    print("post dic", post_dic)
+    updates=post_dic['updates']
+    print(updates)
     
-    # Manage the json to stores the energy
-    config_nodos = config_dic['nodos']
-    for index, i in enumerate(config_nodos):
-        nodos.append(config_nodos[i])
-        if config_nodos[i] != None:
-            for j in config_nodos[i]:
-                id_hex = (index).to_bytes(2, 'big')
-                serial_nodo = id_hex + (j).to_bytes(1, 'big')
-                if serial_nodo.hex() not in energy.keys():
-                    energy[serial_nodo.hex()] = 0
-            print("Energy ", energy)
-            save2file(energy_file, energy)
-         
-    init_serial_port(config_dic['Serial Port'])
+    for lora in node.loras:
+        for slave in lora['slaves']:
+            id_meter=(lora['loraid']).to_bytes(2,'big')+(slave).to_bytes(1,'big')#
+            if id_meter.hex() not in energy_dic.keys():
+                     energy_dic[id_meter.hex()]=0
+        print("Energy updated ",energy_dic)
+        save2file(energy_file,energy_dic)
+    energy_file.close()            
+    
+    
+    for lora in node.loras:
+        for slave in lora['slaves']:
+            id_meter=(lora['loraid']).to_bytes(2,'big')+(slave).to_bytes(1,'big')
+            print("idmeter: ", id_meter.hex())
+            isUpdate = False
+            for i in updates:
+                isUpdate = False
+                if id_meter.hex() == i['meterid']:
+                    isUpdate = True
+                    break
+            if not isUpdate:
+                meter_dic ={}
+                meter_dic["meterid"]= id_meter.hex()
+                meter_dic["energy"] = 0
+                now=datetime.datetime.now()
+                now =str(now)+" -0400"
+                meter_dic["date"] =now
+                updates.append(meter_dic)
+                print("appending ",updates) 
+    post_dic['updates']=updates
+    save2file(post_file, post_dic)
+    
+    init_serial_port(node.lora_port)
+    
+    energy_file=open(node.energy_path,'r+')
+    energy_dic=json.load(energy_file)
+    poll_loras(node.loras)
     energy_file.close()
-    counter = 0
+    post_file.close()
+    counter=0
+    post_time_s = 120 
     while True:
-        energy_file = open('../output/energy.json', 'r+')
-        energy = json.load(energy_file)
-        poll_loras(nodos)
+        energy_file=open(node.energy_path,'r+')
+        energy_dic = json.load(energy_file)
+        
+        post_file = open(node.post_path,'r+')
+        post_dic = json.load(post_file)
+        
+        poll_loras(node.loras)
+        
         energy_file.close()
-        if counter == 120:
-            post(energy)
-            counter = 0
-        counter += 1
-        print("Print in :", 120 - counter, " s")
+        post_file.close()
+        
+        
+        if counter==post_time_s:
+            post_thingS(energy_dic)
+            post_scada(post_dic)
+            counter=0
+        counter+=1
+        print("Print in :", post_time_s-counter, " s")
+        print("______________________________________")
+        time.sleep(1)
+        
+    print("App Finished")

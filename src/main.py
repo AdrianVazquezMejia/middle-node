@@ -9,7 +9,6 @@ import requests
 import datetime
 from centralnode import centralnode
 from centralnode import loranode
-#from builtins import True, False
 send_pre = [5,0,1,14,0,2,0,7,1,8]
 thing_speak ={    "write_api_key": "PYF7YMZNOM3TJVSM",
                         "updates": [{

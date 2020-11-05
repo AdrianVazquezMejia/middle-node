@@ -1,0 +1,11 @@
+{
+	"ID": "0001",
+	"Serial Port": "/dev/ttyUSB0",
+	"loras":[ { 
+		"loraid":2,
+		"slaves":[1 ,2]
+		}
+	],
+	"energy_path":"../output/energy.json",
+	"post_path":"../json/post.json"	
+}

@@ -24,7 +24,7 @@ try:
     raw_input
 except NameError:
     # pylint: disable=redefined-builtin,invalid-name
-    raw_input = input  # in python3 it's "raw"
+    raw_input = input   # in python3 it's "raw"
     unichr = chr
 
 
@@ -100,7 +100,6 @@ if os.name == 'nt':  # noqa
             os.write(self.fd, s)
 
     class Console(ConsoleBase):
-
         def __init__(self):
             super(Console, self).__init__()
             self._saved_ocp = ctypes.windll.kernel32.GetConsoleOutputCP()
@@ -122,7 +121,7 @@ if os.name == 'nt':  # noqa
                 z = msvcrt.getwch()
                 if z == unichr(13):
                     return unichr(10)
-                elif z in (unichr(0), unichr(0x0e)):  # functions keys, ignore
+                elif z in (unichr(0), unichr(0x0e)):    # functions keys, ignore
                     msvcrt.getwch()
                 else:
                     return z
@@ -139,7 +138,6 @@ elif os.name == 'posix':
     import fcntl
 
     class Console(ConsoleBase):
-
         def __init__(self):
             super(Console, self).__init__()
             self.fd = sys.stdin.fileno()
@@ -160,7 +158,7 @@ elif os.name == 'posix':
         def getkey(self):
             c = self.enc_stdin.read(1)
             if c == unichr(0x7f):
-                c = unichr(8)  # map the BS key (which yields DEL) to backspace
+                c = unichr(8)    # map the BS key (which yields DEL) to backspace
             return c
 
         def cancel(self):
@@ -173,12 +171,11 @@ else:
     raise NotImplementedError(
         'Sorry no implementation for your platform ({}) available.'.format(sys.platform))
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 class Transform(object):
     """do-nothing: forward all data unchanged"""
-
     def rx(self, text):
         """text received from serial port"""
         return text
@@ -287,10 +284,10 @@ class DebugIO(Transform):
         sys.stderr.flush()
         return text
 
+
 # other ideas:
 # - add date/time for each newline
 # - insert newline after: a) timeout b) packet end character
-
 
 EOL_TRANSFORMATIONS = {
     'crlf': CRLF,
@@ -299,7 +296,7 @@ EOL_TRANSFORMATIONS = {
 }
 
 TRANSFORMATIONS = {
-    'direct': Transform,  # no transformation
+    'direct': Transform,    # no transformation
     'default': NoTerminal,
     'nocontrol': NoControls,
     'printable': Printable,
@@ -457,7 +454,7 @@ class Miniterm(object):
         except serial.SerialException:
             self.alive = False
             self.console.cancel()
-            raise  # XXX handle instead of re-raise?
+            raise       # XXX handle instead of re-raise?
 
     def writer(self):
         """\
@@ -478,12 +475,12 @@ class Miniterm(object):
                     self.handle_menu_key(c)
                     menu_active = False
                 elif c == self.menu_character:
-                    menu_active = True  # next char will be for menu
+                    menu_active = True      # next char will be for menu
                 elif c == self.exit_character:
-                    self.stop()  # exit app
+                    self.stop()             # exit app
                     break
                 else:
-                    # ~ if self.raw:
+                    #~ if self.raw:
                     text = c
                     for transformation in self.tx_transformations:
                         text = transformation.tx(text)
@@ -504,25 +501,25 @@ class Miniterm(object):
             self.serial.write(self.tx_encoder.encode(c))
             if self.echo:
                 self.console.write(c)
-        elif c == '\x15':  # CTRL+U -> upload file
+        elif c == '\x15':                       # CTRL+U -> upload file
             self.upload_file()
-        elif c in '\x08hH?':  # CTRL+H, h, H, ? -> Show help
+        elif c in '\x08hH?':                    # CTRL+H, h, H, ? -> Show help
             sys.stderr.write(self.get_help_text())
-        elif c == '\x12':  # CTRL+R -> Toggle RTS
+        elif c == '\x12':                       # CTRL+R -> Toggle RTS
             self.serial.rts = not self.serial.rts
             sys.stderr.write('--- RTS {} ---\n'.format('active' if self.serial.rts else 'inactive'))
-        elif c == '\x04':  # CTRL+D -> Toggle DTR
+        elif c == '\x04':                       # CTRL+D -> Toggle DTR
             self.serial.dtr = not self.serial.dtr
             sys.stderr.write('--- DTR {} ---\n'.format('active' if self.serial.dtr else 'inactive'))
-        elif c == '\x02':  # CTRL+B -> toggle BREAK condition
+        elif c == '\x02':                       # CTRL+B -> toggle BREAK condition
             self.serial.break_condition = not self.serial.break_condition
             sys.stderr.write('--- BREAK {} ---\n'.format('active' if self.serial.break_condition else 'inactive'))
-        elif c == '\x05':  # CTRL+E -> toggle local echo
+        elif c == '\x05':                       # CTRL+E -> toggle local echo
             self.echo = not self.echo
             sys.stderr.write('--- local echo {} ---\n'.format('active' if self.echo else 'inactive'))
-        elif c == '\x06':  # CTRL+F -> edit filters
+        elif c == '\x06':                       # CTRL+F -> edit filters
             self.change_filter()
-        elif c == '\x0c':  # CTRL+L -> EOL mode
+        elif c == '\x0c':                       # CTRL+L -> EOL mode
             modes = list(EOL_TRANSFORMATIONS)  # keys
             eol = modes.index(self.eol) + 1
             if eol >= len(modes):
@@ -530,52 +527,52 @@ class Miniterm(object):
             self.eol = modes[eol]
             sys.stderr.write('--- EOL: {} ---\n'.format(self.eol.upper()))
             self.update_transformations()
-        elif c == '\x01':  # CTRL+A -> set encoding
+        elif c == '\x01':                       # CTRL+A -> set encoding
             self.change_encoding()
-        elif c == '\x09':  # CTRL+I -> info
+        elif c == '\x09':                       # CTRL+I -> info
             self.dump_port_settings()
-        # ~ elif c == '\x01':                       # CTRL+A -> cycle escape mode
-        # ~ elif c == '\x0c':                       # CTRL+L -> cycle linefeed mode
-        elif c in 'pP':  # P -> change port
+        #~ elif c == '\x01':                       # CTRL+A -> cycle escape mode
+        #~ elif c == '\x0c':                       # CTRL+L -> cycle linefeed mode
+        elif c in 'pP':                         # P -> change port
             self.change_port()
-        elif c in 'sS':  # S -> suspend / open port temporarily
+        elif c in 'sS':                         # S -> suspend / open port temporarily
             self.suspend_port()
-        elif c in 'bB':  # B -> change baudrate
+        elif c in 'bB':                         # B -> change baudrate
             self.change_baudrate()
-        elif c == '8':  # 8 -> change to 8 bits
+        elif c == '8':                          # 8 -> change to 8 bits
             self.serial.bytesize = serial.EIGHTBITS
             self.dump_port_settings()
-        elif c == '7':  # 7 -> change to 8 bits
+        elif c == '7':                          # 7 -> change to 8 bits
             self.serial.bytesize = serial.SEVENBITS
             self.dump_port_settings()
-        elif c in 'eE':  # E -> change to even parity
+        elif c in 'eE':                         # E -> change to even parity
             self.serial.parity = serial.PARITY_EVEN
             self.dump_port_settings()
-        elif c in 'oO':  # O -> change to odd parity
+        elif c in 'oO':                         # O -> change to odd parity
             self.serial.parity = serial.PARITY_ODD
             self.dump_port_settings()
-        elif c in 'mM':  # M -> change to mark parity
+        elif c in 'mM':                         # M -> change to mark parity
             self.serial.parity = serial.PARITY_MARK
             self.dump_port_settings()
-        elif c in 'sS':  # S -> change to space parity
+        elif c in 'sS':                         # S -> change to space parity
             self.serial.parity = serial.PARITY_SPACE
             self.dump_port_settings()
-        elif c in 'nN':  # N -> change to no parity
+        elif c in 'nN':                         # N -> change to no parity
             self.serial.parity = serial.PARITY_NONE
             self.dump_port_settings()
-        elif c == '1':  # 1 -> change to 1 stop bits
+        elif c == '1':                          # 1 -> change to 1 stop bits
             self.serial.stopbits = serial.STOPBITS_ONE
             self.dump_port_settings()
-        elif c == '2':  # 2 -> change to 2 stop bits
+        elif c == '2':                          # 2 -> change to 2 stop bits
             self.serial.stopbits = serial.STOPBITS_TWO
             self.dump_port_settings()
-        elif c == '3':  # 3 -> change to 1.5 stop bits
+        elif c == '3':                          # 3 -> change to 1.5 stop bits
             self.serial.stopbits = serial.STOPBITS_ONE_POINT_FIVE
             self.dump_port_settings()
-        elif c in 'xX':  # X -> change software flow control
+        elif c in 'xX':                         # X -> change software flow control
             self.serial.xonxoff = (c == 'X')
             self.dump_port_settings()
-        elif c in 'rR':  # R -> change hardware flow control
+        elif c in 'rR':                         # R -> change hardware flow control
             self.serial.rtscts = (c == 'R')
             self.dump_port_settings()
         else:
@@ -598,7 +595,7 @@ class Miniterm(object):
                             self.serial.write(block)
                             # Wait for output buffer to drain.
                             self.serial.flush()
-                            sys.stderr.write('.')  # Progress indicator.
+                            sys.stderr.write('.')   # Progress indicator.
                     sys.stderr.write('\n--- File {} sent ---\n'.format(filename))
                 except IOError as e:
                     sys.stderr.write('--- ERROR opening file {}: {} ---\n'.format(filename, e))
@@ -697,7 +694,7 @@ class Miniterm(object):
                 exit=key_description(self.exit_character)))
             k = self.console.getkey()
             if k == self.exit_character:
-                self.stop()  # exit app
+                self.stop()             # exit app
                 break
             elif k in 'pP':
                 do_change_port = True
@@ -973,7 +970,6 @@ def main(default_port=None, default_baudrate=9600, default_rts=None, default_dtr
         sys.stderr.write("\n--- exit ---\n")
     miniterm.join()
     miniterm.close()
-
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if __name__ == '__main__':

@@ -60,24 +60,22 @@ def parse_modbus(frame):
     data =[]
     if crc_r==0:
         print("modbus correct")
-        print(frame)
+        print(list(frame))
         quantity = (len(frame)-5)//4
-        print(quantity)
         for i in range(quantity):
             pulses= int(frame[3+i*4:7+i*4].hex(),16)
-            print(pulses)
             data.append(pulses)
         print("data: ",data)
         return data                
         
 def poll_loras(loras):
-    print("star polling")
+    print("Start polling")
     for lora_dic in loras:
         lora = loranode(lora_dic)
         print(lora.slaves)
         n=lora.quantity_poll()
         for i in range(n):
-            print("poll ",i)
+            print("Poll ",i+1,"th")
             max=lora.maxpoll_size
             quant = max
             if i == n-1:
@@ -93,7 +91,6 @@ def poll_loras(loras):
             for j,_ in enumerate(data):
                 index = i* max // 2 + j+1
                 serial_meter = lora_hex+(index).to_bytes(1,'big')
-                print("index: ",serial_meter)
                 energy_dic[serial_meter.hex()]=data[i]
                 save2file(energy_file,energy_dic)
                 
@@ -105,7 +102,10 @@ def poll_loras(loras):
                         meter_dic["date"] = now
                         print("updated  ", meter_dic)
                         break 
-
+                    
+                post_dic['updates']=updates
+                save2file(post_file, post_dic)
+ 
 def post(data):
     print("posting...")
     now=datetime.datetime.now()
@@ -172,17 +172,27 @@ if __name__ == "__main__":
     energy_dic=json.load(energy_file)
     poll_loras(node.loras)
     energy_file.close()
+    post_file.close()
+    counter=0
+    post_time_s = 120 
+    while True:
+        energy_file=open(node.energy_path,'r+')
+        energy_dic = json.load(energy_file)
+        
+        post_file = open(node.post_path,'r+')
+        post_dic = json.load(post_file)
+        
+        poll_loras(node.loras)
+        
+        energy_file.close()
+        post_file.close()
+        
+        time.sleep(1)
+        if counter==post_time_s:
+            #post(energy_dic)
+            counter=0
+        counter+=1
+        print("Print in :", post_time_s-counter, " s")
+        print("______________________________________")
+        
     print("App Finished")
-    
-    #counter=0
-    #===========================================================================
-    #while True:
-    #    energy_file=open(node.energy_path,'r+')
-    #    energy_dic=json.load(energy_file)
-    #    poll_loras(nodos)
-    #   energy_file.close()
-    #    if counter==120:
-    #        post(energy_dic)
-    #        counter=0
-    #    counter+=1
-    #    print("Print in :", 120-counter, " s")

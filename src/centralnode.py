@@ -44,7 +44,7 @@ class centralnode:
     def receive(self):
         print("receiving...")
         response= self.ser.read(size=self.expected_size)
-        print("received")
+        print("received:", response)
         if len(response)==0:
             return
         if len(response)==self.expected_size:

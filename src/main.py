@@ -66,7 +66,10 @@ def parse_modbus(frame):
             pulses= int(frame[3+i*4:7+i*4].hex(),16)
             data.append(pulses)
         print("data: ",data)
-        return data                
+        return data
+    else:
+        print("CRC error")
+        return                
         
 def poll_loras(loras):
     print("Start polling")
@@ -87,6 +90,8 @@ def poll_loras(loras):
                 continue
             data=parse_modbus(response)
             
+            if data == None:
+                continue
             lora_hex =(lora.id).to_bytes(2,"big")
             for j,_ in enumerate(data):
                 index = i* max // 2 + j+1
@@ -106,7 +111,7 @@ def poll_loras(loras):
                 post_dic['updates']=updates
                 save2file(post_file, post_dic)
  
-def post(data):
+def post_thingS(data):
     print("posting...")
     now=datetime.datetime.now()
     now =str(now)+" -0400"
@@ -121,6 +126,14 @@ def post(data):
     r = requests.post('https://api.thingspeak.com/channels/1212777/bulk_update.json', json=thing_speak,headers=headers)
     print("Status code is :",r.status_code)        
     
+def post_scada(data_dic):
+    print("Posting to Scada")
+    print("Data to post: ", data_dic)
+    headers = {'Content-type': 'application/json'}
+    r = requests.post('https://api.thingspeak.com/channels/1212777/bulk_update.json', json=data_dic,headers=headers)
+    print("Status code is :",r.status_code)
+    
+     
 if __name__ == "__main__":
     print("App started")
     node = centralnode("../json/config.json")
@@ -187,12 +200,14 @@ if __name__ == "__main__":
         energy_file.close()
         post_file.close()
         
-        time.sleep(1)
+        
         if counter==post_time_s:
-            #post(energy_dic)
+            post_thingS(energy_dic)
+            post_scada(post_dic)
             counter=0
         counter+=1
         print("Print in :", post_time_s-counter, " s")
         print("______________________________________")
+        time.sleep(1)
         
     print("App Finished")

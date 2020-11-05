@@ -96,6 +96,15 @@ def poll_loras(loras):
                 print("index: ",serial_meter)
                 energy_dic[serial_meter.hex()]=data[i]
                 save2file(energy_file,energy_dic)
+                
+                for meter_dic in updates:
+                    if serial_meter.hex() == meter_dic['meterid']:                
+                        meter_dic["energy"] = data[i]
+                        now=datetime.datetime.now()
+                        now =str(now)+" -0400"
+                        meter_dic["date"] = now
+                        print("updated  ", meter_dic)
+                        break 
 
 def post(data):
     print("posting...")

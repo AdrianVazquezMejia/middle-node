@@ -4,7 +4,7 @@ This node collect data through LoRa from several edges-nodes or smart-meters.
 
 # Installation
 
-* Clone `https://gitlab.com/electr-nica/desarrollohardware/middle-node`
+* Clone `git clone https://gitlab.com/electr-nica/desarrollohardware/middle-node`
 
 * Go to the project folder `cd middle-node`
 

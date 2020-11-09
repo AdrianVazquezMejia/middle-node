@@ -2,7 +2,7 @@ import json
 from functools import reduce
 import serial
 
-
+# Esta clase contiene la informacion del nodo
 class centralnode:
 
     def __init__(self, config_path):
@@ -57,7 +57,7 @@ class loranode:
     def __init__(self, dic):
         self.id = dic['loraid']
         self.slaves = dic['slaves']
-        self.maxpoll_size = 56
+        self.maxpoll_size = 56 # Para el tamano del payload es la maxima de cantidad de registros
         self.lastpollsize = len(self.slaves) * 2 % self.maxpoll_size
         
     def quantity_poll(self):

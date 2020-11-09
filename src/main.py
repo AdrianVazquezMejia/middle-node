@@ -19,13 +19,13 @@ thing_speak = {    "write_api_key": "PYF7YMZNOM3TJVSM",
                                     ]    
             }
 
-
+# Actualizo los archivos
 def save2file(file, data):
     file.seek(0)
     file.truncate()
     json.dump(data, file) 
 
-
+# Pruebo el puerto serial
 def init_serial_port(Port):
     try:
         ser = serial.Serial(Port, timeout=0.6)
@@ -38,7 +38,7 @@ def init_serial_port(Port):
     print("port closed")
     return True
     
-
+# Creo una adu modbus segun los datos de entrada
 def get_modbus_adu(id, code, start_add, quantity):
     if quantity > 125:
         return   
@@ -57,7 +57,7 @@ def get_modbus_adu(id, code, start_add, quantity):
     print("modbus adu to send: ", adu)
     return adu
 
-      
+# Verifico el crc y creo una lista con los datos recibidos de salida     
 def parse_modbus(frame):
     crc_r = modbus(frame)
     data = []
@@ -77,26 +77,26 @@ def parse_modbus(frame):
         
 def poll_loras(loras):
     print("Start polling")
-    for lora_dic in loras:
-        lora = loranode(lora_dic)
+    for lora_dic in loras:          #Itero en torno a cada LoRa
+        lora = loranode(lora_dic)   # Creo un objeto con el dicionario
         print(lora.slaves)
-        n = lora.quantity_poll()
-        for i in range(n):
+        n = lora.quantity_poll()    # obtengo el numero de interrogaciones por lora
+        for i in range(n):          # Itero en torno a ese numero
             print("Poll ", i + 1, "th")
-            max = lora.maxpoll_size
+            max = lora.maxpoll_size # Maximo numero de registros por interrogacion
             quant = max
             if i == n - 1:
-                quant = lora.lastpollsize
-            payload = get_modbus_adu(lora.id, 4, 1 + i * max, quant)
-            print("result", node.send(payload))
-            response = node.receive()
+                quant = lora.lastpollsize       # Cantidad de registros del ultimo poll
+            payload = get_modbus_adu(lora.id, 4, 1 + i * max, quant)    # Obtengo la trama modbus
+            print("result", node.send(payload))   # Envio los datos
+            response = node.receive()               # Espero la respuesta
             if response == None:
                 continue
-            data = parse_modbus(response)
+            data = parse_modbus(response)           # Si es valida verifico los datos
             
             if data == None:
                 continue
-            lora_hex = (lora.id).to_bytes(2, "big")
+            lora_hex = (lora.id).to_bytes(2, "big")     # Una rutina para actulizar los archivos
             for j, _ in enumerate(data):
                 index = i * max // 2 + j + 1
                 serial_meter = lora_hex + (index).to_bytes(1, 'big')
@@ -142,17 +142,23 @@ def post_scada(data_dic):
      
 if __name__ == "__main__":
     print("App started")
+    
+    # class central node posee los datos del nodo.
+    # Nodo es este raspberry
     node = centralnode("../json/config.json")
     
+    # Abrir el archivo de  que guarda solo la energia
     energy_file = open(node.energy_path, 'r+')
     energy_dic = json.load(energy_file)
     
+    # Abrir el archivo que guarda los datos a publicar 
     post_file = open(node.post_path, 'r+')
     post_dic = json.load(post_file)
     print("post dic", post_dic)
     updates = post_dic['updates']
     print(updates)
     
+    # Actualiza el archivo de energia por si se agregaron medidores
     for lora in node.loras:
         for slave in lora['slaves']:
             id_meter = (lora['loraid']).to_bytes(2, 'big') + (slave).to_bytes(1, 'big')  #
@@ -162,6 +168,7 @@ if __name__ == "__main__":
         save2file(energy_file, energy_dic)
     energy_file.close()            
     
+    #actualiza el archivo para publicar
     for lora in node.loras:
         for slave in lora['slaves']:
             id_meter = (lora['loraid']).to_bytes(2, 'big') + (slave).to_bytes(1, 'big')
@@ -184,6 +191,7 @@ if __name__ == "__main__":
     post_dic['updates'] = updates
     save2file(post_file, post_dic)
     
+    # Prueba el puerto serial
     init_serial_port(node.lora_port)
     
     energy_file = open(node.energy_path, 'r+')
@@ -192,19 +200,26 @@ if __name__ == "__main__":
     energy_file.close()
     post_file.close()
     counter = 0
+    
+    # Tiempo de publicacion cada 2 min
     post_time_s = 120 
+    
+    # Cliclo para interrogar los LoRa
     while True:
+        
+        # Abro los archivos
         energy_file = open(node.energy_path, 'r+')
         energy_dic = json.load(energy_file)
         
         post_file = open(node.post_path, 'r+')
         post_dic = json.load(post_file)
         
-        poll_loras(node.loras)
+        poll_loras(node.loras)   # Interrogo todos los LoRa
         
-        energy_file.close()
+        energy_file.close()     # Cierro los archivos
         post_file.close()
         
+        # Publico si llego a los 2 min
         if counter == post_time_s:
             post_thingS(energy_dic)
             post_scada(post_dic)

@@ -14,6 +14,8 @@ class centralnode:
         self.energy_path = config_dic['energy_path']
         self.post_path = config_dic['post_path']
         self.loras = config_dic['loras']
+        self.networkid = config_dic['Networkid']
+        self.baudarate = config_dic['Baudarate']
         
         print("This node ID: ", config_dic['ID'])
         print("Lora Serial Port: ", config_dic['Serial Port'])
@@ -51,6 +53,24 @@ class centralnode:
         if len(response) == self.expected_size:
             return response[16:self.expected_size - 1]
 
+    def init_lora(self):
+        lora_id = 1
+        fixed_frame = [1,0,1,13,165,165,108,64,18,7,0]
+        bauda_hex = (self.networkid).to_bytes(2, 'big')
+        config_frame = fixed_frame+list(bauda_hex)
+        lora = (lora_id).to_bytes(2, 'big')
+        config_frame = config_frame+list(lora)
+        config_frame.append(3) # 9600 baudios
+        config_frame.append(0)
+        check_sum = reduce(lambda x, y: x ^ y, config_frame) 
+        config_frame.append(check_sum)
+        self.ser = serial.Serial(self.lora_port, timeout=5)
+        self.ser.write(bytearray(config_frame))
+        print("Config frame: ",config_frame)
+        response = self.ser.read(size=18)
+        
+        print("Config Response:", response)
+        self.ser.close()
         
 class loranode:
 

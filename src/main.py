@@ -146,7 +146,7 @@ if __name__ == "__main__":
     # class central node posee los datos del nodo.
     # Nodo es este raspberry
     node = centralnode("../json/config.json")
-    
+    node.init_lora()
     # Abrir el archivo de  que guarda solo la energia
     energy_file = open(node.energy_path, 'r+')
     energy_dic = json.load(energy_file)

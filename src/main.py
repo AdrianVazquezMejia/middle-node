@@ -148,9 +148,7 @@ if __name__ == "__main__":
     
     wtd_start = Watchdog(20)
     try:
-
-
-        
+ 
         # class central node posee los datos del nodo.
         # Nodo es este raspberry
         node = centralnode("../json/config.json")
@@ -207,12 +205,9 @@ if __name__ == "__main__":
         energy_dic = json.load(energy_file)
         poll_loras(node.loras)
         
-        
         counter = 0
-        
         # Tiempo de publicacion cada 2 min
-        post_time_s = 120 
-        
+        post_time_s = 120         
         # Cliclo para interrogar los LoRa
         wtd_start.stop()
     except Watchdog:

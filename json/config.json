@@ -1,6 +1,6 @@
 {
 	"ID": "0001",
-	"Serial Port": "/dev/ttyUSB0",
+	"Serial Port": "/dev/ttyUSB2",
 	"Networkid" : 1,
 	"Baudarate": 9600,
 	"loras":[ { 

@@ -138,8 +138,9 @@ def post_scada(data_dic):
     print("Posting to Scada")
     print("Data to post: ", data_dic)
     headers = {'Content-type': 'application/json'}
-    r = requests.post('https://api.thingspeak.com/channels/1212777/bulk_update.json', json=data_dic, headers=headers)
+    r = requests.post('https://glacial-beach-93230.herokuapp.com/api/data', json=data_dic, headers=headers)
     print("Status code is :", r.status_code)
+    print(r)
     
      
 if __name__ == "__main__":
@@ -207,7 +208,7 @@ if __name__ == "__main__":
         
         counter = 0
         # Tiempo de publicacion cada 2 min
-        post_time_s = 120         
+        post_time_s = 100        
         # Cliclo para interrogar los LoRa
         wtd_start.stop()
     except Watchdog:

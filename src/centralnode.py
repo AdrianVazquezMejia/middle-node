@@ -52,7 +52,7 @@ class centralnode:
             return response[16:self.expected_size - 1]
 
     def init_lora(self):
-        lora_id = 256
+        lora_id = 256 # default 
         fixed_frame = [1,0,1,13,165,165,108,64,18,7,0]
         bauda_hex = (self.networkid).to_bytes(2, 'big')
         config_frame = fixed_frame+list(bauda_hex)

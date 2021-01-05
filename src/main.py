@@ -81,7 +81,7 @@ def poll_loras(loras):
     print("Start polling")
     for lora_dic in loras:          #Itero en torno a cada LoRa
         lora = loranode(lora_dic)   # Creo un objeto con el dicionario
-        print(lora.slaves)
+        print("slaves members: ",lora.slaves)
         n = lora.quantity_poll()    # obtengo el numero de interrogaciones por lora
         for i in range(n):          # Itero en torno a ese numero
             print("Poll ", i + 1, "th")
@@ -100,7 +100,8 @@ def poll_loras(loras):
                 continue
             lora_hex = (lora.id).to_bytes(2, "big")     # Una rutina para actulizar los archivos
             for j, _ in enumerate(data):
-                index = i * max // 2 + j + 1
+                index = lora.slaves[j] #i * max // 2 + j + 1
+                print("INDEX: ", j)
                 serial_meter = lora_hex + (index).to_bytes(1, 'big')
                 energy_dic[serial_meter.hex()] = data[i]
                 save2file(energy_file, energy_dic)

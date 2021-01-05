@@ -5,7 +5,7 @@
 	"Baudarate": 9600,
 	"loras":[ { 
 		"loraid":2,
-		"slaves":[0]
+		"slaves":[1,2]
 		}
 
 	],

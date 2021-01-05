@@ -41,12 +41,12 @@ def init_serial_port(Port):
     return True
     
 # Creo una adu modbus segun los datos de entrada
-def get_modbus_adu(id, code, start_add, quantity):
+def get_modbus_adu(id, function_code, start_add, quantity):
     if quantity > 125:
         return   
     adu = []
     adu.append(id)
-    adu.append(code)
+    adu.append(function_code)
     start = (start_add).to_bytes(2, 'big')
     adu.append(start[0])
     adu.append(start[1])
@@ -88,8 +88,11 @@ def poll_loras(loras):
             max = lora.maxpoll_size # Maximo numero de registros por interrogacion
             quant = max
             if i == n - 1:
-                quant = lora.lastpollsize       # Cantidad de registros del ultimo poll
-            payload = get_modbus_adu(lora.id, 4, 1 + i * max, quant)    # Obtengo la trama modbus
+                quant = lora.lastpollsize       # Cantidad de registros del ultimo poll 
+            if lora.slaves[0]==0:
+                payload = get_modbus_adu(lora.id, 4, lora.id, quant)
+            else:
+                payload = get_modbus_adu(lora.id, 4, 1 + i * max, quant)    # Obtengo la trama modbus
             print("result", node.send(payload))   # Envio los datos
             response = node.receive()               # Espero la respuesta
             if response == None:

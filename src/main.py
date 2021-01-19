@@ -11,6 +11,7 @@ import datetime
 from centralnode import centralnode
 from centralnode import loranode
 from watchdog import Watchdog
+from cipher import encrypt_md
 send_pre = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
 thing_speak = {    "write_api_key": "PYF7YMZNOM3TJVSM",
                         "updates": [{
@@ -76,7 +77,7 @@ def parse_modbus(frame):
         print("CRC error")
         return                
 
-        
+     
 def poll_loras(loras):
     print("Start polling")
     for lora_dic in loras:          #Itero en torno a cada LoRa
@@ -93,6 +94,8 @@ def poll_loras(loras):
                 payload = get_modbus_adu(lora.id, 4, lora.id, quant)
             else:
                 payload = get_modbus_adu(lora.id, 4, 1 + i * max, quant)    # Obtengo la trama modbus
+            if node.cipher:
+               encrypt_md(payload,"CFB")
             print("result", node.send(payload))   # Envio los datos
             response = node.receive()               # Espero la respuesta
             if response == None:

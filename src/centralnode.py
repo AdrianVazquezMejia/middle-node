@@ -17,7 +17,10 @@ class centralnode:
         self.loras = config_dic['loras']
         self.networkid = config_dic['Networkid']
         self.baudarate = config_dic['Baudarate']
-        
+        if config_dic["Cipher payload"] == "true":
+            self.cipher = True
+        else:
+            self.cipher = False
         print("This node ID: ", config_dic['ID'])
         print("Lora Serial Port: ", config_dic['Serial Port'])
         print("Energy path: ", self.energy_path)

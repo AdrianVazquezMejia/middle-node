@@ -12,6 +12,7 @@ from centralnode import centralnode
 from centralnode import loranode
 from watchdog import Watchdog
 from cipher import encrypt_md
+from cipher import decrypt_md
 send_pre = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
 thing_speak = {    "write_api_key": "PYF7YMZNOM3TJVSM",
                         "updates": [{
@@ -95,13 +96,14 @@ def poll_loras(loras):
             else:
                 payload = get_modbus_adu(lora.id, 4, 1 + i * max, quant)    # Obtengo la trama modbus
             if node.cipher:
-               encrypt_md(payload,"CFB")
+               payload = encrypt_md(payload,"CFB")
             print("result", node.send(payload))   # Envio los datos
             response = node.receive()               # Espero la respuesta
             if response == None:
                 continue
+            if node.cipher:
+                response = decrypt_md(response,"CFB")
             data = parse_modbus(response)           # Si es valida verifico los datos
-            
             if data == None:
                 continue
             lora_hex = (lora.id).to_bytes(2, "big")     # Una rutina para actulizar los archivos

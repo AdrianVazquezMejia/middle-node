@@ -3,7 +3,7 @@
 	"Serial Port": "/dev/ttyUSB0",
 	"Networkid" : 1,
 	"Baudarate": 9600,
-	"Cipher payload": "true",
+	"Cipher payload": "false",
 	"loras":[ { 
 		"loraid":2,
 		"slaves":[1,2]

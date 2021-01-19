@@ -9,15 +9,14 @@ def encrypt_md(message,mode):
     obj = AES.new(key, AES.MODE_CFB,iv)
     ciphertext=obj.encrypt(bytes(message))
     print("ciphertext: ",list(ciphertext))
-    message = None
-    message =ciphertext 
+    return list(ciphertext) 
 
 def decrypt_md(ciphertext,mode):
     print("Decrypting using", mode)
-    print("ciphertext: ",list(ciphertext))
+    print("ciphertext received : ",list(ciphertext))
     obj = AES.new(key, AES.MODE_CFB,iv)
     message=obj.decrypt(bytes(ciphertext))
-    print("message :",bytes(message))
+    print("message received:",list(message))
     ciphertext = None
-    ciphertext = message 
+    return message 
   

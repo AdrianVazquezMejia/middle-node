@@ -30,25 +30,25 @@ class centralnode:
         for i in self.loras:
             self.lora_list.append(i['loraid'])
            
-    def send(self, payload):
+    def send(self, payload, dest_slave, quant):
         print("Sending...")
         pre_frame = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
         if payload[1] == 4:
             pre_frame[3] = 14
-        pre_frame[5] = payload[0]
+        pre_frame[5] = dest_slave
         frame = pre_frame + payload 
         check_sum = reduce(lambda x, y: x ^ y, frame) 
         frame.append(check_sum)
         self.ser = serial.Serial(self.lora_port, timeout=14)
         self.ser.write(bytearray(frame))
-        print("Data sent")
-        self.expected_size = 22 + 2 * frame[15]
+        print("Data sent :",frame)
+        self.expected_size = 22 + 2 * quant
         return None
     
     def receive(self):
         print("receiving...")
         response = self.ser.read(size=self.expected_size)
-        print("received:", response)
+        print("received:", list(response))
         if len(response) == 0:
             return
         if len(response) == self.expected_size:

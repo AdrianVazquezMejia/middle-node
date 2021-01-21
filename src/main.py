@@ -95,9 +95,10 @@ def poll_loras(loras):
                 payload = get_modbus_adu(lora.id, 4, lora.id, quant)
             else:
                 payload = get_modbus_adu(lora.id, 4, 1 + i * max, quant)    # Obtengo la trama modbus
+            dest_slave = payload[0]
             if node.cipher:
                payload = encrypt_md(payload,"CFB")
-            print("result", node.send(payload))   # Envio los datos
+            print("result", node.send(payload,dest_slave, quant))   # Envio los datos
             response = node.receive()               # Espero la respuesta
             if response == None:
                 continue

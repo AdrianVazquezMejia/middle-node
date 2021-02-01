@@ -14,15 +14,8 @@ from watchdog import Watchdog
 from cipher import encrypt_md
 from cipher import decrypt_md
 from post_http import post_scada
+from post_http import post_thingS
 send_pre = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
-thing_speak = {    "write_api_key": "PYF7YMZNOM3TJVSM",
-                        "updates": [{
-                                    "created_at": "2020-10-30 13:38:2 -0400",
-                                    "field1": 0,
-                                    "field2": 0
-                                    }
-                                    ]    
-            }
 
 # Actualizo los archivos
 def save2file(file, data):
@@ -127,33 +120,7 @@ def poll_loras(loras):
                     
                 post_dic['updates'] = updates
                 save2file(post_file, post_dic)
-
  
-def post_thingS(data):
-    print("posting...")
-    now = datetime.datetime.now()
-    now = str(now) + " -0400"
-    print(now)
-    update_data = thing_speak['updates'][0]
-    update_data['created_at'] = now
-    update_data['field1'] = data['000201']
-    update_data['field2'] = data['000202']
-    thing_speak['updates'][0] = update_data
-    print(thing_speak)
-    headers = {'Content-type': 'application/json'}
-    r = requests.post('https://api.thingspeak.com/channels/1212777/bulk_update.json', json=thing_speak, headers=headers)
-    print("Status code is :", r.status_code)        
-
-    
-# def post_scada(data_dic):
-#     print("Posting to Scada")
-#     print("Data to post: ", data_dic)
-#     headers = {'Content-type': 'application/json'}
-#     r = requests.post('https://glacial-beach-93230.herokuapp.com/api/data', json=data_dic, headers=headers)
-#     print("Status code is :", r.status_code)
-#     print(r)
-#     
-#      
 if __name__ == "__main__":
     print("App started")
     # Create wdt
@@ -219,7 +186,7 @@ if __name__ == "__main__":
         
         counter = 0
         # Tiempo de publicacion cada 2 min
-        post_time_s = 120        
+        post_time_s = 1        
         # Cliclo para interrogar los LoRa
         wtd_start.stop()
     except Watchdog:

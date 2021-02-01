@@ -13,6 +13,7 @@ from centralnode import loranode
 from watchdog import Watchdog
 from cipher import encrypt_md
 from cipher import decrypt_md
+from post_http import post_scada
 send_pre = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
 thing_speak = {    "write_api_key": "PYF7YMZNOM3TJVSM",
                         "updates": [{
@@ -144,15 +145,15 @@ def post_thingS(data):
     print("Status code is :", r.status_code)        
 
     
-def post_scada(data_dic):
-    print("Posting to Scada")
-    print("Data to post: ", data_dic)
-    headers = {'Content-type': 'application/json'}
-    r = requests.post('https://glacial-beach-93230.herokuapp.com/api/data', json=data_dic, headers=headers)
-    print("Status code is :", r.status_code)
-    print(r)
-    
-     
+# def post_scada(data_dic):
+#     print("Posting to Scada")
+#     print("Data to post: ", data_dic)
+#     headers = {'Content-type': 'application/json'}
+#     r = requests.post('https://glacial-beach-93230.herokuapp.com/api/data', json=data_dic, headers=headers)
+#     print("Status code is :", r.status_code)
+#     print(r)
+#     
+#      
 if __name__ == "__main__":
     print("App started")
     # Create wdt
@@ -218,7 +219,7 @@ if __name__ == "__main__":
         
         counter = 0
         # Tiempo de publicacion cada 2 min
-        post_time_s = 100        
+        post_time_s = 120        
         # Cliclo para interrogar los LoRa
         wtd_start.stop()
     except Watchdog:

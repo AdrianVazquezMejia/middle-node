@@ -50,7 +50,6 @@ def post_scada(data_dic):
             print("Line{}: {}".format(count, line))
             dic= json.loads(line)
             post_json(dic)
-            the
         the_file.seek(0)
         the_file.truncate()
         the_file.close()

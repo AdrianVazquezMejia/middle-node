@@ -18,6 +18,8 @@ class centralnode:
         self.loras = config_dic['loras']
         self.networkid = config_dic['Networkid']
         self.baudarate = config_dic['Baudarate']
+        self.ser = None
+        self.expected_size = None
         if config_dic["Cipher payload"] == "true":
             self.cipher = True
         else:

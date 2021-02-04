@@ -1,7 +1,8 @@
 import json
 from functools import reduce
 import serial
-
+import sys
+import os
 # Esta clase contiene la informacion del nodo
 class centralnode:
 
@@ -65,10 +66,17 @@ class centralnode:
         config_frame.append(0)
         check_sum = reduce(lambda x, y: x ^ y, config_frame) 
         config_frame.append(check_sum)
-        self.ser = serial.Serial(self.lora_port, timeout=5)
-        self.ser.write(bytearray(config_frame))
+        
+        try:
+            self.ser = serial.Serial(self.lora_port, timeout=5)
+            self.ser.write(bytearray(config_frame))
+        except:
+            print("No serial terminal found")
+            return False
         print("Config frame: ",config_frame)
         response = self.ser.read(size=18)
+        return True
+        
         
         print("Config Response:", response)
         self.ser.close()

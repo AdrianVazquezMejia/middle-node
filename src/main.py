@@ -1,5 +1,7 @@
 #! /bin/env python3
 import serial
+import os
+import sys
 from _curses import baudrate
 import array as arr
 import time
@@ -126,12 +128,14 @@ if __name__ == "__main__":
     # Create wdt
     
     wtd_start = Watchdog(20)
+    node = centralnode("../json/config.json")
+    if not node.init_lora():
+        os._exit(0)
     try:
  
         # class central node posee los datos del nodo.
         # Nodo es este raspberry
-        node = centralnode("../json/config.json")
-        node.init_lora()
+
         # Abrir el archivo de  que guarda solo la energia
         energy_file = open(node.energy_path, 'r+')
         energy_dic = json.load(energy_file)

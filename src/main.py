@@ -84,14 +84,14 @@ def poll_loras(loras):
         )  # obtengo el numero de interrogaciones por lora
         for i in range(n):  # Itero en torno a ese numero
             print("Poll ", i + 1, "th")
-            max = lora.maxpoll_size  # Maximo numero de registros por interrogacion
-            quant = max
+            max_num_reg = lora.maxpoll_size  # Maximo numero de registros por interrogacion
+            quant = max_num_reg
             if i == n - 1:
                 quant = lora.lastpollsize  # Cantidad de registros del ultimo poll
             if lora.slaves[0] == 0:
                 payload = get_modbus_adu(lora.id, 4, lora.id, quant)
             else:
-                payload = get_modbus_adu(lora.id, 4, 1 + i * max,
+                payload = get_modbus_adu(lora.id, 4, 1 + i * max_num_reg,
                                          quant)  # Obtengo la trama modbus
             dest_slave = payload[0]
             if node.cipher:
@@ -109,7 +109,7 @@ def poll_loras(loras):
             lora_hex = (lora.id).to_bytes(
                 2, "big")  # Una rutina para actulizar los archivos
             for j, _ in enumerate(data):
-                index = lora.slaves[j]  #i * max // 2 + j + 1
+                index = lora.slaves[j]  #i * max_num_reg // 2 + j + 1
                 print("INDEX: ", j)
                 serial_meter = lora_hex + (index).to_bytes(1, 'big')
                 energy_dic[serial_meter.hex()] = data[i]

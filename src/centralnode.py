@@ -70,7 +70,8 @@ class centralnode:
         try:
             self.ser = serial.Serial(self.lora_port, timeout=5)
             self.ser.write(bytearray(config_frame))
-        except:
+        except Exception:
+            print("Problems?", sys.exc_info())
             print("No serial terminal found")
             return False
         print("Config frame: ",config_frame)

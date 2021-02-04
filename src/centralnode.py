@@ -75,10 +75,9 @@ class centralnode:
             return False
         print("Config frame: ", config_frame)
         response = self.ser.read(size=18)
-        return True
-
         print("Config Response:", response)
         self.ser.close()
+        return True
 
 
 class loranode:

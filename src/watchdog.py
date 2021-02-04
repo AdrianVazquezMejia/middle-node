@@ -5,7 +5,7 @@ import sys
 class Watchdog(Exception):
     def __init__(self, timeout, userHandler=None):  # timeout in seconds
         message = "Error wdt"
-        super(Exception, self).__init__(message)
+        super().__init__(message)
         self.timeout = timeout
         self.handler = userHandler if userHandler is not None else self.defaultHandler
         self.timer = Timer(self.timeout, self.handler)

@@ -2,6 +2,7 @@ import json
 import requests
 import time
 import datetime
+import sys
 
 thing_speak = {    "write_api_key": "PYF7YMZNOM3TJVSM",
                         "updates": [{

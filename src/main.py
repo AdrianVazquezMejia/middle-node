@@ -31,7 +31,7 @@ def init_serial_port(Port):
         ser = serial.Serial(Port, timeout=0.6)
     except:
         print("Serial port does not exists")
-        quit()
+        sys.exit()
         return False
     print("Port ", ser.name, " opened")
     ser.close

@@ -33,7 +33,7 @@ def init_serial_port(Port):
         sys.exit()
         return False
     print("Port ", ser.name, " opened")
-    ser.close
+    ser.close()
     print("port closed")
     return True
 

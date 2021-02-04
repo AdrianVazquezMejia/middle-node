@@ -44,7 +44,6 @@ class centralnode:
         self.ser.write(bytearray(frame))
         print("Data sent :", frame)
         self.expected_size = 22 + 2 * quant
-        return None
 
     def receive(self):
         print("receiving...")

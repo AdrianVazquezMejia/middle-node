@@ -31,7 +31,8 @@ def save2file(file, data):
 def init_serial_port(Port):
     try:
         ser = serial.Serial(Port, timeout=0.6)
-    except:
+    except Exception:
+        print("Problems?", sys.exc_info())
         print("Serial port does not exists")
         sys.exit()
         return False

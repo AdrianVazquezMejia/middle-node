@@ -33,7 +33,8 @@ def post_json(file):
         print("Status code is :", r.status_code)
         print(r)
         return r.status_code
-    except:
+    except Exception:
+        print("Problems?", sys.exc_info())
         return 0
         
 def post_scada(data_dic):

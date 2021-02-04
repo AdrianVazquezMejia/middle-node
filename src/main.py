@@ -75,9 +75,8 @@ def parse_modbus(frame):
             data.append(pulses)
         print("data: ", data)
         return data
-    else:
-        print("CRC error")
-        return
+    print("CRC error")
+    return
 
 
 def poll_loras(loras):

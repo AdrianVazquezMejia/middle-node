@@ -2,7 +2,6 @@ import json
 from functools import reduce
 import serial
 import sys
-import os
 # Esta clase contiene la informacion del nodo
 class centralnode:
 

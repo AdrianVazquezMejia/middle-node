@@ -2,13 +2,9 @@
 import serial
 import os
 import sys
-from _curses import baudrate
-import array as arr
 import time
-from functools import reduce
 from libscrc import modbus
 import json
-import requests
 import datetime
 from centralnode import centralnode
 from centralnode import loranode

@@ -1,8 +1,10 @@
-from threading import Timer
 import os
 import sys
+from threading import Timer
+
 
 class Watchdog(Exception):
+
     def __init__(self, timeout, userHandler=None):  # timeout in seconds
         message = "Error wdt"
         super().__init__(message)

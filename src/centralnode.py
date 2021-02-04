@@ -1,11 +1,13 @@
-import json
 from functools import reduce
-import serial
+import json
 import sys
+
+import serial
 
 
 # Esta clase contiene la informacion del nodo
 class centralnode:
+
     def __init__(self, config_path):
         config_file = open(config_path, 'r')
         config_dic = json.load(config_file)
@@ -83,6 +85,7 @@ class centralnode:
 
 
 class loranode:
+
     def __init__(self, dic):
         self.id = dic['loraid']
         self.slaves = dic['slaves']

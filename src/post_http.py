@@ -1,7 +1,8 @@
-import json
-import requests
 import datetime
+import json
 import sys
+
+import requests
 
 thing_speak = {
     "write_api_key":

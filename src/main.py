@@ -1,18 +1,21 @@
 #! /bin/env python3
-import serial
+import datetime
+import json
 import os
 import sys
 import time
+
 from libscrc import modbus
-import json
-import datetime
+import serial
+
 from centralnode import centralnode
 from centralnode import loranode
-from watchdog import Watchdog
-from cipher import encrypt_md
 from cipher import decrypt_md
+from cipher import encrypt_md
 from post_http import post_scada
 from post_http import post_thingS
+from watchdog import Watchdog
+
 send_pre = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
 
 
@@ -77,7 +80,7 @@ def parse_modbus(frame):
 
 def poll_loras(loras):
     print("Start polling")
-    for lora_dic in loras:  #Itero en torno a cada LoRa
+    for lora_dic in loras:  # Itero en torno a cada LoRa
         lora = loranode(lora_dic)  # Creo un objeto con el dicionario
         print("slaves members: ", lora.slaves)
         n = lora.quantity_poll(
@@ -109,7 +112,7 @@ def poll_loras(loras):
             lora_hex = (lora.id).to_bytes(
                 2, "big")  # Una rutina para actulizar los archivos
             for j, _ in enumerate(data):
-                index = lora.slaves[j]  #i * max_num_reg // 2 + j + 1
+                index = lora.slaves[j]  # i * max_num_reg // 2 + j + 1
                 print("INDEX: ", j)
                 serial_meter = lora_hex + (index).to_bytes(1, 'big')
                 energy_dic[serial_meter.hex()] = data[i]
@@ -163,7 +166,7 @@ if __name__ == "__main__":
             save2file(energy_file, energy_dic)
         energy_file.close()
 
-        #actualiza el archivo para publicar
+        # actualiza el archivo para publicar
         for lora_edges in node.loras:
             for slave in lora_edges['slaves']:
                 id_meter = (lora_edges['loraid']).to_bytes(

@@ -96,12 +96,12 @@ def poll_loras(loras):
                payload = encrypt_md(payload,"CFB")
             print("result", node.send(payload,dest_slave, quant))   # Envio los datos
             response = node.receive()               # Espero la respuesta
-            if response == None:
+            if response is None:
                 continue
             if node.cipher:
                 response = decrypt_md(response,"CFB")
             data = parse_modbus(response)           # Si es valida verifico los datos
-            if data == None:
+            if data is None:
                 continue
             lora_hex = (lora.id).to_bytes(2, "big")     # Una rutina para actulizar los archivos
             for j, _ in enumerate(data):

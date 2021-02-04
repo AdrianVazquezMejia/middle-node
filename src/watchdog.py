@@ -2,6 +2,7 @@ from threading import Timer
 import os
 import sys
 
+
 class Watchdog(BaseException):
     def __init__(self, timeout, userHandler=None):  # timeout in seconds
         self.timeout = timeout

@@ -75,7 +75,7 @@ def post_scada(data_dic):
 if __name__ == "__main__":
 
     print("Start")
-    dic = {
+    aux_dic = {
         "id":
         "0001",
         "write_api_key":
@@ -94,4 +94,4 @@ if __name__ == "__main__":
             "date": "2021-01-05 13:24:38.587472 -0400"
         }]
     }
-    post_scada(dic)
+    post_scada(aux_dic)

@@ -115,13 +115,13 @@ def poll_loras(loras):
                 energy_dic[serial_meter.hex()] = data[i]
                 save2file(energy_file, energy_dic)
 
-                for meter_dic in updates:
-                    if serial_meter.hex() == meter_dic['meterid']:
-                        meter_dic["energy"] = data[i]
+                for meter_dict in updates:
+                    if serial_meter.hex() == meter_dict['meterid']:
+                        meter_dict["energy"] = data[i]
                         now = datetime.datetime.now()
                         now = str(now) + " -0400"
-                        meter_dic["date"] = now
-                        print("updated  ", meter_dic)
+                        meter_dict["date"] = now
+                        print("updated  ", meter_dict)
                         break
 
                 post_dic['updates'] = updates
@@ -153,9 +153,9 @@ if __name__ == "__main__":
         print(updates)
 
         # Actualiza el archivo de energia por si se agregaron medidores
-        for lora in node.loras:
-            for slave in lora['slaves']:
-                id_meter = (lora['loraid']).to_bytes(
+        for lora_edges in node.loras:
+            for slave in lora_edges['slaves']:
+                id_meter = (lora_edges['loraid']).to_bytes(
                     2, 'big') + (slave).to_bytes(1, 'big')  #
                 if id_meter.hex() not in energy_dic.keys():
                     energy_dic[id_meter.hex()] = 0
@@ -164,15 +164,15 @@ if __name__ == "__main__":
         energy_file.close()
 
         #actualiza el archivo para publicar
-        for lora in node.loras:
-            for slave in lora['slaves']:
-                id_meter = (lora['loraid']).to_bytes(
+        for lora_edges in node.loras:
+            for slave in lora_edges['slaves']:
+                id_meter = (lora_edges['loraid']).to_bytes(
                     2, 'big') + (slave).to_bytes(1, 'big')
                 print("idmeter: ", id_meter.hex())
                 isUpdate = False
-                for i in updates:
+                for update in updates:
                     isUpdate = False
-                    if id_meter.hex() == i['meterid']:
+                    if id_meter.hex() == update['meterid']:
                         isUpdate = True
                         break
                 if not isUpdate:

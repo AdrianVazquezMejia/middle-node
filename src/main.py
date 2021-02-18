@@ -114,6 +114,10 @@ def poll_loras(loras):
             for j, _ in enumerate(data):
                 index = lora.slaves[j]  # i * max_num_reg // 2 + j + 1
                 serial_meter = lora_hex + (index).to_bytes(1, 'big')
+                energy_file = open(node.energy_path, 'r+')
+                energy_dic = json.load(energy_file)
+                post_file = open(node.post_path, 'r+')
+                post_dic = json.load(post_file)
                 energy_dic[serial_meter.hex()] = data[j]
                 save2file(energy_file, energy_dic)
                 updates = post_dic['updates']
@@ -128,7 +132,8 @@ def poll_loras(loras):
 
                 post_dic['updates'] = updates
                 save2file(post_file, post_dic)
-
+                energy_file.close()  # Cierro los archivos
+                post_file.close()
 
 if __name__ == "__main__":
     print("App started")
@@ -177,8 +182,7 @@ if __name__ == "__main__":
 
             poll_loras(node.loras)  # Interrogo todos los LoRa
 
-            energy_file.close()  # Cierro los archivos
-            post_file.close()
+
 
             # Publico si llego a los 2 min
             if counter == post_time_s:

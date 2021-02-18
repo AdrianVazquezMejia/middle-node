@@ -13,7 +13,6 @@ from centralnode import loranode
 from cipher import decrypt_md
 from cipher import encrypt_md
 from post_http import post_scada
-from post_http import post_thingS
 from watchdog import Watchdog
 
 send_pre = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
@@ -81,6 +80,7 @@ def parse_modbus(frame):
 def poll_loras(loras):
     print("Start polling")
     for lora_dic in loras:  # Itero en torno a cada LoRa
+        time.sleep(2)
         lora = loranode(lora_dic)  # Creo un objeto con el dicionario
         print("slaves members: ", lora.slaves)
         n = lora.quantity_poll(
@@ -99,8 +99,7 @@ def poll_loras(loras):
             dest_slave = payload[0]
             if node.cipher:
                 payload = encrypt_md(payload, "CFB")
-            print("result", node.send(payload, dest_slave,
-                                      quant))  # Envio los datos
+            node.send(payload, dest_slave, quant)  # Envio los datos
             response = node.receive()  # Espero la respuesta
             if response is None:
                 continue
@@ -113,14 +112,13 @@ def poll_loras(loras):
                 2, "big")  # Una rutina para actulizar los archivos
             for j, _ in enumerate(data):
                 index = lora.slaves[j]  # i * max_num_reg // 2 + j + 1
-                print("INDEX: ", j)
                 serial_meter = lora_hex + (index).to_bytes(1, 'big')
-                energy_dic[serial_meter.hex()] = data[i]
+                energy_dic[serial_meter.hex()] = data[j]
                 save2file(energy_file, energy_dic)
 
                 for meter_dict in updates:
                     if serial_meter.hex() == meter_dict['meterid']:
-                        meter_dict["energy"] = data[i]
+                        meter_dict["energy"] = data[j]
                         now = datetime.datetime.now()
                         now = str(now) + " -0400"
                         meter_dict["date"] = now
@@ -200,7 +198,7 @@ if __name__ == "__main__":
 
         counter = 0
         # Tiempo de publicacion cada 2 min
-        post_time_s = 1
+        post_time_s = 120
         # Cliclo para interrogar los LoRa
         wtd_start.stop()
     except Watchdog:
@@ -224,12 +222,11 @@ if __name__ == "__main__":
 
             # Publico si llego a los 2 min
             if counter == post_time_s:
-                post_thingS(energy_dic)
                 post_scada(post_dic)
                 counter = 0
             counter += 1
             print("Print in :", post_time_s - counter, " s")
-            print("______________________________________")
+            print("____________________________________________________________________________")
             time.sleep(1)
             wtd.reset()
     except Watchdog:

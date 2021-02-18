@@ -1,0 +1,8 @@
+docker build -t node .
+docker run --device=/dev/ttyUSB0 --name node -it node
+sudo docker container rm id
+sudo docker image rm id
+sudo docker ls -a
+
+scp source destination: dic
+tar -xf archive.tar.xz

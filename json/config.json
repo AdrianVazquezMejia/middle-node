@@ -10,6 +10,6 @@
 		}
 
 	],
-	"energy_path":"../output/energy.json",
-	"post_path":"../json/post.json"	
+	"energy_path":"output/energy.json",
+	"post_path":"json/post.json"	
 }

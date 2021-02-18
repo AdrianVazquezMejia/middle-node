@@ -134,7 +134,7 @@ if __name__ == "__main__":
     # Create wdt
 
     wtd_start = Watchdog(20)
-    node = centralnode("../json/config.json")
+    node = centralnode("json/config.json")
     if not node.init_lora():
         os._exit(0)
     try:

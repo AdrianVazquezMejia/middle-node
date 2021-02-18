@@ -24,7 +24,7 @@ def post_scada(data_dic):
     r_code = post_json(data_dic)
 
     if r_code == 200:
-        with open("../output/send_later.txt", "w+") as file:
+        with open("output/send_later.txt", "w+") as file:
             lines = file.readlines()
             count = 0
             for line in lines:
@@ -38,7 +38,7 @@ def post_scada(data_dic):
     else:
         print("No internet")
         text = json.dumps(data_dic) + "\n"
-        with open("../output/send_later.txt", "a") as file:
+        with open("output/send_later.txt", "a") as file:
             file.write(text)
         file.close()
 

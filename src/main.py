@@ -159,7 +159,7 @@ if __name__ == "__main__":
         
         counter = 0
         # Tiempo de publicacion cada 2 min
-        post_time_s = 5
+        post_time_s = node.post_time//len(node.loras)
         # Cliclo para interrogar los LoRa
         wtd_start.stop()
     except Watchdog:

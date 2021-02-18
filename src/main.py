@@ -14,7 +14,8 @@ from cipher import decrypt_md
 from cipher import encrypt_md
 from post_http import post_scada
 from watchdog import Watchdog
-
+from files_management import f_energy_boot
+from files_management import f_post_boot
 send_pre = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
 
 
@@ -80,7 +81,7 @@ def parse_modbus(frame):
 def poll_loras(loras):
     print("Start polling")
     for lora_dic in loras:  # Itero en torno a cada LoRa
-        time.sleep(2)
+        time.sleep(1)
         lora = loranode(lora_dic)  # Creo un objeto con el dicionario
         print("slaves members: ", lora.slaves)
         n = lora.quantity_poll(
@@ -115,7 +116,7 @@ def poll_loras(loras):
                 serial_meter = lora_hex + (index).to_bytes(1, 'big')
                 energy_dic[serial_meter.hex()] = data[j]
                 save2file(energy_file, energy_dic)
-
+                updates = post_dic['updates']
                 for meter_dict in updates:
                     if serial_meter.hex() == meter_dict['meterid']:
                         meter_dict["energy"] = data[j]
@@ -142,53 +143,12 @@ if __name__ == "__main__":
         # class central node posee los datos del nodo.
         # Nodo es este raspberry
 
-        # Abrir el archivo de  que guarda solo la energia
-        energy_file = open(node.energy_path, 'r+')
-        energy_dic = json.load(energy_file)
-
-        # Abrir el archivo que guarda los datos a publicar
-        post_file = open(node.post_path, 'r+')
-        post_dic = json.load(post_file)
-        print("post dic", post_dic)
-        updates = post_dic['updates']
-        print(updates)
-
         # Actualiza el archivo de energia por si se agregaron medidores
-        for lora_edges in node.loras:
-            for slave in lora_edges['slaves']:
-                id_meter = (lora_edges['loraid']).to_bytes(
-                    2, 'big') + (slave).to_bytes(1, 'big')  #
-                if id_meter.hex() not in energy_dic.keys():
-                    energy_dic[id_meter.hex()] = 0
-            print("Energy updated ", energy_dic)
-            save2file(energy_file, energy_dic)
-        energy_file.close()
-
+        f_energy_boot(node.loras,node.energy_path)
+        
         # actualiza el archivo para publicar
-        for lora_edges in node.loras:
-            for slave in lora_edges['slaves']:
-                id_meter = (lora_edges['loraid']).to_bytes(
-                    2, 'big') + (slave).to_bytes(1, 'big')
-                print("idmeter: ", id_meter.hex())
-                isUpdate = False
-                for update in updates:
-                    isUpdate = False
-                    if id_meter.hex() == update['meterid']:
-                        isUpdate = True
-                        break
-                if not isUpdate:
-                    meter_dic = {}
-                    meter_dic["meterid"] = id_meter.hex()
-                    meter_dic["energy"] = 0
-                    now = datetime.datetime.now()
-                    now = str(now) + " -0400"
-                    meter_dic["date"] = now
-                    updates.append(meter_dic)
-                    print("appending ", updates)
-        post_dic['updates'] = updates
-        save2file(post_file, post_dic)
-        post_file.close()
-
+        f_post_boot(node.loras,node.post_path)
+        
         # Prueba el puerto serial
         init_serial_port(node.lora_port)
 
@@ -198,7 +158,7 @@ if __name__ == "__main__":
 
         counter = 0
         # Tiempo de publicacion cada 2 min
-        post_time_s = 120
+        post_time_s = 5
         # Cliclo para interrogar los LoRa
         wtd_start.stop()
     except Watchdog:

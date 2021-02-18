@@ -4,6 +4,7 @@ import sys
 
 import requests
 
+
 def post_json(file):
     headers = {'Content-type': 'application/json'}
     try:
@@ -24,7 +25,7 @@ def post_scada(post_path):
         data_dic = json.load(post_file)
         print("Data to post: ", data_dic)
         r_code = post_json(data_dic)
-    
+
         if r_code == 200:
             with open("output/send_later.txt", "w+") as file:
                 lines = file.readlines()
@@ -36,7 +37,7 @@ def post_scada(post_path):
                     post_json(dic)
                 file.seek(0)
                 file.truncate()
-    
+
         else:
             print("No internet")
             text = json.dumps(data_dic) + "\n"

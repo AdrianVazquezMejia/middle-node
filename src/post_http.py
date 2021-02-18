@@ -18,29 +18,31 @@ def post_json(file):
         return 0
 
 
-def post_scada(data_dic):
+def post_scada(post_path):
     print("Posting to Scada")
-    print("Data to post: ", data_dic)
-    r_code = post_json(data_dic)
-
-    if r_code == 200:
-        with open("output/send_later.txt", "w+") as file:
-            lines = file.readlines()
-            count = 0
-            for line in lines:
-                count += 1
-                print("Line{}: {}".format(count, line))
-                dic = json.loads(line)
-                post_json(dic)
-            file.seek(0)
-            file.truncate()
-
-    else:
-        print("No internet")
-        text = json.dumps(data_dic) + "\n"
-        with open("output/send_later.txt", "a") as file:
-            file.write(text)
-        file.close()
+    with open(post_path, 'r+') as post_file:
+        data_dic = json.load(post_file)
+        print("Data to post: ", data_dic)
+        r_code = post_json(data_dic)
+    
+        if r_code == 200:
+            with open("output/send_later.txt", "w+") as file:
+                lines = file.readlines()
+                count = 0
+                for line in lines:
+                    count += 1
+                    print("Line{}: {}".format(count, line))
+                    dic = json.loads(line)
+                    post_json(dic)
+                file.seek(0)
+                file.truncate()
+    
+        else:
+            print("No internet")
+            text = json.dumps(data_dic) + "\n"
+            with open("output/send_later.txt", "a") as file:
+                file.write(text)
+            file.close()
 
 
 if __name__ == "__main__":

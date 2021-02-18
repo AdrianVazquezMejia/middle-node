@@ -156,11 +156,7 @@ if __name__ == "__main__":
         
         # Prueba el puerto serial
         init_serial_port(node.lora_port)
-
-        energy_file = open(node.energy_path, 'r+')
-        energy_dic = json.load(energy_file)
-        poll_loras(node.loras)
-
+        
         counter = 0
         # Tiempo de publicacion cada 2 min
         post_time_s = 5
@@ -172,21 +168,10 @@ if __name__ == "__main__":
     wtd = Watchdog(30)
     try:
         while True:
-
-            # Abro los archivos
-            energy_file = open(node.energy_path, 'r+')
-            energy_dic = json.load(energy_file)
-
-            post_file = open(node.post_path, 'r+')
-            post_dic = json.load(post_file)
-
             poll_loras(node.loras)  # Interrogo todos los LoRa
-
-
-
-            # Publico si llego a los 2 min
+               # Publico si llego a los 2 min
             if counter == post_time_s:
-                post_scada(post_dic)
+                post_scada(node.post_path)
                 counter = 0
             counter += 1
             print("Print in :", post_time_s - counter, " s")

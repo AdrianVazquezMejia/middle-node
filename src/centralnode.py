@@ -79,6 +79,8 @@ class centralnode:
         print("Config frame: ", config_frame)
         response = self.ser.read(size=18)
         print("Config Response:", list(response))
+        response = self.ser.read(size=34)
+        print("Version LoRa:", response)
         self.ser.close()
         return True
 

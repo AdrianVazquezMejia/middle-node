@@ -135,6 +135,7 @@ def poll_loras(loras):
                 energy_file.close()  # Cierro los archivos
                 post_file.close()
 
+
 if __name__ == "__main__":
     print("App started")
     # Create wdt
@@ -149,11 +150,11 @@ if __name__ == "__main__":
         # Nodo es este raspberry
 
         # Actualiza el archivo de energia por si se agregaron medidores
-        f_energy_boot(node.loras,node.energy_path)
-        
+        f_energy_boot(node.loras, node.energy_path)
+
         # actualiza el archivo para publicar
-        f_post_boot(node.loras,node.post_path)
-        
+        f_post_boot(node.loras, node.post_path)
+
         # Prueba el puerto serial
         init_serial_port(node.lora_port)
 
@@ -182,15 +183,15 @@ if __name__ == "__main__":
 
             poll_loras(node.loras)  # Interrogo todos los LoRa
 
-
-
             # Publico si llego a los 2 min
             if counter == post_time_s:
                 post_scada(post_dic)
                 counter = 0
             counter += 1
             print("Print in :", post_time_s - counter, " s")
-            print("____________________________________________________________________________")
+            print(
+                "____________________________________________________________________________"
+            )
             time.sleep(1)
             wtd.reset()
     except Watchdog:

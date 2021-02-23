@@ -1,6 +1,4 @@
 import unittest
-import sys
-sys.path.append('../src')
 from Crypto.Cipher import AES
 from src.cipher import *
 
@@ -25,6 +23,5 @@ class TestCipher(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-    result = encrypt_md(data,"CFB")
     
 

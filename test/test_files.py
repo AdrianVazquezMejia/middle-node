@@ -2,8 +2,9 @@ import unittest
 from src.files_management import *
 import json
 
-loras=[{"loraid":1,"slaves":[1]},{"loraid":2,"slaves":[1,2]}]
+loras = [{"loraid": 1, "slaves": [1]}, {"loraid": 2, "slaves": [1, 2]}]
 test_post_list = ['000101', '000201', '000202']
+
 
 class TestFiles(unittest.TestCase):
     """
@@ -11,11 +12,15 @@ class TestFiles(unittest.TestCase):
     """
     def test_energy_boot(self):
         test_path = "test/test_files/test_energy.json"
-        f_energy_boot(loras,test_path)
+        f_energy_boot(loras, test_path)
         with open(test_path) as file:
             test_dic = json.load(file)
-            self.assertEqual(test_dic, {"000101": 0, "000201": 0, "000202":0}, "Must be equal" )
-        
+            self.assertEqual(test_dic, {
+                "000101": 0,
+                "000201": 0,
+                "000202": 0
+            }, "Must be equal")
+
     def test_post_boot(self):
         test_path = "test/test_files/test_post.json"
         f_post_boot(loras, test_path)
@@ -25,9 +30,8 @@ class TestFiles(unittest.TestCase):
             test_list = []
             for meter in test_array:
                 test_list.append(meter["meterid"])
-            self.assertEqual(test_list,test_post_list)
-               
-        
+            self.assertEqual(test_list, test_post_list)
+
+
 if __name__ == '__main__':
     unittest.main()
-        

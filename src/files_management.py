@@ -1,15 +1,16 @@
 import json
 import datetime
 
+
 def save2file(file, data):
     file.seek(0)
     file.truncate()
     json.dump(data, file)
 
 
-def f_energy_boot(loras,energy_path):
+def f_energy_boot(loras, energy_path):
     energy_file = open(energy_path, 'r+')
-    energy_dic = json.load(energy_file)    
+    energy_dic = json.load(energy_file)
     for lora_edges in loras:
         for slave in lora_edges['slaves']:
             id_meter = (lora_edges['loraid']).to_bytes(
@@ -19,8 +20,9 @@ def f_energy_boot(loras,energy_path):
         print("Energy updated ", energy_dic)
         save2file(energy_file, energy_dic)
     energy_file.close()
-    
-def f_post_boot(loras,post_path):
+
+
+def f_post_boot(loras, post_path):
     post_file = open(post_path, 'r+')
     post_dic = json.load(post_file)
     print("post dic", post_dic)
@@ -48,4 +50,4 @@ def f_post_boot(loras,post_path):
                 print("appending ", updates)
     post_dic['updates'] = updates
     save2file(post_file, post_dic)
-    post_file.close()    
+    post_file.close()

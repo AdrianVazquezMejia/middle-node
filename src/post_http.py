@@ -1,7 +1,6 @@
 import datetime
 import json
 import sys
-
 import requests
 
 def post_json(file):

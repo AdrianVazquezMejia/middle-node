@@ -1,4 +1,3 @@
-import datetime
 import json
 import sys
 import requests

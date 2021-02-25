@@ -1,10 +1,10 @@
 from libscrc import modbus
 
-def get_modbus_adu(id, function_code, start_add, quantity):
+def get_modbus_adu(id_slave, function_code, start_add, quantity):
     if quantity > 125:
         return
     adu = []
-    adu.append(id)
+    adu.append(id_slave)
     adu.append(function_code)
     start = (start_add).to_bytes(2, 'big')
     adu.append(start[0])
@@ -27,6 +27,7 @@ def parse_modbus(frame):
         print("modbus correct")
         print(list(frame))
         quantity = (len(frame) - 5) // 4
+        print(quantity)
         for i in range(quantity):
             pulses = int(frame[3 + i * 4:7 + i * 4].hex(), 16)
             data.append(pulses)

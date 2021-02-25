@@ -57,8 +57,7 @@ class centralnode:
             return
         if len(response) == self.expected_size:
             return response[16:self.expected_size - 1]
-
-    def init_lora(self):
+    def config_trama(self):
         lora_id = 256  # default
         fixed_frame = [1, 0, 1, 13, 165, 165, 108, 64, 18, 7, 0]
         bauda_hex = (self.networkid).to_bytes(2, 'big')
@@ -69,7 +68,10 @@ class centralnode:
         config_frame.append(0)
         check_sum = reduce(lambda x, y: x ^ y, config_frame)
         config_frame.append(check_sum)
-
+        return config_frame
+        
+    def init_lora(self):
+        config_frame = self.config_trama()
         try:
             self.ser = serial.Serial(self.lora_port, timeout=5)
             self.ser.write(bytearray(config_frame))

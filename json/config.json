@@ -1,6 +1,6 @@
 {
 	"ID": "0001",
-	"Serial Port": "/dev/ttyUSB1",
+	"Serial Port": "/dev/ttyUSB0",
 	"Networkid" : 1,
 	"Baudarate": 9600,
 	"Cipher payload": "tue",

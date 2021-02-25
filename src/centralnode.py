@@ -46,7 +46,7 @@ class centralnode:
         return frame
            
     def send(self, payload, dest_slave, quant):
-        frame = build_send_frame(payload, dest_slave)
+        frame = self.build_send_frame(payload, dest_slave)
         self.ser = serial.Serial(self.lora_port, timeout=14)
         self.ser.write(bytearray(frame))
         print("Data sent :", frame)

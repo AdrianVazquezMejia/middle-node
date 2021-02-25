@@ -34,8 +34,7 @@ class centralnode:
 
         for i in self.loras:
             self.lora_list.append(i['loraid'])
-
-    def send(self, payload, dest_slave, quant):
+    def build_send_frame(self,payload, dest_slave):
         print("Sending...")
         pre_frame = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
         if payload[1] == 4:
@@ -44,6 +43,10 @@ class centralnode:
         frame = pre_frame + payload
         check_sum = reduce(lambda x, y: x ^ y, frame)
         frame.append(check_sum)
+        return frame
+           
+    def send(self, payload, dest_slave, quant):
+        frame = build_send_frame(payload, dest_slave)
         self.ser = serial.Serial(self.lora_port, timeout=14)
         self.ser.write(bytearray(frame))
         print("Data sent :", frame)

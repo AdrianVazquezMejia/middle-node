@@ -34,7 +34,8 @@ class centralnode:
 
         for i in self.loras:
             self.lora_list.append(i['loraid'])
-    def build_send_frame(self,payload, dest_slave):
+
+    def build_send_frame(self, payload, dest_slave):
         print("Sending...")
         pre_frame = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
         if payload[1] == 4:
@@ -44,7 +45,7 @@ class centralnode:
         check_sum = reduce(lambda x, y: x ^ y, frame)
         frame.append(check_sum)
         return frame
-           
+
     def send(self, payload, dest_slave, quant):
         frame = self.build_send_frame(payload, dest_slave)
         self.ser = serial.Serial(self.lora_port, timeout=14)
@@ -60,7 +61,7 @@ class centralnode:
             return
         if len(response) == self.expected_size:
             return response[16:self.expected_size - 1]
-        
+
     def config_trama(self):
         lora_id = 256  # default
         fixed_frame = [1, 0, 1, 13, 165, 165, 108, 64, 18, 7, 0]
@@ -73,7 +74,7 @@ class centralnode:
         check_sum = reduce(lambda x, y: x ^ y, config_frame)
         config_frame.append(check_sum)
         return config_frame
-        
+
     def init_lora(self):
         config_frame = self.config_trama()
         try:

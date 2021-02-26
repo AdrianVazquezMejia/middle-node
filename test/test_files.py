@@ -11,7 +11,6 @@ class TestFiles(unittest.TestCase):
     """
     Test that we can parse files
     """
-
     def test_energy_boot(self):
         test_path = "test/test_files/test_energy.json"
         f_energy_boot(loras, test_path)

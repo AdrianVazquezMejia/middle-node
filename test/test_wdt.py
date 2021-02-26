@@ -12,7 +12,6 @@ def test_handler():
 
 
 class TestWDT(unittest.TestCase):
-
     def test_timeout(self):
         """
         Test that wdt timeouts
@@ -23,7 +22,6 @@ class TestWDT(unittest.TestCase):
         time.sleep(2)
         self.assertAlmostEqual(delay_time, 2.0, 1, "Must be almost equal")
         wdt.stop()
-
 
     def test_reset(self):
         global start_time

@@ -1,5 +1,7 @@
 # Description
 ![example workflow](https://github.com/AdrianVazquezMejia/middle-node/actions/workflows/python-app.yml/badge.svg)
+![Gitlab pipeline](https://gitlab.com/electr-nica/desarrollohardware/middle-node/badges/master/pipeline.svg)
+
 
 This node collect data through LoRa from several edges-nodes or smart-meters.
 

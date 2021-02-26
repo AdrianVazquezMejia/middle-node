@@ -7,14 +7,12 @@ import serial
 
 
 class ConfigError(Exception):
-
     def __init__(self):
         self.message = "Can not config"
 
 
 # Esta clase contiene la informacion del nodo
 class centralnode:
-
     def __init__(self, config_path):
         config_file = open(config_path, 'r')
         config_dic = json.load(config_file)
@@ -53,7 +51,7 @@ class centralnode:
         check_sum = reduce(lambda x, y: x ^ y, frame)
         frame.append(check_sum)
         return frame
-           
+
     def send(self, payload, dest_slave, quant):
         frame = self.build_send_frame(payload, dest_slave)
         self.ser = serial.Serial(self.lora_port, timeout=14)
@@ -69,7 +67,7 @@ class centralnode:
             return
         if len(response) == self.expected_size:
             return response[16:self.expected_size - 1]
-        
+
     def config_trama(self):
         lora_id = 256  # default
         fixed_frame = [1, 0, 1, 13, 165, 165, 108, 64, 18, 7, 0]
@@ -82,9 +80,11 @@ class centralnode:
         check_sum = reduce(lambda x, y: x ^ y, config_frame)
         config_frame.append(check_sum)
         return config_frame
-        
+
     def init_lora(self):
-        expected_response = [1, 0, 129, 12, 165, 165, 108, 64, 18, 7, 0, 0, 1, 1, 0, 3, 0, 182]
+        expected_response = [
+            1, 0, 129, 12, 165, 165, 108, 64, 18, 7, 0, 0, 1, 1, 0, 3, 0, 182
+        ]
         config_frame = self.config_trama()
         self.ser = serial.Serial(self.lora_port, timeout=5)
         self.ser.write(bytearray(config_frame))
@@ -104,7 +104,6 @@ class centralnode:
 
 
 class loranode:
-
     def __init__(self, dic):
         self.id = dic['loraid']
         self.slaves = dic['slaves']

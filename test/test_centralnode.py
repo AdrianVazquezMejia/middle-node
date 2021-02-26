@@ -5,17 +5,16 @@ from src.centralnode import *
 
 
 class TestNode(centralnode):
-
     def overwrite(self):
         self.ser = mock.Mock()
-        self.ser.read = mock.Mock(return_value="111111111111111100001".encode('utf-8'))
+        self.ser.read = mock.Mock(
+            return_value="111111111111111100001".encode('utf-8'))
 
 
 class TestCentralNode(unittest.TestCase):
     """
     Test main methods
     """
-
     def test_config_frame(self):
         node = centralnode("test/test_files/test_config.json")
         test_frame = node.config_trama()
@@ -33,6 +32,7 @@ class TestCentralNode(unittest.TestCase):
         node.overwrite()
         node.expected_size = 21
         self.assertEqual(node.receive(), b'0000', "Must be equal")
+
 
 if __name__ == "__main__":
     unittest.main()

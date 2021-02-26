@@ -1,9 +1,12 @@
 from functools import reduce
 import json
 import sys
+import unittest
 
 import serial
-
+class ConfigError(Exception):
+    def __init__(self):
+        self.message = "Can not config"
 # Esta clase contiene la informacion del nodo
 class centralnode:
     def __init__(self, config_path):
@@ -74,22 +77,23 @@ class centralnode:
         return config_frame
         
     def init_lora(self):
+        expected_response = [1, 0, 129, 12, 165, 165, 108, 64, 18, 7, 0, 0, 1, 1, 0, 3, 0, 182]
         config_frame = self.config_trama()
-        try:
-            self.ser = serial.Serial(self.lora_port, timeout=5)
-            self.ser.write(bytearray(config_frame))
-        except Exception:
-            print("Problems?", sys.exc_info())
-            print("No serial terminal found")
-            return False
+        self.ser = serial.Serial(self.lora_port, timeout=5)
+        self.ser.write(bytearray(config_frame))
         print("Config frame: ", config_frame)
         response = self.ser.read(size=18)
         print("Config Response:", list(response))
-        response = self.ser.read(size=34)
-        print("Version LoRa:", response)
+        version = self.ser.read(size=34)
+        print("Version LoRa:", version)
+        if list(response) != expected_response:
+            expected_response[3]=13
+            if list(response) == expected_response:
+                return True
+            return False
         self.ser.close()
+        print("Lora Config Successfull")
         return True
-
 
 class loranode:
     def __init__(self, dic):

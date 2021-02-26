@@ -71,6 +71,7 @@ if __name__ == "__main__":
     node = centralnode("json/config.json")
     init_serial_port(node.lora_port)
     if not node.init_lora():
+        print("Could not config LoRa")
         os._exit(0)
     try:
         f_energy_boot(node.loras,node.energy_path)

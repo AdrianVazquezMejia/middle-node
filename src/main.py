@@ -83,7 +83,7 @@ def poll_loras(loras):
                     if serial_meter.hex() == meter_dict['meterid']:
                         meter_dict["energy"] = data[j]
                         now = datetime.datetime.now()
-                        now = str(now) + " -0400"
+                        now = str(now)
                         meter_dict["date"] = now
                         print("updated  ", meter_dict)
                         break
@@ -94,40 +94,25 @@ def poll_loras(loras):
                 post_file.close()
 
 if __name__ == "__main__":
-    print("App started")
-    # Create wdt
-
+    
+    print("App started v26.022021")
     wtd_start = Watchdog(20)
     node = centralnode("json/config.json")
     if not node.init_lora():
         os._exit(0)
     try:
-
-        # class central node posee los datos del nodo.
-        # Nodo es este raspberry
-
-        # Actualiza el archivo de energia por si se agregaron medidores
         f_energy_boot(node.loras,node.energy_path)
-        
-        # actualiza el archivo para publicar
         f_post_boot(node.loras,node.post_path)
-        
-        # Prueba el puerto serial
         init_serial_port(node.lora_port)
-        
         counter = 0
-        # Tiempo de publicacion cada 2 min
         post_time_s = node.post_time//len(node.loras)
-        # Cliclo para interrogar los LoRa
         wtd_start.stop()
     except Watchdog:
         print("Reseting script due to crashed")
-# handle watchdog error
     wtd = Watchdog(30)
     try:
         while True:
-            poll_loras(node.loras)  # Interrogo todos los LoRa
-               # Publico si llego a los 2 min
+            poll_loras(node.loras)
             if counter == post_time_s:
                 post_scada(node.post_path)
                 counter = 0

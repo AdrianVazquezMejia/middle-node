@@ -1,4 +1,5 @@
 # Description
+![example workflow](https://github.com/AdrianVazquezMejia/middle-node/actions/workflows/python-app.yml/badge.svg)
 
 This node collect data through LoRa from several edges-nodes or smart-meters.
 

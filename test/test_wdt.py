@@ -12,7 +12,6 @@ def test_handler():
 
 
 class TestWDT(unittest.TestCase):
-
     def test_timeout(self):
         """
         Test that wdt timeouts

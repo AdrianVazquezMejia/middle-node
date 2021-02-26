@@ -11,7 +11,6 @@ class TestFiles(unittest.TestCase):
     """
     Test that we can parse files
     """
-
     def test_energy_boot(self):
         test_path = "test/test_files/test_energy.json"
         f_energy_boot(loras, test_path)
@@ -30,6 +29,7 @@ class TestFiles(unittest.TestCase):
             for meter in test_array:
                 test_list.append(meter["meterid"])
             self.assertEqual(test_list, test_post_list)
+
 
 if __name__ == '__main__':
     unittest.main()

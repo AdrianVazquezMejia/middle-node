@@ -48,7 +48,7 @@ def poll_loras(loras):
             dest_slave = payload[0]
             if node.cipher:
                 payload = encrypt_md(payload, "CFB")
-            node.send(payload, dest_slave, quant) 
+            node.send(payload, dest_slave, quant)
             response = node.receive()
             if response is None:
                 continue
@@ -64,6 +64,7 @@ def poll_loras(loras):
 
                 update_energy_file(serial_meter, data[j])
                 update_post_file(serial_meter, data[j])
+
 
 if __name__ == "__main__":
 
@@ -91,7 +92,9 @@ if __name__ == "__main__":
                 counter = 0
             counter += 1
             print("Printing in :", post_time_s - counter, " s")
-            print("__________________________________________________________________")
+            print(
+                "__________________________________________________________________"
+            )
             wtd.reset()
     except KeyboardInterrupt:
         print("App finished!")

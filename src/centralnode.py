@@ -4,7 +4,6 @@ import sys
 
 import serial
 
-
 # Esta clase contiene la informacion del nodo
 class centralnode:
     def __init__(self, config_path):

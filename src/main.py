@@ -92,7 +92,9 @@ if __name__ == "__main__":
             print("____________________________________________________________________________")
             time.sleep(1)
             wtd.reset()
+    except KeyboardInterrupt:
+        print("App finished!")
+        os._exit(0)
     except Watchdog:
         wtd_start.stop()
 
-    print("App Finished")

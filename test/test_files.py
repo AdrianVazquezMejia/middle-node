@@ -3,10 +3,10 @@ import unittest
 
 from src.files_management import *
 
-loras = [{"loraid":1, "slaves":[1]}, {"loraid":2, "slaves":[1, 2]}]
+loras = [{"loraid": 1, "slaves": [1]}, {"loraid": 2, "slaves": [1, 2]}]
 test_post_list = ['000101', '000201', '000202']
 
-x
+
 class TestFiles(unittest.TestCase):
     """
     Test that we can parse files
@@ -17,7 +17,7 @@ class TestFiles(unittest.TestCase):
         f_energy_boot(loras, test_path)
         with open(test_path) as file:
             test_dic = json.load(file)
-            exp_dic =  {"000101": 0, "000201": 0, "000202":0}
+            exp_dic = {"000101": 0, "000201": 0, "000202": 0}
             self.assertEqual(test_dic, exp_dic, "Must be equal")
 
     def test_post_boot(self):
@@ -32,4 +32,4 @@ class TestFiles(unittest.TestCase):
             self.assertEqual(test_list, test_post_list)
 
 if __name__ == '__main__':
-    unittest.main()    
+    unittest.main()

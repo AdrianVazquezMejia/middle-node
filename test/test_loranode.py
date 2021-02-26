@@ -2,9 +2,9 @@ import unittest
 
 from src.centralnode import *
 
-test_dic = { 
-        "loraid":2,
-        "slaves":[1, 2, 3, 4, 5, 6]
+test_dic = {
+        "loraid": 2,
+        "slaves": [1, 2, 3, 4, 5, 6]
         }
 
 

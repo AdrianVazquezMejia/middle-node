@@ -84,7 +84,7 @@ class centralnode:
         return config_frame
 
     def init_lora(self):
-        expected_response = [1, 0, 129, 12, 165, 165, 108, 64, 18, 7, 0, 0, 1, 1, 0, 3, 0, 182]
+        expect = [1, 0, 129, 12, 165, 165, 108, 64, 18, 7, 0, 0, 1, 1, 0, 3, 0, 182]
         config_frame = self.config_trama()
         self.ser = serial.Serial(self.lora_port, timeout=5)
         self.ser.write(bytearray(config_frame))
@@ -93,9 +93,9 @@ class centralnode:
         print("Config Response:", list(response))
         version = self.ser.read(size=34)
         print("Version LoRa:", version)
-        if list(response) != expected_response:
-            expected_response[3] = 13
-            if list(response) == expected_response:
+        if list(response) != expect:
+            expect[3] = 13
+            if list(response) == expect:
                 return True
             return False
         self.ser.close()

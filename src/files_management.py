@@ -23,8 +23,7 @@ def update_post_file(serial, data):
         post_dic['updates'] = updates
         save2file(post_file, post_dic)
 
-        
-def update_energy_file(serial, data):     
+def update_energy_file(serial, data):
     with open("output/energy.json", 'r+') as energy_file:
         energy_dic = json.load(energy_file)
         energy_dic[serial.hex()] = data
@@ -37,14 +36,13 @@ def f_energy_boot(loras, energy_path):
     for lora_edges in loras:
         for slave in lora_edges['slaves']:
             id_meter = (lora_edges['loraid']).to_bytes(
-                2, 'big') + (slave).to_bytes(1, 'big')  #
+                2, 'big') + (slave).to_bytes(1, 'big')
             if id_meter.hex() not in energy_dic.keys():
                 energy_dic[id_meter.hex()] = 0
         print("Energy updated ", energy_dic)
         save2file(energy_file, energy_dic)
     energy_file.close()
 
-    
 def f_post_boot(loras, post_path):
     post_file = open(post_path, 'r+')
     post_dic = json.load(post_file)
@@ -73,4 +71,4 @@ def f_post_boot(loras, post_path):
                 print("appending ", updates)
     post_dic['updates'] = updates
     save2file(post_file, post_dic)
-    post_file.close()    
+    post_file.close()

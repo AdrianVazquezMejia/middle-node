@@ -12,7 +12,7 @@ class TestCipher(unittest.TestCase):
 
     def test_cipher(self):
         """
-        Test that it can cipher and decipher 
+        Test that it can cipher and decipher
         """
         data = [1, 2, 3]
         result = encrypt_md(data, "CFB")
@@ -26,4 +26,3 @@ class TestCipher(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-

@@ -6,7 +6,7 @@ from src.modbus_process import *
 class TestModbus(unittest.TestCase):
     """
     Test Modbus processing
-    """ 
+    """
 
     def test_modbus_adu(self):
         adu = get_modbus_adu(1, 4, 0, 2)

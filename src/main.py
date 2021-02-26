@@ -42,37 +42,37 @@ def init_serial_port(Port):
     
 def poll_loras(loras):
     print("Start polling")
-    for lora_dic in loras:  # Itero en torno a cada LoRa
+    for lora_dic in loras:  
         time.sleep(1)
-        lora = loranode(lora_dic)  # Creo un objeto con el dicionario
+        lora = loranode(lora_dic)  
         print("slaves members: ", lora.slaves)
         n = lora.quantity_poll(
-        )  # obtengo el numero de interrogaciones por lora
-        for i in range(n):  # Itero en torno a ese numero
+        ) 
+        for i in range(n):  
             print("Poll ", i + 1, "th")
-            max_num_reg = lora.maxpoll_size  # Maximo numero de registros por interrogacion
+            max_num_reg = lora.maxpoll_size  
             quant = max_num_reg
             if i == n - 1:
-                quant = lora.lastpollsize  # Cantidad de registros del ultimo poll
+                quant = lora.lastpollsize  
             if lora.slaves[0] == 0:
                 payload = get_modbus_adu(lora.id, 4, lora.id, quant)
             else:
                 payload = get_modbus_adu(lora.id, 4, 1 + i * max_num_reg,
-                                         quant)  # Obtengo la trama modbus
+                                         quant)  
             dest_slave = payload[0]
             if node.cipher:
                 payload = encrypt_md(payload, "CFB")
-            node.send(payload, dest_slave, quant)  # Envio los datos
-            response = node.receive()  # Espero la respuesta
+            node.send(payload, dest_slave, quant) 
+            response = node.receive() 
             if response is None:
                 continue
             if node.cipher:
                 response = decrypt_md(response, "CFB")
-            data = parse_modbus(response)  # Si es valida verifico los datos
+            data = parse_modbus(response) 
             if data is None:
                 continue
             lora_hex = (lora.id).to_bytes(
-                2, "big")  # Una rutina para actulizar los archivos
+                2, "big") 
             for j, _ in enumerate(data):
                 index = lora.slaves[j]  
                 serial_meter = lora_hex + (index).to_bytes(1, 'big')

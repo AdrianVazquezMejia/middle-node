@@ -3,7 +3,7 @@ from libscrc import modbus
 
 def get_modbus_adu(id_slave, function_code, start_add, quantity):
     if quantity > 125:
-        return
+        return None
     adu = []
     adu.append(id_slave)
     adu.append(function_code)
@@ -35,4 +35,4 @@ def parse_modbus(frame):
         print("data: ", data)
         return data
     print("CRC error")
-    return
+    return None

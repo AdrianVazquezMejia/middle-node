@@ -66,7 +66,7 @@ class centralnode:
         response = self.ser.read(size=self.expected_size)
         print("received:", list(response))
         if len(response) == 0:
-            return
+            return None
         if len(response) == self.expected_size:
             return response[16:self.expected_size - 1]
 

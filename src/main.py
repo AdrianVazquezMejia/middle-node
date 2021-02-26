@@ -14,31 +14,15 @@ from watchdog import Watchdog
 from files_management import *
 send_pre = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
 
-
-# Actualizo los archivos
-def save2file(file, data):
-    file.seek(0)
-    file.truncate()
-    json.dump(data, file)
-
-
 # Pruebo el puerto serial
 def init_serial_port(Port):
     try:
         ser = serial.Serial(Port, timeout=0.6)
-    except Exception:
-        print("Problems?", sys.exc_info())
-        print("Serial port does not exists")
-        sys.exit()
-        return False
-    print("Port ", ser.name, " opened")
-    ser.close()
-    print("port closed")
-    return True
-
-
-
-    
+    except  serial.SerialException:
+        print("Problems: ",  "could not open port ",Port)
+        os._exit(0)
+    print("Port ", ser.name, " Available")
+    ser.close()  
     
 def poll_loras(loras):
     print("Start polling")
@@ -85,12 +69,12 @@ if __name__ == "__main__":
     print("App started v26.022021")
     wtd_start = Watchdog(20)
     node = centralnode("json/config.json")
+    init_serial_port(node.lora_port)
     if not node.init_lora():
         os._exit(0)
     try:
         f_energy_boot(node.loras,node.energy_path)
         f_post_boot(node.loras,node.post_path)
-        init_serial_port(node.lora_port)
         counter = 0
         post_time_s = node.post_time//len(node.loras)
         wtd_start.stop()

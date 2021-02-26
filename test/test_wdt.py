@@ -19,9 +19,11 @@ class TestWDT(unittest.TestCase):
         """
         global start_time
         start_time = time.time()
-        wtd = Watchdog(2, test_handler)
+        wdt = Watchdog(2, test_handler)
         time.sleep(2)
         self.assertAlmostEqual(delay_time, 2.0, 1, "Must be almost equal")
+        wdt.stop()
+
 
     def test_reset(self):
         global start_time

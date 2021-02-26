@@ -65,11 +65,9 @@ class centralnode:
         print("receiving...")
         response = self.ser.read(size=self.expected_size)
         print("received:", list(response))
-        if len(response) == 0:
-            return None
         if len(response) == self.expected_size:
             return response[16:self.expected_size - 1]
-
+        return None
     def config_trama(self):
         lora_id = 256  # default
         fixed_frame = [1, 0, 1, 13, 165, 165, 108, 64, 18, 7, 0]

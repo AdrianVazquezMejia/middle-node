@@ -34,5 +34,6 @@ class TestCentralNode(unittest.TestCase):
         node.expected_size = 21
         self.assertEqual(node.receive(), b'0000', "Must be equal")
 
+
 if __name__ == "__main__":
     unittest.main()

@@ -31,5 +31,6 @@ class TestFiles(unittest.TestCase):
                 test_list.append(meter["meterid"])
             self.assertEqual(test_list, test_post_list)
 
+
 if __name__ == '__main__':
     unittest.main()

@@ -1,8 +1,5 @@
 #! /bin/env python3
-import datetime
-import json
 import os
-import sys
 import time
 
 from centralnode import *

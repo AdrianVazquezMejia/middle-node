@@ -1,7 +1,5 @@
 from functools import reduce
 import json
-import sys
-import unittest
 
 import serial
 

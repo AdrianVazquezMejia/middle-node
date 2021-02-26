@@ -53,7 +53,7 @@ class centralnode:
         check_sum = reduce(lambda x, y: x ^ y, frame)
         frame.append(check_sum)
         return frame
-           
+
     def send(self, payload, dest_slave, quant):
         frame = self.build_send_frame(payload, dest_slave)
         self.ser = serial.Serial(self.lora_port, timeout=14)
@@ -69,7 +69,7 @@ class centralnode:
             return
         if len(response) == self.expected_size:
             return response[16:self.expected_size - 1]
-        
+
     def config_trama(self):
         lora_id = 256  # default
         fixed_frame = [1, 0, 1, 13, 165, 165, 108, 64, 18, 7, 0]
@@ -82,7 +82,7 @@ class centralnode:
         check_sum = reduce(lambda x, y: x ^ y, config_frame)
         config_frame.append(check_sum)
         return config_frame
-        
+
     def init_lora(self):
         expected_response = [1, 0, 129, 12, 165, 165, 108, 64, 18, 7, 0, 0, 1, 1, 0, 3, 0, 182]
         config_frame = self.config_trama()
@@ -108,7 +108,7 @@ class loranode:
     def __init__(self, dic):
         self.id = dic['loraid']
         self.slaves = dic['slaves']
-        self.maxpoll_size = 56  # Para el tamano del payload es la maxima de cantidad de registros
+        self.maxpoll_size = 56
         self.lastpollsize = len(self.slaves) * 2 % self.maxpoll_size
 
     def quantity_poll(self):

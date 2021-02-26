@@ -25,8 +25,7 @@ def init_serial_port(Port):
         os._exit(0)
     print("Port ", ser.name, " Available")
     ser.close()  
-
-    
+   
 def poll_loras(loras):
     print("Start polling")
     for lora_dic in loras:  
@@ -61,13 +60,12 @@ def poll_loras(loras):
             for j, _ in enumerate(data):
                 index = lora.slaves[j]  
                 serial_meter = lora_hex + (index).to_bytes(1, 'big')
-                
+            
                 update_energy_file(serial_meter, data[j])
                 update_post_file(serial_meter, data[j])
 
-    
 if __name__ == "__main__":
-    
+
     print("App started v26.022021")
     wtd_start = Watchdog(20)
     node = centralnode("json/config.json")
@@ -92,7 +90,7 @@ if __name__ == "__main__":
                 counter = 0
             counter += 1
             print("Printing in :", post_time_s - counter, " s")
-            print("____________________________________________________________________________")
+            print("__________________________________________________________________")
             wtd.reset()
     except KeyboardInterrupt:
         print("App finished!")

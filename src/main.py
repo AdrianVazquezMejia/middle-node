@@ -30,8 +30,7 @@ def poll_loras(loras):
         time.sleep(1)
         lora = loranode(lora_dic)  
         print("slaves members: ", lora.slaves)
-        n = lora.quantity_poll(
-        ) 
+        n = lora.quantity_poll()
         for i in range(n):  
             print("Poll ", i + 1, "th")
             max_num_reg = lora.maxpoll_size  
@@ -55,8 +54,7 @@ def poll_loras(loras):
             data = parse_modbus(response) 
             if data is None:
                 continue
-            lora_hex = (lora.id).to_bytes(
-                2, "big") 
+            lora_hex = (lora.id).to_bytes( 2, "big") 
             for j, _ in enumerate(data):
                 index = lora.slaves[j]  
                 serial_meter = lora_hex + (index).to_bytes(1, 'big')
@@ -76,22 +74,21 @@ if __name__ == "__main__":
     try:
         f_energy_boot(node.loras,node.energy_path)
         f_post_boot(node.loras,node.post_path)
-        counter = 0
-        post_time_s = node.post_time//len(node.loras)
         wtd_start.stop()
     except Watchdog:
         print("Reseting script due to crashed")
     wtd = Watchdog(30)
     try:
+        counter = 0
+        post_time_s = node.post_time//len(node.loras)
         while True:
             poll_loras(node.loras)
             if counter == post_time_s:
                 post_scada(node.post_path)
                 counter = 0
             counter += 1
-            print("Print in :", post_time_s - counter, " s")
+            print("Printing in :", post_time_s - counter, " s")
             print("____________________________________________________________________________")
-            time.sleep(1)
             wtd.reset()
     except KeyboardInterrupt:
         print("App finished!")

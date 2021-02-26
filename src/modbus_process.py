@@ -1,5 +1,6 @@
 from libscrc import modbus
 
+
 def get_modbus_adu(id_slave, function_code, start_add, quantity):
     if quantity > 125:
         return

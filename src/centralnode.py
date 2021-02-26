@@ -4,11 +4,17 @@ import sys
 import unittest
 
 import serial
+
+
 class ConfigError(Exception):
+
     def __init__(self):
         self.message = "Can not config"
+
+
 # Esta clase contiene la informacion del nodo
 class centralnode:
+
     def __init__(self, config_path):
         config_file = open(config_path, 'r')
         config_dic = json.load(config_file)
@@ -36,7 +42,8 @@ class centralnode:
 
         for i in self.loras:
             self.lora_list.append(i['loraid'])
-    def build_send_frame(self,payload, dest_slave):
+
+    def build_send_frame(self, payload, dest_slave):
         print("Sending...")
         pre_frame = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
         if payload[1] == 4:
@@ -87,7 +94,7 @@ class centralnode:
         version = self.ser.read(size=34)
         print("Version LoRa:", version)
         if list(response) != expected_response:
-            expected_response[3]=13
+            expected_response[3] = 13
             if list(response) == expected_response:
                 return True
             return False
@@ -95,7 +102,9 @@ class centralnode:
         print("Lora Config Successfull")
         return True
 
+
 class loranode:
+
     def __init__(self, dic):
         self.id = dic['loraid']
         self.slaves = dic['slaves']

@@ -43,7 +43,8 @@ class centralnode:
         for i in self.loras:
             self.lora_list.append(i['loraid'])
 
-    def build_send_frame(self, payload, dest_slave):
+    @staticmethod
+    def build_send_frame(payload, dest_slave):
         print("Sending...")
         pre_frame = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
         if payload[1] == 4:

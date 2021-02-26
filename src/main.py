@@ -89,7 +89,9 @@ if __name__ == "__main__":
                 counter = 0
             counter += 1
             print("Printing in :", post_time_s - counter, " s")
-            print("__________________________________________________________________")
+            print(
+                "__________________________________________________________________"
+            )
             wtd.reset()
     except KeyboardInterrupt:
         print("App finished!")

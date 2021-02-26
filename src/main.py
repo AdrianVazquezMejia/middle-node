@@ -36,6 +36,10 @@ def init_serial_port(Port):
     print("port closed")
     return True
 
+
+
+    
+    
 def poll_loras(loras):
     print("Start polling")
     for lora_dic in loras:  # Itero en torno a cada LoRa
@@ -70,29 +74,12 @@ def poll_loras(loras):
             lora_hex = (lora.id).to_bytes(
                 2, "big")  # Una rutina para actulizar los archivos
             for j, _ in enumerate(data):
-                index = lora.slaves[j]  # i * max_num_reg // 2 + j + 1
+                index = lora.slaves[j]  
                 serial_meter = lora_hex + (index).to_bytes(1, 'big')
-                energy_file = open(node.energy_path, 'r+')
-                energy_dic = json.load(energy_file)
-                post_file = open(node.post_path, 'r+')
-                post_dic = json.load(post_file)
-                energy_dic[serial_meter.hex()] = data[j]
-                save2file(energy_file, energy_dic)
-                updates = post_dic['updates']
-                for meter_dict in updates:
-                    if serial_meter.hex() == meter_dict['meterid']:
-                        meter_dict["energy"] = data[j]
-                        now = datetime.datetime.now()
-                        now = str(now)
-                        meter_dict["date"] = now
-                        print("updated  ", meter_dict)
-                        break
-
-                post_dic['updates'] = updates
-                save2file(post_file, post_dic)
-                energy_file.close()  # Cierro los archivos
-                post_file.close()
-
+                
+                update_energy_file(serial_meter, data[j])
+                update_post_file(serial_meter, data[j])
+    
 if __name__ == "__main__":
     
     print("App started v26.022021")

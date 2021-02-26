@@ -6,6 +6,26 @@ def save2file(file, data):
     file.truncate()
     json.dump(data, file)
 
+def update_post_file(serial, data):
+    with open("json/post.json", 'r+') as post_file:
+        post_dic = json.load(post_file)
+        updates = post_dic['updates']
+        for meter_dict in updates:
+            if serial.hex() == meter_dict['meterid']:
+                meter_dict["energy"] = data
+                now = datetime.datetime.now()
+                now = str(now)
+                meter_dict["date"] = now
+                print("updated  ", meter_dict)
+                break
+        post_dic['updates'] = updates
+        save2file(post_file, post_dic)
+        
+def update_energy_file(serial, data):     
+    with open("output/energy.json", 'r+') as energy_file:
+        energy_dic = json.load(energy_file)
+        energy_dic[serial.hex()] = data
+        save2file(energy_file, energy_dic)
 
 def f_energy_boot(loras,energy_path):
     energy_file = open(energy_path, 'r+')

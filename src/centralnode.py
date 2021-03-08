@@ -80,8 +80,7 @@ class centralnode:
         return config_frame
 
     def init_lora(self):
-        expect = [
-            1, 0, 129, 12, 165, 165, 108, 64, 18, 7, 0, 0, 1, 1, 0, 3, 0]
+        expect = [1, 0, 129, 12, 165, 165, 108, 64, 18, 7, 0, 0, 1, 1, 0, 3, 0]
         expect[12] = self.networkid
         check_sum = reduce(lambda x, y: x ^ y, expect)
         expect.append(check_sum)
@@ -95,11 +94,11 @@ class centralnode:
         print("Version LoRa:", version)
         if list(response) != expect:
             expect[3] = 13
-            expect[17] = expect[17]+1
+            expect[17] = expect[17] + 1
             if list(response) == expect:
-                    self.ser.close()
-                    print("Lora Config Successfull")
-                    return True
+                self.ser.close()
+                print("Lora Config Successfull")
+                return True
             return False
         self.ser.close()
         print("Lora Config Successfull")

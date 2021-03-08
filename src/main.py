@@ -9,11 +9,19 @@ from modbus_process import *
 from post_http import post_scada
 import serial
 from watchdog import Watchdog
+import argparse
+
 
 send_pre = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
 
 
-# Pruebo el puerto serial
+def build_argparser():
+    parser = argparse.ArgumentParser(description="To select production code")
+    parser.add_argument('-p','--production', action='store_true', default=False, help = "Create production code")
+    parser.add_argument('-v','--version', action='version', version='v26.022021')
+    return parser
+
+
 def init_serial_port(Port):
     try:
         ser = serial.Serial(Port, timeout=0.6)
@@ -65,6 +73,7 @@ def poll_loras(loras):
 
 if __name__ == "__main__":
 
+    args = build_argparser().parse_args()
     print("App started v26.022021")
     wtd_start = Watchdog(20)
     node = centralnode("json/config.json")
@@ -85,7 +94,7 @@ if __name__ == "__main__":
         while True:
             poll_loras(node.loras)
             if counter == post_time_s:
-                post_scada(node.post_path)
+                post_scada(node.post_path,args.production)
                 counter = 0
             counter += 1
             print("Printing in :", post_time_s - counter, " s")

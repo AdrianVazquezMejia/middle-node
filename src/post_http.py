@@ -5,10 +5,14 @@ import requests
 
 
 
-def post_json(file):
+def post_json(file, is_production):
     headers = {'Content-type': 'application/json'}
+    scada_url = 'https://glacial-beach-93230.herokuapp.com/api/data'
+    if is_production:
+        scada_url = "http://apimedidores.ciexpro.com/api/item/custom_create/" 
+    print(scada_url)
     try:
-        r = requests.post('https://glacial-beach-93230.herokuapp.com/api/data',
+        r = requests.post(scada_url,
                           json=file,
                           headers=headers)
         print("Status code is :", r.status_code)
@@ -19,14 +23,17 @@ def post_json(file):
         return 0
 
 
-def post_scada(post_path):
+def post_scada(post_path, is_production):
     print("Posting to Scada")
+    success_code =200
+    if is_production:
+        success_code = 201
     with open(post_path, 'r+') as post_file:
         data_dic = json.load(post_file)
         print("Data to post: ", data_dic)
-        r_code = post_json(data_dic)
+        r_code = post_json(data_dic, is_production)
 
-        if r_code == 200:
+        if r_code == success_code:
             with open("output/send_later.txt", "w+") as file:
                 lines = file.readlines()
                 count = 0

@@ -7,5 +7,6 @@ COPY src src
 COPY json json
 COPY output output
 COPY requirements.txt .
+COPY .git .git
 RUN pip install -r requirements.txt
 CMD ["python","src/main.py"]

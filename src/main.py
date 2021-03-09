@@ -36,6 +36,7 @@ def init_serial_port(Port):
 
 def poll_loras(loras):
     print("Start polling")
+    wtd = Watchdog(30)
     for lora_dic in loras:
         time.sleep(1)
         lora = loranode(lora_dic)
@@ -71,7 +72,7 @@ def poll_loras(loras):
 
                 update_energy_file(serial_meter, data[j])
                 update_post_file(serial_meter, data[j])
-
+            wtd.reset()
 
 if __name__ == "__main__":
 
@@ -89,7 +90,7 @@ if __name__ == "__main__":
         wtd_start.stop()
     except Watchdog:
         print("Reseting script due to crashed")
-    wtd = Watchdog(30)
+
     try:
         counter = 0
         post_time_s = node.post_time // len(node.loras)
@@ -103,7 +104,7 @@ if __name__ == "__main__":
             print(
                 "__________________________________________________________________"
             )
-            wtd.reset()
+
     except KeyboardInterrupt:
         print("App finished!")
         os._exit(0)

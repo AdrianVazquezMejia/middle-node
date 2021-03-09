@@ -22,6 +22,7 @@ class Watchdog(Exception):
         self.timer.cancel()
 
     def defaultHandler(self):
+        print("Problems?", sys.exc_info())
         print("Reseting script due to crashed")
         os.execv(sys.executable, ['python'] + sys.argv)
         raise self

@@ -1,36 +1,42 @@
 import json
 import sys
-
+import logging
 import requests
+from distutils.log import debug
 
-
+log = logging.getLogger('post')
+ch = logging.NullHandler()
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+log.addHandler(ch)
 
 def post_json(file, is_production):
     headers = {'Content-type': 'application/json'}
     scada_url = 'https://postman-echo.com/post'
     if is_production:
         scada_url = "http://apimedidores.ciexpro.com/api/item/custom_create/" 
-    print(scada_url)
+    log,debug(scada_url)
     try:
         r = requests.post(scada_url,
                           json=file,
                           headers=headers)
-        print("Status code is :", r.status_code)
-        print(r)
+        log.info("Status code is : %s", str(r.status_code))
+        log.debug(str(r))
         return r.status_code
     except Exception:
-        print("Problems?", sys.exc_info())
+        log.error("Problems?", sys.exc_info())
         return 0
 
 
 def post_scada(post_path, is_production):
-    print("Posting to Scada")
+    log.info("Posting to Scada")
     success_code =200
     if is_production:
         success_code = 201
     with open(post_path, 'r+') as post_file:
         data_dic = json.load(post_file)
-        print("Data to post: ", data_dic)
+        log.debug("Data to post: %s", str(data_dic))
         r_code = post_json(data_dic, is_production)
 
         if r_code == success_code:
@@ -39,14 +45,14 @@ def post_scada(post_path, is_production):
                 count = 0
                 for line in lines:
                     count += 1
-                    print("Line{}: {}".format(count, line))
+                    log.debug("Line{}: {}".format(count, line))
                     dic = json.loads(line)
                     post_json(dic)
                 file.seek(0)
                 file.truncate()
 
         else:
-            print("No internet")
+            log.error("No internet")
             text = json.dumps(data_dic) + "\n"
             with open("output/send_later.txt", "a") as file:
                 file.write(text)

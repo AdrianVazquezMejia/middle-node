@@ -1,4 +1,12 @@
 from libscrc import modbus
+import logging
+
+log = logging.getLogger('central')
+ch = logging.NullHandler()
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+log.addHandler(ch)
 
 
 def get_modbus_adu(id_slave, function_code, start_add, quantity):
@@ -16,7 +24,7 @@ def get_modbus_adu(id_slave, function_code, start_add, quantity):
     crc = (modbus(bytearray(adu))).to_bytes(2, 'big')
     adu.append(crc[1])
     adu.append(crc[0])
-    print("modbus adu to send: ", adu)
+    log.debug("modbus adu to send: %s", str(adu))
     return adu
 
 
@@ -25,14 +33,14 @@ def parse_modbus(frame):
     crc_r = modbus(frame)
     data = []
     if crc_r == 0:
-        print("modbus correct")
-        print(list(frame))
+        log.info("modbus correct")
+        log.debug(str(list(frame)))
         quantity = (len(frame) - 5) // 4
-        print(quantity)
+        log.debug(str(quantity))
         for i in range(quantity):
             pulses = int(frame[3 + i * 4:7 + i * 4].hex(), 16)
             data.append(pulses)
-        print("data: ", data)
+        log.debug("data: %s", str(data))
         return data
-    print("CRC error")
+    log.error("CRC error")
     return None

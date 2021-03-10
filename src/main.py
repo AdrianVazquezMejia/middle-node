@@ -30,21 +30,21 @@ def init_serial_port(Port):
     try:
         ser = serial.Serial(Port, timeout=0.6)
     except serial.SerialException:
-        print("Problems: ", "could not open port ", Port)
+        log.error("Problems: %s %s ", "could not open port ", Port)
         os._exit(0)
-    print("Port ", ser.name, " Available")
+    log.debug("Port  %s %s", ser.name, " Available")
     ser.close()
 
 
 def poll_loras(loras):
-    print("Start polling")
+    log.info("Start polling")
     for lora_dic in loras:
         time.sleep(1)
         lora = loranode(lora_dic)
-        print("slaves members: ", lora.slaves)
+        log.debug("slaves members: %s", str(lora.slaves))
         n = lora.quantity_poll()
         for i in range(n):
-            print("Poll ", i + 1, "th")
+            log.debug("Poll %s %s", str(i + 1), "th")
             max_num_reg = lora.maxpoll_size
             quant = max_num_reg
             if i == n - 1:
@@ -79,19 +79,19 @@ if __name__ == "__main__":
 
     args = build_argparser().parse_args()
     log = build_logger()
-    print("App started")
+    log.info("App started")
     wtd_start = Watchdog(20)
     node = centralnode("json/config.json")
     init_serial_port(node.lora_port)
     if not node.init_lora():
-        print("Could not config LoRa")
+        log.error("Could not config LoRa")
         os._exit(0)
     try:
         f_energy_boot(node.loras, node.energy_path)
         f_post_boot(node.loras, node.post_path)
         wtd_start.stop()
     except Watchdog:
-        print("Reseting script due to wdt boot")
+        log.error("Reseting script due to wdt boot")
     wtd = Watchdog(30)
     try:
         counter = 0
@@ -102,13 +102,13 @@ if __name__ == "__main__":
                 post_scada(node.post_path,args.production)
                 counter = 0
             counter += 1
-            print("Printing in :", post_time_s - counter, " s")
+            log.info("Printing in : %s %s", str(post_time_s - counter), " s")
             print(
                 "__________________________________________________________________"
             )
             wtd.reset()
     except KeyboardInterrupt:
-        print("App finished!")
+        log.error("App finished!")
         os._exit(0)
     except Watchdog:
         wtd_start.stop()

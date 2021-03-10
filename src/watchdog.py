@@ -1,6 +1,15 @@
 import os
 import sys
+import logging
 from threading import Timer
+
+
+log = logging.getLogger('watchdog')
+ch = logging.NullHandler()
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+log.addHandler(ch)
 
 
 class Watchdog(Exception):
@@ -22,7 +31,7 @@ class Watchdog(Exception):
         self.timer.cancel()
 
     def defaultHandler(self):
-        print("Problems?", sys.exc_info())
-        print("Reseting script due to crashed")
+        log.error("Problems? %s", sys.exc_info())
+        log.error("Reseting script due to crashed")
         os.execv(sys.executable, ['python'] + sys.argv)
         raise self

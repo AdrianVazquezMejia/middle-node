@@ -2,7 +2,15 @@ from functools import reduce
 import json
 
 import serial
+import logging
 
+
+log = logging.getLogger('central')
+ch = logging.NullHandler()
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+log.addHandler(ch)
 
 class ConfigError(Exception):
     def __init__(self):
@@ -30,9 +38,9 @@ class centralnode:
             self.cipher = True
         else:
             self.cipher = False
-        print("This node ID: ", config_dic['ID'])
-        print("Lora Serial Port: ", config_dic['Serial Port'])
-        print("Energy path: ", self.energy_path)
+        log.info("This node ID: %s ", str(config_dic['ID']))
+        log.debug("Lora Serial Port: %s ", str(config_dic['Serial Port']))
+        log.debug("Energy path: %s", str(self.energy_path))
 
         self.lora_list = []
 
@@ -41,7 +49,7 @@ class centralnode:
 
     @staticmethod
     def build_send_frame(payload, dest_slave):
-        print("Sending...")
+        log.debug("Sending...")
         pre_frame = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
         if payload[1] == 4:
             pre_frame[3] = 14
@@ -55,13 +63,13 @@ class centralnode:
         frame = self.build_send_frame(payload, dest_slave)
         self.ser = serial.Serial(self.lora_port, timeout=14)
         self.ser.write(bytearray(frame))
-        print("Data sent :", frame)
+        log.debug("Data sent : %s", str(frame))
         self.expected_size = 22 + 2 * quant
 
     def receive(self):
-        print("receiving...")
+        log.debug("receiving...")
         response = self.ser.read(size=self.expected_size)
-        print("received:", list(response))
+        log.debug("received: %s", str(list(response)))
         if len(response) == self.expected_size:
             return response[16:self.expected_size - 1]
         return None
@@ -88,21 +96,21 @@ class centralnode:
         config_frame = self.config_trama()
         self.ser = serial.Serial(self.lora_port, timeout=5)
         self.ser.write(bytearray(config_frame))
-        print("Config frame: ", config_frame)
+        log.debug("Config frame: %s", str(config_frame))
         response = self.ser.read(size=18)
-        print("Config Response:", list(response))
+        log.debug("Config Response: %s", str(list(response)))
         version = self.ser.read(size=34)
-        print("Version LoRa:", version)
+        log.info("Version LoRa: %s", version)
         if list(response) != expect:
             expect[3] = 13
             expect[17] = expect[17]+1
             if list(response) == expect:
                     self.ser.close()
-                    print("Lora Config Successfull")
+                    log.info("Lora Config Successfull")
                     return True
             return False
         self.ser.close()
-        print("Lora Config Successfull")
+        log.info("Lora Config Successfull")
         return True
 
 
@@ -118,3 +126,5 @@ class loranode:
         if self.lastpollsize != 0:
             n += 1
         return n
+
+    

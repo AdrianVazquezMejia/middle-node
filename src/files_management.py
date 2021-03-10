@@ -1,5 +1,14 @@
 import datetime
 import json
+import logging
+
+
+log = logging.getLogger('files')
+ch = logging.NullHandler()
+ch.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+ch.setFormatter(formatter)
+log.addHandler(ch)
 
 
 def save2file(file, data):
@@ -18,7 +27,7 @@ def update_post_file(serial, data):
                 now = datetime.datetime.now()
                 now = str(now)
                 meter_dict["date"] = now
-                print("updated  ", meter_dict)
+                log.debug("updated  %s", str(meter_dict))
                 break
         post_dic['updates'] = updates
         save2file(post_file, post_dic)
@@ -40,7 +49,7 @@ def f_energy_boot(loras, energy_path):
                 2, 'big') + (slave).to_bytes(1, 'big')
             if id_meter.hex() not in energy_dic.keys():
                 energy_dic[id_meter.hex()] = 0
-        print("Energy updated ", energy_dic)
+        log.debug("Energy updated %s", str(energy_dic))
         save2file(energy_file, energy_dic)
     energy_file.close()
 
@@ -48,14 +57,14 @@ def f_energy_boot(loras, energy_path):
 def f_post_boot(loras, post_path):
     post_file = open(post_path, 'r+')
     post_dic = json.load(post_file)
-    print("post dic", post_dic)
+    log.debug("post dic %s", str(post_dic))
     updates = post_dic['updates']
-    print(updates)
+    log.debug(str(updates))
     for lora_edges in loras:
         for slave in lora_edges['slaves']:
             id_meter = (lora_edges['loraid']).to_bytes(
                 2, 'big') + (slave).to_bytes(1, 'big')
-            print("idmeter: ", id_meter.hex())
+            log.debug("idmeter: %s", str(id_meter.hex()))
             isUpdate = False
             for update in updates:
                 isUpdate = False
@@ -70,7 +79,7 @@ def f_post_boot(loras, post_path):
                 now = str(now) + " -0400"
                 meter_dic["date"] = now
                 updates.append(meter_dic)
-                print("appending ", updates)
+                log.debug("appending %s", str(updates))
     post_dic['updates'] = updates
     save2file(post_file, post_dic)
     post_file.close()

@@ -24,9 +24,11 @@ def post_json(file, is_production):
         log.info("Status code is : %s", str(r.status_code))
         log.debug(str(r))
         return r.status_code
+    except requests.exceptions.ConnectionError:
+        log.error("Connection Error!")
     except Exception:
-        log.error("Problems?", sys.exc_info())
-        return 0
+        log.error("Problems? %s", str(sys.exc_info()))
+    return 0
 
 
 def post_scada(post_path, is_production):
@@ -52,7 +54,7 @@ def post_scada(post_path, is_production):
                 file.truncate()
 
         else:
-            log.error("No internet")
+            log.error("Post unsuccessful")
             text = json.dumps(data_dic) + "\n"
             with open("output/send_later.txt", "a") as file:
                 file.write(text)

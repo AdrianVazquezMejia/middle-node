@@ -102,7 +102,7 @@ if __name__ == "__main__":
                 post_scada(node.post_path,args.production)
                 counter = 0
             counter += 1
-            log.info("Printing in : %s %s", str(post_time_s - counter), " s")
+            log.info("Posting in : %s %s", str(post_time_s - counter), " s")
             print(
                 "__________________________________________________________________"
             )

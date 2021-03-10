@@ -72,6 +72,7 @@ class centralnode:
         log.debug("received: %s", str(list(response)))
         if len(response) == self.expected_size:
             return response[16:self.expected_size - 1]
+        log.error("Unexpected data lenght received %s", str(list(response)))
         return None
 
     def config_trama(self):

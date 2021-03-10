@@ -24,3 +24,24 @@
 03/10/2021  02:03:1615400702 PM [ERROR] [root] App finished!
 03/10/2021  02:03:1615400752 PM [ERROR] [root] App finished!
 03/10/2021  02:03:1615400780 PM [ERROR] [root] App finished!
+03/10/2021  05:03:1615411722 PM [ERROR] [post] No internet
+03/10/2021  05:03:1615411727 PM [ERROR] [root] App finished!
+03/10/2021  05:03:1615411918 PM [ERROR] [post] Problems?
+03/10/2021  05:03:1615411918 PM [ERROR] [post] No internet
+03/10/2021  05:03:1615411922 PM [ERROR] [root] App finished!
+03/10/2021  05:03:1615412000 PM [ERROR] [post] No internet
+03/10/2021  05:03:1615412003 PM [ERROR] [root] App finished!
+03/10/2021  05:03:1615412204 PM [ERROR] [post] Problems? (<class 'requests.exceptions.ConnectionError'>, ConnectionError(MaxRetryError("HTTPSConnectionPool(host='postman-echo.com', port=443): Max retries exceeded with url: /post (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7fad5cb5f4e0>: Failed to establish a new connection: [Errno -2] Name or service not known',))",),), <traceback object at 0x7fad5cb63908>)
+03/10/2021  05:03:1615412204 PM [ERROR] [post] No internet
+03/10/2021  05:03:1615412207 PM [ERROR] [root] App finished!
+03/10/2021  05:03:1615412321 PM [ERROR] [post] Problems? (<class 'requests.exceptions.ConnectionError'>, ConnectionError(MaxRetryError("HTTPSConnectionPool(host='postman-echo.com', port=443): Max retries exceeded with url: /post (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7f2bffc424a8>: Failed to establish a new connection: [Errno -2] Name or service not known',))",),), <traceback object at 0x7f2bffc44908>)
+03/10/2021  05:03:1615412321 PM [ERROR] [post] No internet
+03/10/2021  05:03:1615412324 PM [ERROR] [root] App finished!
+03/10/2021  05:03:1615412403 PM [ERROR] [post] No internet to send data
+03/10/2021  05:03:1615412403 PM [ERROR] [post] No internet
+03/10/2021  05:03:1615412406 PM [ERROR] [root] App finished!
+03/10/2021  05:03:1615412529 PM [ERROR] [post] Connection Error!
+03/10/2021  05:03:1615412529 PM [ERROR] [post] Post unsuccessful
+03/10/2021  05:03:1615412547 PM [ERROR] [post] Connection Error!
+03/10/2021  05:03:1615412547 PM [ERROR] [post] Post unsuccessful
+03/10/2021  05:03:1615412550 PM [ERROR] [root] App finished!

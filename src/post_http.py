@@ -7,7 +7,7 @@ import requests
 
 def post_json(file, is_production):
     headers = {'Content-type': 'application/json'}
-    scada_url = 'https://glacial-beach-93230.herokuapp.com/api/data'
+    scada_url = 'https://postman-echo.com/post'
     if is_production:
         scada_url = "http://apimedidores.ciexpro.com/api/item/custom_create/" 
     print(scada_url)

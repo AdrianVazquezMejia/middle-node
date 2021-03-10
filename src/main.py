@@ -9,8 +9,10 @@ from modbus_process import *
 from post_http import post_scada
 import serial
 from watchdog import Watchdog
+from logger import build_logger
 import argparse
 import subprocess
+import logging
 
 
 send_pre = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
@@ -76,6 +78,7 @@ def poll_loras(loras):
 if __name__ == "__main__":
 
     args = build_argparser().parse_args()
+    log = build_logger()
     print("App started")
     wtd_start = Watchdog(20)
     node = centralnode("json/config.json")

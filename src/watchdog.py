@@ -32,6 +32,6 @@ class Watchdog(Exception):
 
     def defaultHandler(self):
         log.error("Problems? %s", sys.exc_info())
-        log.error("Reseting script due to crashed")
+        log.error("Reseting script due to timeout wdt")
         os.execv(sys.executable, ['python'] + sys.argv)
         raise self

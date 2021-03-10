@@ -45,3 +45,20 @@
 03/10/2021  05:03:1615412547 PM [ERROR] [post] Connection Error!
 03/10/2021  05:03:1615412547 PM [ERROR] [post] Post unsuccessful
 03/10/2021  05:03:1615412550 PM [ERROR] [root] App finished!
+03/10/2021  05:03:1615412839 PM [ERROR] [watchdog] Problems? (None, None, None)
+03/10/2021  05:03:1615412839 PM [ERROR] [watchdog] Reseting script due to crashed
+03/10/2021  05:03:1615413028 PM [ERROR] [root] App finished!
+03/10/2021  05:03:1615413089 PM [ERROR] [root] Problems? (<class 'TypeError'>, TypeError('can only concatenate list (not "int") to list',), <traceback object at 0x7fc3dea40cc8>)
+03/10/2021  05:03:1615413089 PM [ERROR] [root] Reseting script due to crashed
+03/10/2021  05:03:1615413091 PM [ERROR] [root] Problems? (<class 'TypeError'>, TypeError('can only concatenate list (not "int") to list',), <traceback object at 0x7f54245c3cc8>)
+03/10/2021  05:03:1615413091 PM [ERROR] [root] Reseting script due to crashed
+03/10/2021  05:03:1615413280 PM [ERROR] [root] App finished!
+03/10/2021  05:03:1615413314 PM [ERROR] [root] App Crashed... Restarting...
+03/10/2021  05:03:1615413314 PM [ERROR] [root] Problems? (<class 'TypeError'>, TypeError("unsupported operand type(s) for +: 'int' and 'str'",), <traceback object at 0x7fe872efcd88>)
+03/10/2021  05:03:1615413317 PM [ERROR] [root] App finished!
+03/10/2021  05:03:1615413413 PM [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 255, 0, 120]
+03/10/2021  05:03:1615413415 PM [ERROR] [root] App Crashed!
+03/10/2021  05:03:1615413415 PM [ERROR] [root] Problems? (<class 'TypeError'>, TypeError("unsupported operand type(s) for +: 'int' and 'str'",), <traceback object at 0x7fa09ca62ec8>)
+03/10/2021  05:03:1615413419 PM [ERROR] [root] App finished!
+03/10/2021  05:03:1615413502 PM [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 255, 0, 120]
+03/10/2021  05:03:1615413506 PM [ERROR] [root] App finished!

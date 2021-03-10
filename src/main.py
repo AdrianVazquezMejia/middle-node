@@ -1,7 +1,7 @@
 #! /bin/env python3
 import os
 import time
-
+import sys
 from centralnode import *
 from cipher import *
 from files_management import *
@@ -112,3 +112,8 @@ if __name__ == "__main__":
         os._exit(0)
     except Watchdog:
         wtd_start.stop()
+    except Exception:
+        log.error("App Crashed!")
+        log.error("Problems? %s", sys.exc_info())
+        log.info("Restarting...")
+        os.execv(sys.executable, ['python'] + sys.argv)        

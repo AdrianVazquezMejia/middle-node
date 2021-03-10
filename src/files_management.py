@@ -37,6 +37,7 @@ def update_energy_file(serial, data):
     with open("output/energy.json", 'r+') as energy_file:
         energy_dic = json.load(energy_file)
         energy_dic[serial.hex()] = data
+        log.info("Updated %s: %s", serial.hex(), str(data))
         save2file(energy_file, energy_dic)
 
 

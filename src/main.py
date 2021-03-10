@@ -44,7 +44,7 @@ def poll_loras(loras):
         log.debug("slaves members: %s", str(lora.slaves))
         n = lora.quantity_poll()
         for i in range(n):
-            log.debug("Poll %s %s", str(i + 1), "th")
+            log.info("Poll %s %s in LoRa %s", str(i + 1), "th", lora.id)
             max_num_reg = lora.maxpoll_size
             quant = max_num_reg
             if i == n - 1:

@@ -4,6 +4,9 @@
 
 
 This node collect data through LoRa from several edges-nodes or smart-meters.
+# INDEX
+
+* [Hardware tests](docs/hardware_test.md) 
 
 # Installation
 

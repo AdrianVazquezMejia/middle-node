@@ -62,3 +62,59 @@
 03/10/2021  05:03:1615413419 PM [ERROR] [root] App finished!
 03/10/2021  05:03:1615413502 PM [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 255, 0, 120]
 03/10/2021  05:03:1615413506 PM [ERROR] [root] App finished!
+03/12/2021  03:03:1615576006 PM [ERROR] [root] App finished!
+03/12/2021  03:03:1615576713 PM [ERROR] [root] Could not config LoRa
+03/12/2021  03:03:1615577029 PM [ERROR] [root] Could not config LoRa
+03/12/2021  03:03:1615577043 PM [ERROR] [root] Could not config LoRa
+03/12/2021  03:03:1615577067 PM [ERROR] [watchdog] Problems? (None, None, None)
+03/12/2021  03:03:1615577067 PM [ERROR] [watchdog] Reseting script due to timeout wdt
+03/12/2021  03:03:1615577183 PM [INFO ] [root] App started
+03/12/2021  03:03:1615577183 PM [INFO ] [central] This node ID: 0001 
+03/12/2021  03:03:1615577183 PM [DEBUG] [central] Lora Serial Port: /dev/ttyUSB1 
+03/12/2021  03:03:1615577183 PM [DEBUG] [central] Energy path: output/energy.json
+03/12/2021  03:03:1615577184 PM [DEBUG] [root] Port  /dev/ttyUSB1  Available
+03/12/2021  03:03:1615577184 PM [DEBUG] [central] Config frame: [1, 0, 1, 13, 165, 165, 108, 64, 18, 7, 0, 0, 1, 1, 0, 3, 0, 55]
+03/12/2021  03:03:1615577189 PM [DEBUG] [central] Config Response: []
+03/12/2021  03:03:1615577194 PM [INFO ] [central] Version LoRa: b''
+03/12/2021  03:03:1615577194 PM [ERROR] [root] Could not config LoRa
+03/12/2021  03:03:1615577200 PM [INFO ] [root] App started
+03/12/2021  03:03:1615577200 PM [INFO ] [central] This node ID: 0001 
+03/12/2021  03:03:1615577200 PM [DEBUG] [central] Lora Serial Port: /dev/ttyUSB1 
+03/12/2021  03:03:1615577200 PM [DEBUG] [central] Energy path: output/energy.json
+03/12/2021  03:03:1615577200 PM [DEBUG] [root] Port  /dev/ttyUSB1  Available
+03/12/2021  03:03:1615577200 PM [DEBUG] [central] Config frame: [1, 0, 1, 13, 165, 165, 108, 64, 18, 7, 0, 0, 1, 1, 0, 3, 0, 55]
+03/12/2021  03:03:1615577225 PM [INFO ] [root] App started
+03/12/2021  03:03:1615577225 PM [INFO ] [central] This node ID: 0001 
+03/12/2021  03:03:1615577225 PM [DEBUG] [central] Lora Serial Port: /dev/ttyUSB1 
+03/12/2021  03:03:1615577225 PM [DEBUG] [central] Energy path: output/energy.json
+03/12/2021  03:03:1615577225 PM [DEBUG] [root] Port  /dev/ttyUSB1  Available
+03/12/2021  03:03:1615577225 PM [DEBUG] [central] Config frame: [1, 0, 1, 13, 165, 165, 108, 64, 18, 7, 0, 0, 1, 1, 0, 3, 0, 55]
+03/12/2021  03:03:1615577230 PM [DEBUG] [central] Config Response: [1, 129, 8, 65, 150]
+03/12/2021  03:03:1615577258 PM [INFO ] [root] App star
+03/12/2021  03:03:1615577258 PM [INFO ] [central] This node ID: 0001 
+03/12/2021  03:03:1615577258 PM [DEBUG] [central] Lora Serial Port: /dev/ttyUSB1 
+03/12/2021  03:03:1615577258 PM [DEBUG] [central] Energy path: output/energy.json
+03/12/2021  03:03:1615577259 PM [DEBUG] [root] Port  /dev/ttyUSB1  Available
+03/12/2021  03:03:1615577259 PM [DEBUG] [central] Config frame: [1, 0, 1, 13, 165, 165, 108, 64, 18, 7, 0, 0, 1, 1, 0, 3, 0, 55]
+03/12/2021  03:03:1615577282 PM [INFO ] [root] App started
+03/12/2021  03:03:1615577282 PM [INFO ] [central] This node ID: 0001 
+03/12/2021  03:03:1615577282 PM [DEBUG] [central] Lora Serial Port: /dev/ttyUSB1 
+03/12/2021  03:03:1615577282 PM [DEBUG] [central] Energy path: output/energy.json
+03/12/2021  03:03:1615577282 PM [DEBUG] [root] Port  /dev/ttyUSB1  Available
+03/12/2021  03:03:1615577282 PM [DEBUG] [central] Config frame: [1, 0, 1, 13, 165, 165, 108, 64, 18, 7, 0, 0, 1, 1, 0, 3, 0, 55]
+03/12/2021  03:03:1615577353 PM [DEBUG] [root] App started
+03/12/2021  03:03:1615577353 PM [INFO ] [central] This node ID: 0001 
+03/12/2021  03:03:1615577353 PM [DEBUG] [central] Lora Serial Port: /dev/ttyUSB1 
+03/12/2021  03:03:1615577353 PM [DEBUG] [central] Energy path: output/energy.json
+03/12/2021  03:03:1615577353 PM [DEBUG] [root] Port  /dev/ttyUSB1  Available
+03/12/2021  03:03:1615577353 PM [DEBUG] [central] Config frame: [1, 0, 1, 13, 165, 165, 108, 64, 18, 7, 0, 0, 1, 1, 0, 3, 0, 55]
+03/12/2021  03:03:1615577391 PM [ERROR] [root] Could not config LoRa
+03/12/2021  03:03:1615577563 PM [ERROR] [root] Could not config LoRa
+03/12/2021  03:03:1615577565 PM [ERROR] [central] Serial Port problem
+03/12/2021  03:03:1615577581 PM [ERROR] [central] Serial Port problem
+03/12/2021  03:03:1615577581 PM [ERROR] [central] Problems? (<class 'serial.serialutil.SerialException'>, SerialException('read failed: device reports readiness to read but returned no data (device disconnected or multiple access on port?)',), <traceback object at 0x7ff85bc05048>)
+03/12/2021  03:03:1615577595 PM [ERROR] [central] Serial Port problem
+03/12/2021  03:03:1615577595 PM [ERROR] [central] Problems? (<class 'serial.serialutil.SerialException'>, SerialException('read failed: device reports readiness to read but returned no data (device disconnected or multiple access on port?)',), <traceback object at 0x7fa758707048>)
+03/12/2021  03:03:1615577619 PM [ERROR] [central] Serial Port problem
+03/12/2021  03:03:1615577619 PM [ERROR] [central] Problems? (<class 'serial.serialutil.SerialException'>, SerialException('read failed: device reports readiness to read but returned no data (device disconnected or multiple access on port?)',), <traceback object at 0x7f32738373c8>)
+03/12/2021  03:03:1615577648 PM [ERROR] [root] App finished!

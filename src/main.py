@@ -14,15 +14,21 @@ import argparse
 import subprocess
 import logging
 
-
 send_pre = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
 
 
 def build_argparser():
     label = subprocess.check_output(["git", "describe"]).strip()
     parser = argparse.ArgumentParser(description="To select production code")
-    parser.add_argument('-p','--production', action='store_true', default=False, help = "Create production code")
-    parser.add_argument('-v','--version', action='version', version=label.decode("utf-8"))
+    parser.add_argument('-p',
+                        '--production',
+                        action='store_true',
+                        default=False,
+                        help="Create production code")
+    parser.add_argument('-v',
+                        '--version',
+                        action='version',
+                        version=label.decode("utf-8"))
     return parser
 
 
@@ -99,7 +105,7 @@ if __name__ == "__main__":
         while True:
             poll_loras(node.loras)
             if counter == post_time_s:
-                post_scada(node.post_path,args.production)
+                post_scada(node.post_path, args.production)
                 counter = 0
             counter += 1
             log.info("Posting in : %s %s", str(post_time_s - counter), " s")
@@ -116,4 +122,4 @@ if __name__ == "__main__":
         log.error("App Crashed!")
         log.error("Problems? %s", sys.exc_info())
         log.info("Restarting...")
-        os.execv(sys.executable, ['python'] + sys.argv)        
+        os.execv(sys.executable, ['python'] + sys.argv)

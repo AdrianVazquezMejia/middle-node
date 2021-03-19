@@ -5,13 +5,14 @@ import os
 import serial
 import logging
 
-
 log = logging.getLogger('central')
 ch = logging.NullHandler()
 ch.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 ch.setFormatter(formatter)
 log.addHandler(ch)
+
 
 class ConfigError(Exception):
     def __init__(self):
@@ -91,8 +92,7 @@ class centralnode:
 
     def init_lora(self):
 
-        expect = [
-            1, 0, 129, 12, 165, 165, 108, 64, 18, 7, 0, 0, 1, 1, 0, 3, 0]
+        expect = [1, 0, 129, 12, 165, 165, 108, 64, 18, 7, 0, 0, 1, 1, 0, 3, 0]
         try:
             expect[12] = self.networkid
             check_sum = reduce(lambda x, y: x ^ y, expect)
@@ -111,11 +111,11 @@ class centralnode:
             os._exit(0)
         if list(response) != expect:
             expect[3] = 13
-            expect[17] = expect[17]+1
+            expect[17] = expect[17] + 1
             if list(response) == expect:
-                    self.ser.close()
-                    log.info("Lora Config Successfull")
-                    return True
+                self.ser.close()
+                log.info("Lora Config Successfull")
+                return True
             return False
         self.ser.close()
         log.info("Lora Config Successfull")
@@ -134,5 +134,3 @@ class loranode:
         if self.lastpollsize != 0:
             n += 1
         return n
-
-    

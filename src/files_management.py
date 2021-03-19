@@ -24,8 +24,7 @@ def update_post_file(serial, data):
         for meter_dict in updates:
             if serial.hex() == meter_dict['meterid']:
                 meter_dict["energy"] = data
-                now = datetime.datetime.now()
-                now = str(now)
+                now = str(datetime.datetime.now())
                 meter_dict["date"] = now
                 log.debug("updated  %s", str(meter_dict))
                 break
@@ -37,7 +36,7 @@ def update_energy_file(serial, data):
     with open("output/energy.json", 'r+') as energy_file:
         energy_dic = json.load(energy_file)
         energy_dic[serial.hex()] = data
-        log.info("Updated %s: %s", serial.hex(), str(data))
+        log.info("Updated %s: %s at %s", serial.hex(), str(data),str(datetime.datetime.now()) )
         save2file(energy_file, energy_dic)
 
 

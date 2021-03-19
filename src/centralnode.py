@@ -1,6 +1,7 @@
 from functools import reduce
 import json
-
+import sys
+import os
 import serial
 import logging
 
@@ -89,19 +90,25 @@ class centralnode:
         return config_frame
 
     def init_lora(self):
+
         expect = [
             1, 0, 129, 12, 165, 165, 108, 64, 18, 7, 0, 0, 1, 1, 0, 3, 0]
-        expect[12] = self.networkid
-        check_sum = reduce(lambda x, y: x ^ y, expect)
-        expect.append(check_sum)
-        config_frame = self.config_trama()
-        self.ser = serial.Serial(self.lora_port, timeout=5)
-        self.ser.write(bytearray(config_frame))
-        log.debug("Config frame: %s", str(config_frame))
-        response = self.ser.read(size=18)
-        log.debug("Config Response: %s", str(list(response)))
-        version = self.ser.read(size=34)
-        log.info("Version LoRa: %s", version)
+        try:
+            expect[12] = self.networkid
+            check_sum = reduce(lambda x, y: x ^ y, expect)
+            expect.append(check_sum)
+            config_frame = self.config_trama()
+            self.ser = serial.Serial(self.lora_port, timeout=5)
+            self.ser.write(bytearray(config_frame))
+            log.debug("Config frame: %s", str(config_frame))
+            response = self.ser.read(size=18)
+            log.debug("Config Response: %s", str(list(response)))
+            version = self.ser.read(size=34)
+            log.info("Version LoRa: %s", version)
+        except Exception:
+            log.error("Serial Port problem")
+            log.error("Problems? %s", sys.exc_info())
+            os._exit(0)
         if list(response) != expect:
             expect[3] = 13
             expect[17] = expect[17]+1

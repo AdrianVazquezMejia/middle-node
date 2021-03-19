@@ -2,11 +2,11 @@ import datetime
 import json
 import logging
 
-
 log = logging.getLogger('files')
 ch = logging.NullHandler()
 ch.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 ch.setFormatter(formatter)
 log.addHandler(ch)
 
@@ -36,7 +36,8 @@ def update_energy_file(serial, data):
     with open("output/energy.json", 'r+') as energy_file:
         energy_dic = json.load(energy_file)
         energy_dic[serial.hex()] = data
-        log.info("Updated %s: %s at %s", serial.hex(), str(data),str(datetime.datetime.now()) )
+        log.info("Updated %s: %s at %s", serial.hex(), str(data),
+                 str(datetime.datetime.now()))
         save2file(energy_file, energy_dic)
 
 

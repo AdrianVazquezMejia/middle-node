@@ -118,3 +118,16 @@
 03/12/2021  03:03:1615577619 PM [ERROR] [central] Serial Port problem
 03/12/2021  03:03:1615577619 PM [ERROR] [central] Problems? (<class 'serial.serialutil.SerialException'>, SerialException('read failed: device reports readiness to read but returned no data (device disconnected or multiple access on port?)',), <traceback object at 0x7f32738373c8>)
 03/12/2021  03:03:1615577648 PM [ERROR] [root] App finished!
+03/12/2021  04:03:1615579450 PM [ERROR] [root] App finished!
+03/19/2021  09:42:26 [ERROR] [root] Problems: could not open port  /dev/ttyUSB2 
+03/19/2021  09:43:02 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 1, 0, 134]
+03/19/2021  09:43:17 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 1, 0, 134]
+03/19/2021  09:43:32 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 1, 0, 134]
+03/19/2021  09:43:47 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 1, 0, 134]
+03/19/2021  09:44:02 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 1, 0, 134]
+03/19/2021  09:44:17 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 1, 0, 134]
+03/19/2021  09:44:34 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 1, 0, 134]
+03/19/2021  09:44:37 [ERROR] [root] App finished!
+03/19/2021  09:49:14 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 1, 199, 65]
+03/19/2021  09:49:15 [ERROR] [root] App finished!
+03/19/2021  09:49:36 [ERROR] [root] App finished!

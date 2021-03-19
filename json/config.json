@@ -1,11 +1,11 @@
 {
 	"ID": "0001",
-	"Serial Port": "/dev/ttyUSB2",
+	"Serial Port": "/dev/ttyUSB0",
 	"Networkid" : 1,
 	"Baudarate": 9600,
 	"Cipher payload": "tue",
 	"loras":[ { 
-		"loraid":1,
+		"loraid":255,
 		"slaves":[1,2,3,4]
 		}
 	],

@@ -2,7 +2,7 @@ import logging
 import sys
 
 
-dateformat = "%m/%d/%Y  %I:%m:%s %p"
+dateformat = "%m/%d/%Y  %H:%M:%S"
 logformat = "%(asctime)s [%(levelname)-5.5s] [%(name)s] %(message)s"
 consoleforma = "[%(levelname)-5.5s] [%(name)s] %(message)s"
 

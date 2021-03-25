@@ -91,7 +91,7 @@ Por lo que se tuvo un porcentaje total de error del 0,14%. Distribuido como sigu
 
 
 
-|Tipo| Alo|
+|Tipo| Porcentaje|
 |------|------|
 |No answer from LoRa slaves| 50,84%|
 |CRC error| 35,24%|

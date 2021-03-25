@@ -49,8 +49,9 @@ Se deberan observar tramas validas modbus de interrogación a esclavos con la fu
 
 Los chip LoRa son configurados bajo el mismo ID del nodo en si, asi que debe consultar dicho ID usando otro disposivo LoRa, los logs de MCU deberan presentar las tramas coherentes con las información solitada. Además de un parpadeo intermitente de los LED integrados en chip LoRa (azul cuando se recibe y rojo cuando se envía).
 
+### Resultados 
 
-### Resultados y observaciones
+Para este punto y lo anteriores los equipos probados superaron las pruebas de maneta totalmente satisfactoria.
 
 ## 2. Recinto y dispoción física
  
@@ -60,6 +61,9 @@ Los tornillos deberan coincidir con los agujeros destinados para ellos, así tam
 
 El agujero de la antena debe ser posicionado a un lateral de tal manera que sea facil extraer y colocar la PCB.
 
+### Resultados
+
+El hardware cumple a cabalidad su funcionalidad dentro del recinto seleccionado, sin embargo, para cuando se tiene alimentación AC se requiere realizar otro agujero para separar las señales digitales de la tensión AC.
 
 ## 3. Estres físico
 
@@ -79,6 +83,23 @@ La comunicación serial con el chip LoRa debe lograr configurar el chip, obtener
 
 En cuanto al Rpi, este tambien debe poder realizar las mismas funciones antes decritas con el LoRa. Además de subir información a Internet usando el métodos post.
 
+### Resultados
+
+En 8 días de monitoreo se realizaron un aproximado de 500.000 peticiones a través de LoRa, en cuyo tiempo surgieron 718 errores, combinados los de LoRa, comunicación de Internet, etc.
+
+Por lo que se tuvo un porcentaje total de error del 0,14%. Distribuido como sigue:
+
+
+
+|Tipo| Alo|
+|------|------|
+|No answer from LoRa slaves| 50,84%|
+|CRC error| 35,24%|
+|No internet| 10,17%|
+|No ack|1,39%|
+|Otros|2,37%|
+
+
 ## 5. Estrés lógico
 
 Los equipos deben recuperarse de situaciones de estrés logico, tasa de baudios incorrecta, alta frecuencia de interrogación, sobrecarga de esclavos o registros. Baja pausa entre consultas, errores de comunicación etc.
@@ -88,6 +109,13 @@ Los equipos deben recuperarse de situaciones de estrés logico, tasa de baudios 
 
 Se debe verificar la correspondencia de la medición de energía entre la pantalla del medidor y la obtenida a través de los pulsos. Con una desviación no mayor a 0.1 KWh por semana. 
 
+### Resultados
+En 55 mediciones distribuidas en 1 semanas y 5 medidores se pudo determinar una desviación absoluta promedio de 0,03 kWh, y un error relativo de  0,5%, entre lo que es la medición a través de pulsos y la pantalla de los medidores de energía.
+
 ## 7. Mejoras
 
 Durante todo el proceso anterior de debe mantener un registro de las obervaciones, errores y mejoras posibles al codigo y hardware. Tal que se puedan implementar optimización, luego de las cuales se debe repetir el proceso de validación.
+
+#Referencias
+
+* [Mediciones crudas](mediciones.ods) 

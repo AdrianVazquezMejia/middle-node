@@ -3,4 +3,4 @@ docker run --device=/dev/ttyUSB0 --name node -it node
 sudo docker container rm id
 sudo docker image rm id
 sudo docker ls -a
-sudo docker exec node bash
+sudo docker exec -it node bash

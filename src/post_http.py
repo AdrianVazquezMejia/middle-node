@@ -15,7 +15,7 @@ def post_json(file, is_production):
     headers = {'Content-type': 'application/json'}
     scada_url = 'https://postman-echo.com/post'
     if is_production:
-        scada_url = "http://apimedidores.ciexpro.com/api/item/custom_create/" 
+        scada_url = "https://apimedidores.ciexpro.com/api/item/custom_create/" 
     log,debug(scada_url)
     try:
         r = requests.post(scada_url,
@@ -34,8 +34,6 @@ def post_json(file, is_production):
 def post_scada(post_path, is_production):
     log.info("Posting to Scada")
     success_code =200
-    if is_production:
-        success_code = 201
     with open(post_path, 'r+') as post_file:
         data_dic = json.load(post_file)
         log.debug("Data to post: %s", str(data_dic))

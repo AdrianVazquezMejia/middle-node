@@ -13,10 +13,21 @@ from logger import build_logger
 import argparse
 import subprocess
 import logging
-
+from threading import Timer
 
 send_pre = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
-
+ 
+def post_thread(): 
+    global counter
+    global post_time_s
+    counter+=1
+    log.info("Posting in %s s",str(post_time_s - counter + 1))
+    if counter == post_time_s :
+        post_scada(node.post_path,args.production)
+        counter = 0
+    post_timer = Timer(1.0,post_thread)
+    post_timer.start()
+    
 
 def build_argparser():
     label = subprocess.check_output(["git", "describe"]).strip()
@@ -76,9 +87,10 @@ def poll_loras(loras):
 
 
 if __name__ == "__main__":
-
+    
     args = build_argparser().parse_args()
     log = build_logger()
+
     log.info("App started")
     wtd_start = Watchdog(20)
     node = centralnode("json/config.json")
@@ -89,20 +101,17 @@ if __name__ == "__main__":
     try:
         f_energy_boot(node.loras, node.energy_path)
         f_post_boot(node.loras, node.post_path)
+        counter = 0
+        post_time_s = node.post_time
+        post_timer = Timer(1.0,post_thread)
+        post_timer.start()
         wtd_start.stop()
     except Watchdog:
         log.error("Reseting script due to wdt boot")
-    wtd = Watchdog(30)
+    wtd = Watchdog(300) # 5min
     try:
-        counter = 0
-        post_time_s = node.post_time // len(node.loras)
         while True:
             poll_loras(node.loras)
-            if counter == post_time_s:
-                post_scada(node.post_path,args.production)
-                counter = 0
-            counter += 1
-            log.info("Posting in : %s %s", str(post_time_s - counter), " s")
             print(
                 "__________________________________________________________________"
             )

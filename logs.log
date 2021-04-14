@@ -131,3 +131,66 @@
 03/19/2021  09:49:14 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 1, 199, 65]
 03/19/2021  09:49:15 [ERROR] [root] App finished!
 03/19/2021  09:49:36 [ERROR] [root] App finished!
+04/06/2021  08:58:25 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 199, 87]
+04/06/2021  08:58:40 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 199, 87]
+04/06/2021  08:58:55 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 199, 87]
+04/06/2021  08:59:10 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 199, 87]
+04/06/2021  08:59:25 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 199, 87]
+04/06/2021  08:59:40 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 199, 87]
+04/06/2021  08:59:56 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 199, 87]
+04/06/2021  09:00:11 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 199, 87]
+04/06/2021  09:00:26 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 199, 87]
+04/06/2021  09:00:41 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 199, 87]
+04/06/2021  09:00:56 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 199, 87]
+04/06/2021  09:01:12 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 199, 87]
+04/06/2021  09:01:27 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 199, 87]
+04/06/2021  09:01:42 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 0, 144]
+04/06/2021  09:02:25 [ERROR] [root] App finished!
+04/07/2021  09:22:24 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 0, 144]
+04/07/2021  09:23:47 [ERROR] [root] App finished!
+04/14/2021  10:06:18 [ERROR] [root] App finished!
+04/14/2021  10:11:24 [ERROR] [root] App finished!
+04/14/2021  10:13:58 [ERROR] [root] App finished!
+04/14/2021  10:19:31 [ERROR] [root] App finished!
+04/14/2021  10:20:15 [ERROR] [root] App finished!
+04/14/2021  10:20:46 [ERROR] [root] App finished!
+04/14/2021  10:21:22 [ERROR] [root] App finished!
+04/14/2021  10:21:53 [ERROR] [root] App finished!
+04/14/2021  10:22:27 [ERROR] [root] App finished!
+04/14/2021  10:23:03 [ERROR] [root] App finished!
+04/14/2021  10:23:41 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 0, 144]
+04/14/2021  10:24:26 [ERROR] [root] App finished!
+04/14/2021  10:26:32 [ERROR] [root] App finished!
+04/14/2021  10:29:30 [ERROR] [root] App finished!
+04/14/2021  10:30:42 [ERROR] [root] App finished!
+04/14/2021  10:31:06 [ERROR] [root] App finished!
+04/14/2021  10:31:31 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 0, 144]
+04/14/2021  10:31:36 [ERROR] [root] App finished!
+04/14/2021  10:32:07 [ERROR] [root] App finished!
+04/14/2021  10:36:26 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 0, 144]
+04/14/2021  10:36:56 [ERROR] [root] App finished!
+04/14/2021  10:38:28 [ERROR] [root] App finished!
+04/14/2021  10:41:32 [ERROR] [root] App finished!
+04/14/2021  10:45:32 [ERROR] [root] App finished!
+04/14/2021  10:46:04 [ERROR] [root] App finished!
+04/14/2021  10:46:21 [ERROR] [root] App finished!
+04/14/2021  10:48:33 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 0, 144]
+04/14/2021  10:48:51 [ERROR] [root] App finished!
+04/14/2021  10:49:30 [ERROR] [root] App finished!
+04/14/2021  10:51:32 [ERROR] [post] Problems? (<class 'requests.exceptions.MissingSchema'>, MissingSchema("Invalid URL 'facebook.com': No schema supplied. Perhaps you meant http://facebook.com?",), <traceback object at 0x7f934f7003c8>)
+04/14/2021  10:51:32 [ERROR] [post] Post unsuccessful
+04/14/2021  10:51:34 [ERROR] [root] App finished!
+04/14/2021  10:52:58 [ERROR] [root] App finished!
+04/14/2021  10:56:22 [ERROR] [root] App finished!
+04/14/2021  11:03:51 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 0, 144]
+04/14/2021  11:04:09 [ERROR] [root] App finished!
+04/14/2021  11:05:20 [ERROR] [root] App finished!
+04/14/2021  11:07:45 [ERROR] [root] App finished!
+04/14/2021  11:08:28 [ERROR] [root] App finished!
+04/14/2021  11:16:45 [ERROR] [root] App finished!
+04/14/2021  11:17:20 [ERROR] [root] App finished!
+04/14/2021  11:19:24 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 0, 144]
+04/14/2021  11:19:39 [ERROR] [root] App finished!
+04/14/2021  11:20:00 [ERROR] [root] App finished!
+04/14/2021  11:20:25 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 0, 144]
+04/14/2021  11:20:46 [ERROR] [root] App finished!

@@ -29,6 +29,8 @@ in the config.json file before build or inside the container file system.
 
 The folder json contains the config file where you can modify the default values for parameters.
 
+Before build the container make sure the dockerfile contains the timezone corresponding to your location.
+
 # Collaborate
 
 To develop you should not execute the *make.sh* file which is used for production purposes.

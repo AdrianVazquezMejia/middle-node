@@ -3,13 +3,17 @@
 	"Serial Port": "/dev/ttyUSB1",
 	"Networkid" : 1,
 	"Baudarate": 9600,
-	"Cipher payload": "tue",
+	"Cipher payload": "true",
 	"loras":[ { 
-		"loraid":23,
+		"loraid":255,
 		"slaves":[1,2,3,4]
+		},
+		{ 
+		"loraid":254,
+		"slaves":[0]
 		}
 	],
 	"energy_path":"output/energy.json",
 	"post_path":"json/post.json",
-	"post_time":10	
+	"post_time":120	
 }

@@ -4,6 +4,7 @@ import sys
 import os
 import serial
 import logging
+from Crypto.Util.number import size
 
 
 log = logging.getLogger('central')
@@ -62,17 +63,19 @@ class centralnode:
 
     def send(self, payload, dest_slave, quant):
         frame = self.build_send_frame(payload, dest_slave)
-        self.ser = serial.Serial(self.lora_port, timeout=14)
+        #self.ser = serial.Serial(self.lora_port, timeout=14)
         self.ser.write(bytearray(frame))
+        result = self.ser.read(size =8)
+        log.error("MESSAGE %s", str(list(result)))
         log.debug("Data sent : %s", str(frame))
-        self.expected_size = 22 + 2 * quant
+        self.expected_size = 22 + 2 * quant -8
 
     def receive(self):
         log.debug("receiving...")
         response = self.ser.read(size=self.expected_size)
         log.debug("received: %s", str(list(response)))
         if len(response) == self.expected_size:
-            return response[16:self.expected_size - 1]
+            return response[8:self.expected_size - 1]
         log.error("Unexpected data lenght received %s", str(list(response)))
         return None
 

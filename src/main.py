@@ -105,6 +105,7 @@ if __name__ == "__main__":
         post_time_s = node.post_time
         post_timer = Timer(1.0,post_thread)
         post_timer.start()
+        node.ser = serial.Serial(node.lora_port, timeout=14)
         wtd_start.stop()
     except Watchdog:
         log.error("Reseting script due to wdt boot")

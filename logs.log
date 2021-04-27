@@ -216,3 +216,119 @@
 04/27/2021  14:35:55 [ERROR] [root] App finished!
 04/27/2021  14:36:17 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 254, 0, 121]
 04/27/2021  14:36:36 [ERROR] [root] App finished!
+04/27/2021  14:38:44 [ERROR] [root] App finished!
+04/27/2021  14:39:03 [ERROR] [root] App finished!
+04/27/2021  14:39:37 [ERROR] [root] App Crashed!
+04/27/2021  14:39:37 [ERROR] [root] Problems? (<class 'TypeError'>, TypeError("'int' object is not callable",), <traceback object at 0x7f0661c82348>)
+04/27/2021  14:39:41 [ERROR] [root] App Crashed!
+04/27/2021  14:39:41 [ERROR] [root] Problems? (<class 'TypeError'>, TypeError("'int' object is not callable",), <traceback object at 0x7f0c17d43208>)
+04/27/2021  14:40:42 [ERROR] [root] App Crashed!
+04/27/2021  14:40:42 [ERROR] [root] Problems? (<class 'TypeError'>, TypeError("'int' object is not callable",), <traceback object at 0x7fd9b7e03208>)
+04/27/2021  14:40:45 [ERROR] [root] App Crashed!
+04/27/2021  14:40:45 [ERROR] [root] Problems? (<class 'TypeError'>, TypeError("'int' object is not callable",), <traceback object at 0x7f46dab6e208>)
+04/27/2021  14:43:52 [ERROR] [root] App Crashed!
+04/27/2021  14:43:52 [ERROR] [root] Problems? (<class 'AttributeError'>, AttributeError("'centralnode' object has no attribute 'read'",), <traceback object at 0x7f036b5e1ec8>)
+04/27/2021  14:43:56 [ERROR] [root] App Crashed!
+04/27/2021  14:43:56 [ERROR] [root] Problems? (<class 'AttributeError'>, AttributeError("'centralnode' object has no attribute 'read'",), <traceback object at 0x7f118854c188>)
+04/27/2021  14:44:42 [ERROR] [root] App Crashed!
+04/27/2021  14:44:42 [ERROR] [root] Problems? (<class 'NameError'>, NameError("name 'response' is not defined",), <traceback object at 0x7f818a8fff08>)
+04/27/2021  14:44:48 [ERROR] [root] App Crashed!
+04/27/2021  14:44:48 [ERROR] [root] Problems? (<class 'NameError'>, NameError("name 'response' is not defined",), <traceback object at 0x7fc5236cf1c8>)
+04/27/2021  14:45:15 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:45:22 [ERROR] [root] App finished!
+04/27/2021  14:45:44 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:45:58 [ERROR] [central] Unexpected data lenght received []
+04/27/2021  14:46:01 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:46:15 [ERROR] [central] Unexpected data lenght received []
+04/27/2021  14:46:16 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:46:16 [ERROR] [central] CRC error
+04/27/2021  14:46:17 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:46:18 [ERROR] [central] CRC error
+04/27/2021  14:46:19 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:46:19 [ERROR] [central] CRC error
+04/27/2021  14:46:20 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:46:21 [ERROR] [central] CRC error
+04/27/2021  14:46:22 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:46:22 [ERROR] [central] CRC error
+04/27/2021  14:46:23 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:46:23 [ERROR] [central] CRC error
+04/27/2021  14:46:25 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:46:25 [ERROR] [central] CRC error
+04/27/2021  14:46:26 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:46:26 [ERROR] [central] CRC error
+04/27/2021  14:46:27 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:46:28 [ERROR] [central] CRC error
+04/27/2021  14:46:29 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:46:29 [ERROR] [central] CRC error
+04/27/2021  14:46:30 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:46:31 [ERROR] [central] CRC error
+04/27/2021  14:46:32 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:46:32 [ERROR] [central] CRC error
+04/27/2021  14:46:33 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:46:34 [ERROR] [central] CRC error
+04/27/2021  14:46:35 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:46:35 [ERROR] [central] CRC error
+04/27/2021  14:46:36 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:46:36 [ERROR] [central] CRC error
+04/27/2021  14:46:38 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:46:38 [ERROR] [central] CRC error
+04/27/2021  14:46:39 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:46:39 [ERROR] [central] CRC error
+04/27/2021  14:46:40 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:46:41 [ERROR] [central] CRC error
+04/27/2021  14:46:42 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:46:42 [ERROR] [central] CRC error
+04/27/2021  14:46:43 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:46:44 [ERROR] [central] CRC error
+04/27/2021  14:46:45 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:46:45 [ERROR] [central] CRC error
+04/27/2021  14:46:46 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:46:46 [ERROR] [central] CRC error
+04/27/2021  14:46:48 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:46:48 [ERROR] [central] CRC error
+04/27/2021  14:46:49 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:46:49 [ERROR] [central] CRC error
+04/27/2021  14:46:50 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:46:51 [ERROR] [central] CRC error
+04/27/2021  14:46:51 [ERROR] [root] App finished!
+04/27/2021  14:47:23 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:47:24 [ERROR] [central] CRC error
+04/27/2021  14:47:27 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:47:27 [ERROR] [central] CRC error
+04/27/2021  14:47:28 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:47:28 [ERROR] [central] CRC error
+04/27/2021  14:47:30 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:47:30 [ERROR] [central] CRC error
+04/27/2021  14:47:31 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:47:31 [ERROR] [central] CRC error
+04/27/2021  14:47:32 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:47:33 [ERROR] [central] CRC error
+04/27/2021  14:47:34 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:47:34 [ERROR] [central] CRC error
+04/27/2021  14:47:35 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:47:36 [ERROR] [central] CRC error
+04/27/2021  14:47:37 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:47:37 [ERROR] [central] CRC error
+04/27/2021  14:47:37 [ERROR] [root] App finished!
+04/27/2021  14:49:55 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:49:58 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:50:00 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:50:01 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:50:03 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:50:04 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:50:05 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:50:07 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:50:08 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:50:10 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:50:11 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:50:13 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:50:14 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:50:16 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:50:17 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:50:19 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:50:20 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:50:21 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:50:23 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:50:24 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:50:26 [ERROR] [central] MESSAGE [5, 0, 129, 3, 0, 255, 0, 120]
+04/27/2021  14:50:26 [ERROR] [root] App finished!

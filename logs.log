@@ -195,3 +195,24 @@
 04/14/2021  11:20:25 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 23, 0, 144]
 04/14/2021  11:20:46 [ERROR] [root] App finished!
 04/14/2021  11:37:47 [ERROR] [root] App finished!
+04/27/2021  14:31:07 [ERROR] [root] App Crashed!
+04/27/2021  14:31:07 [ERROR] [root] Problems? (<class 'TypeError'>, TypeError("'int' object is not callable",), <traceback object at 0x7fb94d6dac88>)
+04/27/2021  14:31:10 [ERROR] [root] App Crashed!
+04/27/2021  14:31:10 [ERROR] [root] Problems? (<class 'TypeError'>, TypeError("'int' object is not callable",), <traceback object at 0x7f9585ec2248>)
+04/27/2021  14:31:14 [ERROR] [root] App Crashed!
+04/27/2021  14:31:14 [ERROR] [root] Problems? (<class 'TypeError'>, TypeError("'int' object is not callable",), <traceback object at 0x7faba9967248>)
+04/27/2021  14:31:17 [ERROR] [root] App finished!
+04/27/2021  14:32:35 [ERROR] [root] App Crashed!
+04/27/2021  14:32:35 [ERROR] [root] Problems? (<class 'TypeError'>, TypeError("'int' object is not callable",), <traceback object at 0x7f2f00b542c8>)
+04/27/2021  14:32:39 [ERROR] [root] App Crashed!
+04/27/2021  14:32:39 [ERROR] [root] Problems? (<class 'TypeError'>, TypeError("'int' object is not callable",), <traceback object at 0x7f274d14bcc8>)
+04/27/2021  14:32:43 [ERROR] [root] App Crashed!
+04/27/2021  14:32:43 [ERROR] [root] Problems? (<class 'TypeError'>, TypeError("'int' object is not callable",), <traceback object at 0x7f8c02215cc8>)
+04/27/2021  14:32:46 [ERROR] [root] App Crashed!
+04/27/2021  14:32:46 [ERROR] [root] Problems? (<class 'TypeError'>, TypeError("'int' object is not callable",), <traceback object at 0x7f586d377cc8>)
+04/27/2021  14:32:50 [ERROR] [root] App finished!
+04/27/2021  14:35:27 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 255, 0, 120, 5, 0, 130, 4, 0, 255, 48, 0, 76]
+04/27/2021  14:35:42 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:35:55 [ERROR] [root] App finished!
+04/27/2021  14:36:17 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 0, 254, 0, 121]
+04/27/2021  14:36:36 [ERROR] [root] App finished!

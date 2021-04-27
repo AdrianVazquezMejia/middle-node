@@ -66,9 +66,9 @@ class centralnode:
         #self.ser = serial.Serial(self.lora_port, timeout=14)
         self.ser.write(bytearray(frame))
         result = self.ser.read(size =8)
-        log.error("MESSAGE %s", str(list(result)))
         log.debug("Data sent : %s", str(frame))
         self.expected_size = 22 + 2 * quant -8
+        return result
 
     def receive(self):
         log.debug("receiving...")

@@ -50,7 +50,7 @@ def init_serial_port(Port):
 def poll_loras(loras):
     log.info("Start polling")
     for lora_dic in loras:
-        time.sleep(1)
+        time.sleep(5)
         lora = loranode(lora_dic)
         log.debug("slaves members: %s", str(lora.slaves))
         n = lora.quantity_poll()
@@ -68,7 +68,10 @@ def poll_loras(loras):
             dest_slave = payload[0]
             if node.cipher:
                 payload = encrypt_md(payload, "CFB")
-            node.send(payload, dest_slave, quant)
+            result = node.send(payload, dest_slave, quant)
+            log.debug("Result %s", str(list(result)))
+            log.info("Result code from sent [%d] ", result[6])
+
             response = node.receive()
             if response is None:
                 continue

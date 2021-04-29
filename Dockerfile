@@ -8,6 +8,6 @@ COPY json json
 COPY output output
 COPY requirements.txt .
 COPY .git .git
-ENV TX=America/Caracas
+ENV TZ=America/Caracas
 RUN pip install -r requirements.txt
 CMD ["python","src/main.py","-p"]

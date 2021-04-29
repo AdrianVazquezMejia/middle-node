@@ -1,6 +1,6 @@
 {
 	"ID": "0001",
-	"Serial Port": "/dev/ttyUSB1",
+	"Serial Port": "/dev/ttyUSB0",
 	"Networkid" : 1,
 	"Baudarate": 9600,
 	"Cipher payload": "true",
@@ -15,5 +15,5 @@
 	],
 	"energy_path":"output/energy.json",
 	"post_path":"json/post.json",
-	"post_time":10	
+	"post_time":120	
 }

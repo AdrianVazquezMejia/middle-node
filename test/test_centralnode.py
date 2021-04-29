@@ -8,7 +8,7 @@ class TestNode(centralnode):
 
     def overwrite(self):
         self.ser = mock.Mock()
-        self.ser.read = mock.Mock(return_value="111111111111111100001".encode('utf-8'))
+        self.ser.read = mock.Mock(return_value="1111111100001".encode('utf-8'))
 
 
 class TestCentralNode(unittest.TestCase):
@@ -31,7 +31,7 @@ class TestCentralNode(unittest.TestCase):
     def test_receive(self):
         node = TestNode("test/test_files/test_config.json")
         node.overwrite()
-        node.expected_size = 21
+        node.expected_size = 13
         self.assertEqual(node.receive(), b'0000', "Must be equal")
 
 

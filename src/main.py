@@ -50,7 +50,7 @@ def init_serial_port(Port):
 def poll_loras(loras):
     log.info("Start polling")
     for lora_dic in loras:
-        time.sleep(5)
+        time.sleep(3)
         lora = loranode(lora_dic)
         log.debug("slaves members: %s", str(lora.slaves))
         n = lora.quantity_poll()

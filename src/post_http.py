@@ -33,7 +33,7 @@ def post_json(file, is_production):
 
 def post_scada(post_path, is_production):
     log.info("Posting to Scada")
-    success_code =200
+    success_code =201
     with open(post_path, 'r+') as post_file:
         data_dic = json.load(post_file)
         log.debug("Data to post: %s", str(data_dic))

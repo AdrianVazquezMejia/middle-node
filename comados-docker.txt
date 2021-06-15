@@ -4,3 +4,4 @@ sudo docker container rm id
 sudo docker image rm id
 sudo docker ls -a
 sudo docker exec -it node bash
+docker cp <src-path> <container>:<dest-path> 

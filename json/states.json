@@ -1,0 +1,6 @@
+{"isChanged": "true",
+ "read_api_key": "PYF7YMZNOM3TJVSM",
+"updates": [{"meterid": "00ff01", "isPowered": true, "powerValue":true,"reset": true},
+	{"meterid": "00ff02", "isPowered": true, "powerValue":true,"reset": true}, 
+	{"meterid": "00ff03","isPowered": false, "reset": true},
+ 	{"meterid": "00fe00", "isPowered": true, "powerValue":false ,"reset": true}]}

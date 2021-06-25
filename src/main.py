@@ -87,7 +87,23 @@ def poll_loras(loras):
 
                 update_energy_file(serial_meter, data[j])
                 update_post_file(serial_meter, data[j])
-
+    
+    meter_updates = get_meter_updates()
+#     for update in meter_updates:
+#         payload = get_modbus_adu_update(update.id, update.function,update.address,update.set_value)
+#         dest_slave = payload[0]
+#         if node.cipher:
+#                 payload = encrypt_md(payload, "CFB")
+#         result = node.send(payload, dest_slave, quant)
+#         log.debug("Result %s", str(list(result)))
+#         log.info("Result code from sent [%d] ", result[6])
+# 
+#         response = node.receive()
+#         if response is None:
+#             continue
+#         if node.cipher:
+#             response = decrypt_md(response, "CFB")
+#         log.debug("Response of wrting: ",response)
 
 if __name__ == "__main__":
     

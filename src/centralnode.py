@@ -61,13 +61,16 @@ class centralnode:
         frame.append(check_sum)
         return frame
 
-    def send(self, payload, dest_slave, quant):
+    def send(self, payload, dest_slave, quant = 0):
         frame = self.build_send_frame(payload, dest_slave)
         #self.ser = serial.Serial(self.lora_port, timeout=14)
         self.ser.write(bytearray(frame))
         result = self.ser.read(size = 8)
         log.debug("Data sent : %s", str(frame))
         self.expected_size = 22 + 2 * quant -8
+        if quant == 0 :
+            self.expected_size = 17
+
         return result
 
     def receive(self):

@@ -1038,3 +1038,82 @@
 06/26/2021  18:10:47 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
 06/26/2021  18:10:54 [ERROR] [central] CRC error
 06/26/2021  18:11:14 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:11:20 [ERROR] [central] CRC error
+06/26/2021  18:11:40 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:11:46 [ERROR] [central] CRC error
+06/26/2021  18:11:54 [ERROR] [post] Post unsuccessful
+06/26/2021  18:12:06 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:12:12 [ERROR] [central] CRC error
+06/26/2021  18:12:32 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:12:38 [ERROR] [central] CRC error
+06/26/2021  18:13:03 [ERROR] [central] Unexpected data lenght received [129, 3, 0, 254, 199, 190]
+06/26/2021  18:13:09 [ERROR] [central] CRC error
+06/26/2021  18:13:29 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:13:35 [ERROR] [central] CRC error
+06/26/2021  18:13:54 [ERROR] [post] Post unsuccessful
+06/26/2021  18:13:55 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:14:02 [ERROR] [central] CRC error
+06/26/2021  18:14:22 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:14:28 [ERROR] [central] CRC error
+06/26/2021  18:14:48 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:14:55 [ERROR] [central] CRC error
+06/26/2021  18:15:15 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:15:21 [ERROR] [central] CRC error
+06/26/2021  18:15:41 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:15:47 [ERROR] [central] CRC error
+06/26/2021  18:15:55 [ERROR] [post] Post unsuccessful
+06/26/2021  18:16:07 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:16:13 [ERROR] [central] CRC error
+06/26/2021  18:16:38 [ERROR] [central] Unexpected data lenght received [129, 3, 0, 254, 199, 190]
+06/26/2021  18:16:44 [ERROR] [central] CRC error
+06/26/2021  18:17:04 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:17:10 [ERROR] [central] CRC error
+06/26/2021  18:17:30 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:17:36 [ERROR] [central] CRC error
+06/26/2021  18:17:56 [ERROR] [post] Post unsuccessful
+06/26/2021  18:17:56 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:18:03 [ERROR] [central] CRC error
+06/26/2021  18:18:23 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:18:29 [ERROR] [central] CRC error
+06/26/2021  18:18:53 [ERROR] [central] Unexpected data lenght received [129, 3, 0, 254, 199, 190]
+06/26/2021  18:19:00 [ERROR] [central] CRC error
+06/26/2021  18:19:20 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:19:26 [ERROR] [central] CRC error
+06/26/2021  18:19:46 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:19:52 [ERROR] [central] CRC error
+06/26/2021  18:19:57 [ERROR] [post] Post unsuccessful
+06/26/2021  18:20:12 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:20:32 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:20:39 [ERROR] [central] CRC error
+06/26/2021  18:20:59 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:21:05 [ERROR] [central] CRC error
+06/26/2021  18:21:25 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:21:31 [ERROR] [central] CRC error
+06/26/2021  18:21:51 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:21:57 [ERROR] [central] CRC error
+06/26/2021  18:21:58 [ERROR] [post] Post unsuccessful
+06/26/2021  18:22:17 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:22:22 [ERROR] [root] App finished!
+06/26/2021  18:22:39 [ERROR] [root] App finished!
+06/26/2021  18:24:11 [ERROR] [root] App finished!
+06/26/2021  18:25:26 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  18:25:53 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  18:26:27 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  18:26:49 [ERROR] [post] Post unsuccessful
+06/26/2021  18:26:55 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  18:27:30 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  18:27:57 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  18:28:31 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  18:28:50 [ERROR] [post] Post unsuccessful
+06/26/2021  18:28:59 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  18:29:34 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  18:30:02 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  18:30:35 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  18:31:03 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  18:31:36 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  18:32:02 [ERROR] [root] App finished!
+06/26/2021  18:34:20 [ERROR] [root] App finished!
+06/26/2021  18:37:12 [ERROR] [root] App finished!
+06/26/2021  18:38:33 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  18:38:39 [ERROR] [root] App finished!
+06/26/2021  18:41:28 [ERROR] [root] App finished!

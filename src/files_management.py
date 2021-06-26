@@ -3,27 +3,28 @@ import json
 import logging
 from pip.utils.outdated import SELFCHECK_DATE_FMT
 
-
 log = logging.getLogger('files')
 ch = logging.NullHandler()
 ch.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 ch.setFormatter(formatter)
 log.addHandler(ch)
 
+
 class MeterUpdate(object):
     def __init__(self, object_dic):
-        self.lora_id =int(object_dic["meterid"][0:4],16)
-        self.address = int(object_dic["meterid"][4:6],16)
-        if self.address==0:
+        self.lora_id = int(object_dic["meterid"][0:4], 16)
+        self.address = int(object_dic["meterid"][4:6], 16)
+        if self.address == 0:
             self.address = self.lora_id
         if object_dic["isPowered"]:
             self.function = "Relay"
             self.value = object_dic["powerValue"]
         else:
             self.function = "Reset"
-            self.value = True        
-    
+            self.value = True
+
 
 def save2file(file, data):
     file.seek(0)
@@ -50,7 +51,8 @@ def update_energy_file(serial, data):
     with open("output/energy.json", 'r+') as energy_file:
         energy_dic = json.load(energy_file)
         energy_dic[serial.hex()] = data
-        log.info("Updated %s: %s at %s", serial.hex(), str(data),str(datetime.datetime.now()) )
+        log.info("Updated %s: %s at %s", serial.hex(), str(data),
+                 str(datetime.datetime.now()))
         save2file(energy_file, energy_dic)
 
 
@@ -97,8 +99,8 @@ def f_post_boot(loras, post_path):
     post_dic['updates'] = updates
     save2file(post_file, post_dic)
     post_file.close()
-        
-       
+
+
 def get_meter_updates():
     #get json from cloud
     with open("json/states.json") as status_file:
@@ -117,9 +119,9 @@ def get_meter_updates():
             #payload = get_modbus_adu_update(meter_update_object.lora_id, meter_update_object.function,meter_update_object.address,meter_update_object.value)
             #log.debug(updates_list)
         return updates_list
-        
+
+
 if __name__ == "__main__":
-     meter_updates =get_meter_updates()
-     for update in meter_updates:
-         print(update.lora_id)
-    
+    meter_updates = get_meter_updates()
+    for update in meter_updates:
+        print(update.lora_id)

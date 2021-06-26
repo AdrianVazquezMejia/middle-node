@@ -16,24 +16,32 @@ import logging
 from threading import Timer
 
 send_pre = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
- 
-def post_thread(): 
+
+
+def post_thread():
     global counter
     global post_time_s
-    counter+=1
-    log.info("Posting in %s s",str(post_time_s - counter + 1))
-    if counter == post_time_s :
-        post_scada(node.post_path,args.production)
+    counter += 1
+    log.info("Posting in %s s", str(post_time_s - counter + 1))
+    if counter == post_time_s:
+        post_scada(node.post_path, args.production)
         counter = 0
-    post_timer = Timer(1.0,post_thread)
+    post_timer = Timer(1.0, post_thread)
     post_timer.start()
-    
+
 
 def build_argparser():
     label = subprocess.check_output(["git", "describe"]).strip()
     parser = argparse.ArgumentParser(description="To select production code")
-    parser.add_argument('-p','--production', action='store_true', default=False, help = "Create production code")
-    parser.add_argument('-v','--version', action='version', version=label.decode("utf-8"))
+    parser.add_argument('-p',
+                        '--production',
+                        action='store_true',
+                        default=False,
+                        help="Create production code")
+    parser.add_argument('-v',
+                        '--version',
+                        action='version',
+                        version=label.decode("utf-8"))
     return parser
 
 
@@ -87,35 +95,38 @@ def poll_loras(loras):
 
                 update_energy_file(serial_meter, data[j])
                 update_post_file(serial_meter, data[j])
-    
+
     meter_updates = get_meter_updates()
     for update in meter_updates:
         time.sleep(1)
 
-        payload = get_modbus_adu_update(update.lora_id, update.function,update.address,update.value)
+        payload = get_modbus_adu_update(update.lora_id, update.function,
+                                        update.address, update.value)
         unencripted_payload = payload
         log.debug(payload)
         dest_slave = payload[0]
         if node.cipher:
-                 payload = encrypt_md(payload, "CFB")
+            payload = encrypt_md(payload, "CFB")
         result = node.send(payload, dest_slave)
         log.debug("Result %s", str(list(result)))
         log.info("Result code from sent [%d] ", result[6])
-  
+
         response = node.receive()
         if response is None:
-             continue
+            continue
         if node.cipher:
             response = decrypt_md(response, "CFB")
-            
+
         log.debug("message received: %s", str(unencripted_payload))
 
         if set(unencripted_payload) == set(response):
             log.info("Wrote Coils Successfully")
         else:
             log.info("Something went wrong writing coils")
+
+
 if __name__ == "__main__":
-    
+
     args = build_argparser().parse_args()
     log = build_logger()
 
@@ -131,13 +142,13 @@ if __name__ == "__main__":
         f_post_boot(node.loras, node.post_path)
         counter = 0
         post_time_s = node.post_time
-        post_timer = Timer(1.0,post_thread)
+        post_timer = Timer(1.0, post_thread)
         post_timer.start()
         node.ser = serial.Serial(node.lora_port, timeout=14)
         wtd_start.stop()
     except Watchdog:
         log.error("Reseting script due to wdt boot")
-    wtd = Watchdog(300) # 5min
+    wtd = Watchdog(300)  # 5min
     try:
         while True:
             poll_loras(node.loras)
@@ -154,4 +165,4 @@ if __name__ == "__main__":
         log.error("App Crashed!")
         log.error("Problems? %s", sys.exc_info())
         log.info("Restarting...")
-        os.execv(sys.executable, ['python'] + sys.argv)        
+        os.execv(sys.executable, ['python'] + sys.argv)

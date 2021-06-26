@@ -4,17 +4,19 @@ import logging
 log = logging.getLogger('central')
 ch = logging.NullHandler()
 ch.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 ch.setFormatter(formatter)
 log.addHandler(ch)
 
-def get_modbus_adu_update(id,function,address, value):
+
+def get_modbus_adu_update(id, function, address, value):
     adu = []
     adu.append(id)
-    adu.append(5) #Write single coil
+    adu.append(5)  #Write single coil
     adu.append(0)
     if function == "Reset":
-        adu.append(address) #TODO reset another address
+        adu.append(address)  #TODO reset another address
     else:
         adu.append(address)
     if value == True:
@@ -27,6 +29,7 @@ def get_modbus_adu_update(id,function,address, value):
     adu.append(crc[0])
     log.debug("modbus adu to send: %s", str(adu))
     return adu
+
 
 def get_modbus_adu(id_slave, function_code, start_add, quantity):
     if quantity > 125:

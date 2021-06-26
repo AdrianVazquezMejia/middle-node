@@ -2,7 +2,6 @@ import datetime
 import json
 import logging
 from pip.utils.outdated import SELFCHECK_DATE_FMT
-from libscrc import modbus
 
 
 log = logging.getLogger('files')
@@ -14,7 +13,7 @@ log.addHandler(ch)
 
 class MeterUpdate(object):
     def __init__(self, object_dic):
-        self.lora_id =int(object_dic["meterid"][2:4],16)
+        self.lora_id =int(object_dic["meterid"][0:4],16)
         self.address = int(object_dic["meterid"][4:6],16)
         if self.address==0:
             self.address = self.lora_id
@@ -23,11 +22,7 @@ class MeterUpdate(object):
             self.value = object_dic["powerValue"]
         else:
             self.function = "Reset"
-            self.value = True
-        
-        
-        
-        
+            self.value = True        
     
 
 def save2file(file, data):
@@ -102,27 +97,7 @@ def f_post_boot(loras, post_path):
     post_dic['updates'] = updates
     save2file(post_file, post_dic)
     post_file.close()
-    
-def get_modbus_adu_update(id,function,address, value):
-    adu = []
-    adu.append(id)
-    adu.append(5) #Write single coil
-    adu.append(0)
-    if function == "Reset":
-        adu.append(address) #TODO reset another address
-    else:
-        adu.append(address)
-    if value == True:
-        adu.append(255)
-    else:
-        adu.append(0)
-    adu.append(0)
-    crc = (modbus(bytearray(adu))).to_bytes(2, 'big')
-    adu.append(crc[1])
-    adu.append(crc[0])
-    log.debug("modbus adu to send: %s", str(adu))
-    return adu
-    
+        
        
 def get_meter_updates():
     #get json from cloud
@@ -130,19 +105,21 @@ def get_meter_updates():
         status_dic = json.load(status_file)
         updates = status_dic["updates"]
         updates_list = []
-        #print(status_dic)s
-        print(updates)
+        #log.debug(status_dic)s
+        log.debug(updates)
         for update in updates:
             meter_update_object = MeterUpdate(update)
-            print(meter_update_object.lora_id)
-            print(meter_update_object.address)
-            print(meter_update_object.function)
-            print(meter_update_object.value)
+            log.debug(meter_update_object.lora_id)
+            log.debug(meter_update_object.address)
+            log.debug(meter_update_object.function)
+            log.debug(meter_update_object.value)
             updates_list.append(meter_update_object)
-            payload = get_modbus_adu_update(meter_update_object.lora_id, meter_update_object.function,meter_update_object.address,meter_update_object.value)
-            print(payload)
-        return updates
+            #payload = get_modbus_adu_update(meter_update_object.lora_id, meter_update_object.function,meter_update_object.address,meter_update_object.value)
+            #log.debug(updates_list)
+        return updates_list
         
 if __name__ == "__main__":
-    get_meter_updates()
+     meter_updates =get_meter_updates()
+     for update in meter_updates:
+         print(update.lora_id)
     

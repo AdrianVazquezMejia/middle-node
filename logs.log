@@ -915,3 +915,126 @@
 06/21/2021  16:54:41 [ERROR] [root] App finished!
 06/22/2021  10:14:22 [ERROR] [central] Unexpected data lenght received []
 06/22/2021  10:14:23 [ERROR] [root] App finished!
+06/26/2021  17:36:17 [ERROR] [root] Problems: could not open port  /dev/ttyUSB2 
+06/26/2021  17:37:51 [ERROR] [root] App finished!
+06/26/2021  17:38:54 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:38:54 [ERROR] [root] App Crashed!
+06/26/2021  17:38:54 [ERROR] [root] Problems? (<class 'KeyError'>, KeyError('isPowered',), <traceback object at 0x7f6268d7b808>)
+06/26/2021  17:39:06 [ERROR] [root] App finished!
+06/26/2021  17:40:12 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:40:12 [ERROR] [root] App Crashed!
+06/26/2021  17:40:12 [ERROR] [root] Problems? (<class 'KeyError'>, KeyError('isPowered',), <traceback object at 0x7f641af327c8>)
+06/26/2021  17:40:22 [ERROR] [root] App finished!
+06/26/2021  17:41:36 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:41:36 [ERROR] [root] App Crashed!
+06/26/2021  17:41:36 [ERROR] [root] Problems? (<class 'KeyError'>, KeyError('isPowered',), <traceback object at 0x7f79e7454808>)
+06/26/2021  17:41:57 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:41:57 [ERROR] [root] App Crashed!
+06/26/2021  17:41:57 [ERROR] [root] Problems? (<class 'KeyError'>, KeyError('isPowered',), <traceback object at 0x7eff63a0e7c8>)
+06/26/2021  17:42:17 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:42:17 [ERROR] [root] App Crashed!
+06/26/2021  17:42:17 [ERROR] [root] Problems? (<class 'KeyError'>, KeyError('isPowered',), <traceback object at 0x7fc742b6e7c8>)
+06/26/2021  17:42:32 [ERROR] [root] App Crashed!
+06/26/2021  17:42:32 [ERROR] [root] Problems? (<class 'KeyError'>, KeyError('isPowered',), <traceback object at 0x7f869cb95848>)
+06/26/2021  17:42:48 [ERROR] [root] App finished!
+06/26/2021  17:45:06 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:45:06 [ERROR] [root] App Crashed!
+06/26/2021  17:45:06 [ERROR] [root] Problems? (<class 'AttributeError'>, AttributeError("'dict' object has no attribute 'id'",), <traceback object at 0x7fe5f2a0c608>)
+06/26/2021  17:45:15 [ERROR] [root] App finished!
+06/26/2021  17:46:05 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:46:05 [ERROR] [root] App Crashed!
+06/26/2021  17:46:05 [ERROR] [root] Problems? (<class 'AttributeError'>, AttributeError("'dict' object has no attribute 'lora_id'",), <traceback object at 0x7fb6aeea4608>)
+06/26/2021  17:46:25 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:46:25 [ERROR] [root] App Crashed!
+06/26/2021  17:46:25 [ERROR] [root] Problems? (<class 'AttributeError'>, AttributeError("'dict' object has no attribute 'lora_id'",), <traceback object at 0x7fd13d10e608>)
+06/26/2021  17:46:45 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:46:45 [ERROR] [root] App Crashed!
+06/26/2021  17:46:45 [ERROR] [root] Problems? (<class 'AttributeError'>, AttributeError("'dict' object has no attribute 'lora_id'",), <traceback object at 0x7f1374ea9608>)
+06/26/2021  17:47:05 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:47:05 [ERROR] [root] App Crashed!
+06/26/2021  17:47:05 [ERROR] [root] Problems? (<class 'AttributeError'>, AttributeError("'dict' object has no attribute 'lora_id'",), <traceback object at 0x7f78d664f608>)
+06/26/2021  17:47:25 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:47:25 [ERROR] [root] App Crashed!
+06/26/2021  17:47:25 [ERROR] [root] Problems? (<class 'AttributeError'>, AttributeError("'dict' object has no attribute 'lora_id'",), <traceback object at 0x7fb5ff79b608>)
+06/26/2021  17:47:45 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:47:45 [ERROR] [root] App Crashed!
+06/26/2021  17:47:45 [ERROR] [root] Problems? (<class 'AttributeError'>, AttributeError("'dict' object has no attribute 'lora_id'",), <traceback object at 0x7fef24bb5608>)
+06/26/2021  17:48:05 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:48:05 [ERROR] [root] App Crashed!
+06/26/2021  17:48:05 [ERROR] [root] Problems? (<class 'AttributeError'>, AttributeError("'dict' object has no attribute 'lora_id'",), <traceback object at 0x7fe1a2422608>)
+06/26/2021  17:48:24 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:48:24 [ERROR] [root] App Crashed!
+06/26/2021  17:48:24 [ERROR] [root] Problems? (<class 'AttributeError'>, AttributeError("'dict' object has no attribute 'lora_id'",), <traceback object at 0x7fe858dd3608>)
+06/26/2021  17:48:45 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:48:45 [ERROR] [root] App Crashed!
+06/26/2021  17:48:45 [ERROR] [root] Problems? (<class 'AttributeError'>, AttributeError("'dict' object has no attribute 'lora_id'",), <traceback object at 0x7fa0322d5608>)
+06/26/2021  17:49:05 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:49:05 [ERROR] [root] App Crashed!
+06/26/2021  17:49:05 [ERROR] [root] Problems? (<class 'AttributeError'>, AttributeError("'dict' object has no attribute 'lora_id'",), <traceback object at 0x7fd42afa8608>)
+06/26/2021  17:49:25 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:49:25 [ERROR] [root] App Crashed!
+06/26/2021  17:49:25 [ERROR] [root] Problems? (<class 'AttributeError'>, AttributeError("'dict' object has no attribute 'lora_id'",), <traceback object at 0x7fd2736dc608>)
+06/26/2021  17:49:45 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:49:45 [ERROR] [root] App Crashed!
+06/26/2021  17:49:45 [ERROR] [root] Problems? (<class 'AttributeError'>, AttributeError("'dict' object has no attribute 'lora_id'",), <traceback object at 0x7fababd14608>)
+06/26/2021  17:49:55 [ERROR] [root] App finished!
+06/26/2021  17:51:49 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:51:49 [ERROR] [root] App Crashed!
+06/26/2021  17:51:49 [ERROR] [root] Problems? (<class 'AttributeError'>, AttributeError("'dict' object has no attribute 'lora_id'",), <traceback object at 0x7f90170525c8>)
+06/26/2021  17:55:19 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:55:19 [ERROR] [root] App Crashed!
+06/26/2021  17:55:19 [ERROR] [root] Problems? (<class 'AttributeError'>, AttributeError("'MeterUpdate' object has no attribute 'set_value'",), <traceback object at 0x7f333e026688>)
+06/26/2021  17:55:36 [ERROR] [root] App finished!
+06/26/2021  17:55:57 [ERROR] [central] Unexpected data lenght received []
+06/26/2021  17:56:07 [ERROR] [root] App finished!
+06/26/2021  17:58:56 [ERROR] [central] Unexpected data lenght received [8, 151, 123, 92, 17, 49, 199, 252, 149, 110, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  17:59:11 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 0, 255, 0, 120]
+06/26/2021  17:59:15 [ERROR] [root] App finished!
+06/26/2021  18:00:06 [ERROR] [central] CRC error
+06/26/2021  18:00:22 [ERROR] [central] Unexpected data lenght received [209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:00:24 [ERROR] [central] CRC error
+06/26/2021  18:00:39 [ERROR] [central] Unexpected data lenght received [5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:00:55 [ERROR] [central] Unexpected data lenght received [0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:00:57 [ERROR] [root] App finished!
+06/26/2021  18:01:55 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 0, 255, 231, 159]
+06/26/2021  18:02:11 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 0, 255, 231, 159]
+06/26/2021  18:02:27 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 0, 255, 0, 120]
+06/26/2021  18:02:42 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 0, 255, 231, 159]
+06/26/2021  18:02:58 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 0, 255, 231, 159]
+06/26/2021  18:03:14 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:03:46 [ERROR] [root] App finished!
+06/26/2021  18:04:01 [ERROR] [central] CRC error
+06/26/2021  18:04:21 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:04:28 [ERROR] [central] CRC error
+06/26/2021  18:04:52 [ERROR] [central] Unexpected data lenght received [129, 3, 0, 254, 199, 190]
+06/26/2021  18:04:58 [ERROR] [central] CRC error
+06/26/2021  18:05:18 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:05:25 [ERROR] [central] CRC error
+06/26/2021  18:05:49 [ERROR] [central] Unexpected data lenght received [129, 3, 0, 254, 199, 190]
+06/26/2021  18:05:52 [ERROR] [post] Post unsuccessful
+06/26/2021  18:05:55 [ERROR] [central] CRC error
+06/26/2021  18:06:15 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:06:21 [ERROR] [central] CRC error
+06/26/2021  18:06:42 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:06:48 [ERROR] [central] CRC error
+06/26/2021  18:07:08 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:07:14 [ERROR] [central] CRC error
+06/26/2021  18:07:34 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:07:40 [ERROR] [central] CRC error
+06/26/2021  18:07:53 [ERROR] [post] Post unsuccessful
+06/26/2021  18:08:00 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:08:06 [ERROR] [central] CRC error
+06/26/2021  18:08:26 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:08:33 [ERROR] [central] CRC error
+06/26/2021  18:08:58 [ERROR] [central] Unexpected data lenght received [129, 3, 0, 254, 199, 190]
+06/26/2021  18:09:04 [ERROR] [central] CRC error
+06/26/2021  18:09:29 [ERROR] [central] Unexpected data lenght received [129, 3, 0, 254, 199, 190]
+06/26/2021  18:09:35 [ERROR] [central] CRC error
+06/26/2021  18:09:53 [ERROR] [post] Post unsuccessful
+06/26/2021  18:09:55 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:10:01 [ERROR] [central] CRC error
+06/26/2021  18:10:21 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:10:27 [ERROR] [central] CRC error
+06/26/2021  18:10:47 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]
+06/26/2021  18:10:54 [ERROR] [central] CRC error
+06/26/2021  18:11:14 [ERROR] [central] Unexpected data lenght received [87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 1, 0, 209, 87, 5, 0, 129, 3, 0, 254, 199, 190]

@@ -50,7 +50,7 @@ def init_serial_port(Port):
 def poll_loras(loras):
     log.info("Start polling")
     for lora_dic in loras:
-        time.sleep(3)
+        time.sleep(1)
         lora = loranode(lora_dic)
         log.debug("slaves members: %s", str(lora.slaves))
         n = lora.quantity_poll()
@@ -89,15 +89,18 @@ def poll_loras(loras):
                 update_post_file(serial_meter, data[j])
     
     meter_updates = get_meter_updates()
-#     for update in meter_updates:
-#         payload = get_modbus_adu_update(update.id, update.function,update.address,update.set_value)
-#         dest_slave = payload[0]
-#         if node.cipher:
-#                 payload = encrypt_md(payload, "CFB")
-#         result = node.send(payload, dest_slave, quant)
-#         log.debug("Result %s", str(list(result)))
-#         log.info("Result code from sent [%d] ", result[6])
-# 
+    for update in meter_updates:
+        time.sleep(1)
+
+        payload = get_modbus_adu_update(update.lora_id, update.function,update.address,update.value)
+        log.debug(payload)
+        dest_slave = payload[0]
+        if node.cipher:
+                 payload = encrypt_md(payload, "CFB")
+        result = node.send(payload, dest_slave, quant)
+        log.debug("Result %s", str(list(result)))
+        log.info("Result code from sent [%d] ", result[6])
+  
 #         response = node.receive()
 #         if response is None:
 #             continue
@@ -132,7 +135,7 @@ if __name__ == "__main__":
     try:
         while True:
             poll_loras(node.loras)
-            print(
+            log.info(
                 "__________________________________________________________________"
             )
             wtd.reset()

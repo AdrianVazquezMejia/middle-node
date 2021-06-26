@@ -8,6 +8,25 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 ch.setFormatter(formatter)
 log.addHandler(ch)
 
+def get_modbus_adu_update(id,function,address, value):
+    adu = []
+    adu.append(id)
+    adu.append(5) #Write single coil
+    adu.append(0)
+    if function == "Reset":
+        adu.append(address) #TODO reset another address
+    else:
+        adu.append(address)
+    if value == True:
+        adu.append(255)
+    else:
+        adu.append(0)
+    adu.append(0)
+    crc = (modbus(bytearray(adu))).to_bytes(2, 'big')
+    adu.append(crc[1])
+    adu.append(crc[0])
+    log.debug("modbus adu to send: %s", str(adu))
+    return adu
 
 def get_modbus_adu(id_slave, function_code, start_add, quantity):
     if quantity > 125:

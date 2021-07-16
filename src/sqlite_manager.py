@@ -24,8 +24,10 @@ def energy_load(loras):
     @param loras   Array of dictionaries with meters'characteristics
     """
     data_base_connection = sqlite3.connect("meter_db.sqlite")
-    data_base_cursor = data_base_connection.cursor() 
-    data_base_cursor.execute("CREATE TABLE IF NOT EXISTS meter_table (meter_id TEXT,energy INTEGER,date TEXT, status BOOLEAM)")
+    data_base_cursor = data_base_connection.cursor()
+    data_base_cursor.execute(
+        "CREATE TABLE IF NOT EXISTS meter_table (meter_id TEXT,energy INTEGER,date TEXT, status BOOLEAM)"
+    )
     data_base_connection.commit()
     for lora in loras:
 
@@ -33,11 +35,15 @@ def energy_load(loras):
         for slave in lora["slaves"]:
             slave_number_to_byte = (slave).to_bytes(1, "big")
             meter_id = lora_id_to_byte + slave_number_to_byte
-            data_base_cursor.execute("SELECT * FROM meter_table WHERE meter_id = ?", (meter_id.hex(),))
+            data_base_cursor.execute(
+                "SELECT * FROM meter_table WHERE meter_id = ?",
+                (meter_id.hex(), ))
             if data_base_cursor.fetchone() is None:
                 date = datetime.datetime.now()
-                data_base_cursor.execute("INSERT INTO meter_table(meter_id,energy,date,status) VALUES(?,?,?,?)", (meter_id.hex(), 0, date, 1))
-            data_base_connection.commit() 
+                data_base_cursor.execute(
+                    "INSERT INTO meter_table(meter_id,energy,date,status) VALUES(?,?,?,?)",
+                    (meter_id.hex(), 0, date, 1))
+            data_base_connection.commit()
     data_base_cursor.close()
 
 
@@ -52,7 +58,10 @@ def load_json(id, write_api_key):
     """
     data_base_connection = sqlite3.connect("meter_db.sqlite")
     data_base_cursor = data_base_connection.cursor()
-    dic_meters = {"id": id, "write_api_key": write_api_key, }
+    dic_meters = {
+        "id": id,
+        "write_api_key": write_api_key,
+    }
     dic_meters["updates"] = []
     data_base_cursor.execute("SELECT * FROM meter_table")
     for row in data_base_cursor:
@@ -61,7 +70,7 @@ def load_json(id, write_api_key):
             "energy": row[1],
             "date": row[2],
             "state": row[3]
-            })
+        })
     data_base_cursor.close()
     return dic_meters
 
@@ -77,13 +86,19 @@ def update_date_base(meterid, data):
     time = datetime.datetime.now()
     data_base_connection = sqlite3.connect("meter_db.sqlite")
     data_base_cursor = data_base_connection.cursor()
-    data_base_cursor.execute("SELECT meter_id FROM meter_table WHERE meter_id = ?", (meterid,))
+    data_base_cursor.execute(
+        "SELECT meter_id FROM meter_table WHERE meter_id = ?", (meterid, ))
     is_in_database = data_base_cursor.fetchall()
     result = -1
     if is_in_database:
-        data_base_cursor.execute("UPDATE meter_table SET energy = ?, date = ? WHERE meter_id = ?", (data, time,meterid,))
+        data_base_cursor.execute(
+            "UPDATE meter_table SET energy = ?, date = ? WHERE meter_id = ?", (
+                data,
+                time,
+                meterid,
+            ))
         data_base_connection.commit()
-        result = 0 
+        result = 0
     data_base_cursor.close()
     return result
 
@@ -92,10 +107,17 @@ if __name__ == '__main__':
     """! Main program entry
     """
     print("Hello world")
-    loras = [{"loraid":255, "slaves":[1, 2, 3, 4]}, {"loraid":254, "slaves":[0]}]
+    loras = [{
+        "loraid": 255,
+        "slaves": [1, 2, 3, 4]
+    }, {
+        "loraid": 254,
+        "slaves": [0]
+    }]
     energy_load(loras)
     return_json = load_json(id="0001", write_api_key="PYF7YMZNOM3TJVSM")
     for meter_serial in return_json["updates"]:
         data_test_main = 3210
-        return_update_date_base = update_date_base(meter_serial["meterid"], data_test_main)
+        return_update_date_base = update_date_base(meter_serial["meterid"],
+                                                   data_test_main)
         print("Success") if return_update_date_base == 0 else print("Error")

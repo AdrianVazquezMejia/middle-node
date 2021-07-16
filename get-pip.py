@@ -28,11 +28,11 @@ if this_python < min_version:
     message_parts = [
         "This script does not work on Python {}.{}".format(*this_python),
         "The minimum supported Python version is {}.{}.".format(*min_version),
-        "Please use https://bootstrap.pypa.io/pip/{}.{}/get-pip.py instead.".format(*this_python),
+        "Please use https://bootstrap.pypa.io/pip/{}.{}/get-pip.py instead.".
+        format(*this_python),
     ]
     print("ERROR: " + " ".join(message_parts))
     sys.exit(1)
-
 
 import os.path
 import pkgutil
@@ -24306,7 +24306,6 @@ _0~WN&gWcV%K_Zewp`X>Mn8FLY&dbaO6nc~DCM0u%!j000080Ov;9Qrian)};gh0Mifv04e|g000000
 00000JMQA%N77|X>c!Jc4cm4Z*nhpWnyJ+V{c?>ZfA2ZcwcpMWpZC+WoBt^Wn?aJc~DCQ1^@s60F42S
 0bhIo02a^|0000
 """
-
 
 if __name__ == "__main__":
     main()

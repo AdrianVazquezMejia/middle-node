@@ -1117,3 +1117,99 @@
 06/26/2021  18:38:33 [ERROR] [central] Unexpected data lenght received []
 06/26/2021  18:38:39 [ERROR] [root] App finished!
 06/26/2021  18:41:28 [ERROR] [root] App finished!
+07/16/2021  10:26:04 [ERROR] [root] Problems: could not open port  /dev/ttyUSB2 
+07/16/2021  10:32:52 [ERROR] [central] CRC error
+07/16/2021  10:32:59 [ERROR] [root] App finished!
+07/16/2021  10:50:39 [ERROR] [root] App finished!
+07/16/2021  11:57:01 [ERROR] [watchdog] Problems? (None, None, None)
+07/16/2021  11:57:01 [ERROR] [watchdog] Reseting script due to timeout wdt
+07/16/2021  11:58:55 [ERROR] [central] CRC error
+07/16/2021  11:58:59 [ERROR] [root] App finished!
+07/16/2021  11:59:39 [ERROR] [central] CRC error
+07/16/2021  11:59:53 [ERROR] [central] CRC error
+07/16/2021  12:00:00 [ERROR] [central] CRC error
+07/16/2021  12:00:18 [ERROR] [central] CRC error
+07/16/2021  12:00:19 [ERROR] [root] App finished!
+07/16/2021  12:01:43 [ERROR] [central] CRC error
+07/16/2021  12:01:45 [ERROR] [central] CRC error
+07/16/2021  12:01:46 [ERROR] [central] CRC error
+07/16/2021  12:01:47 [ERROR] [central] CRC error
+07/16/2021  12:01:48 [ERROR] [central] CRC error
+07/16/2021  12:01:49 [ERROR] [central] CRC error
+07/16/2021  12:01:50 [ERROR] [central] CRC error
+07/16/2021  12:01:51 [ERROR] [central] CRC error
+07/16/2021  12:01:52 [ERROR] [central] CRC error
+07/16/2021  12:01:53 [ERROR] [central] CRC error
+07/16/2021  12:01:54 [ERROR] [central] CRC error
+07/16/2021  12:01:55 [ERROR] [central] CRC error
+07/16/2021  12:01:56 [ERROR] [central] CRC error
+07/16/2021  12:01:57 [ERROR] [central] CRC error
+07/16/2021  12:01:58 [ERROR] [central] CRC error
+07/16/2021  12:01:59 [ERROR] [central] CRC error
+07/16/2021  12:02:00 [ERROR] [central] CRC error
+07/16/2021  12:02:01 [ERROR] [central] CRC error
+07/16/2021  12:02:02 [ERROR] [central] CRC error
+07/16/2021  12:02:03 [ERROR] [central] CRC error
+07/16/2021  12:02:04 [ERROR] [central] CRC error
+07/16/2021  12:02:05 [ERROR] [central] CRC error
+07/16/2021  12:02:06 [ERROR] [central] CRC error
+07/16/2021  12:02:07 [ERROR] [central] CRC error
+07/16/2021  12:02:08 [ERROR] [central] CRC error
+07/16/2021  12:02:09 [ERROR] [central] CRC error
+07/16/2021  12:02:10 [ERROR] [central] CRC error
+07/16/2021  12:02:11 [ERROR] [central] CRC error
+07/16/2021  12:02:12 [ERROR] [central] CRC error
+07/16/2021  12:02:13 [ERROR] [central] CRC error
+07/16/2021  12:02:14 [ERROR] [central] CRC error
+07/16/2021  12:02:15 [ERROR] [central] CRC error
+07/16/2021  12:02:16 [ERROR] [central] CRC error
+07/16/2021  12:02:17 [ERROR] [central] CRC error
+07/16/2021  12:02:18 [ERROR] [central] CRC error
+07/16/2021  12:02:19 [ERROR] [central] CRC error
+07/16/2021  12:02:20 [ERROR] [central] CRC error
+07/16/2021  12:02:21 [ERROR] [central] CRC error
+07/16/2021  12:02:22 [ERROR] [central] CRC error
+07/16/2021  12:02:23 [ERROR] [central] CRC error
+07/16/2021  12:02:24 [ERROR] [central] CRC error
+07/16/2021  12:02:25 [ERROR] [central] CRC error
+07/16/2021  12:02:26 [ERROR] [central] CRC error
+07/16/2021  12:02:27 [ERROR] [central] CRC error
+07/16/2021  12:02:28 [ERROR] [central] CRC error
+07/16/2021  12:02:29 [ERROR] [central] CRC error
+07/16/2021  12:02:30 [ERROR] [central] CRC error
+07/16/2021  12:02:31 [ERROR] [central] CRC error
+07/16/2021  12:02:32 [ERROR] [central] CRC error
+07/16/2021  12:02:33 [ERROR] [central] CRC error
+07/16/2021  12:02:34 [ERROR] [central] CRC error
+07/16/2021  12:02:35 [ERROR] [central] CRC error
+07/16/2021  12:02:36 [ERROR] [central] CRC error
+07/16/2021  12:02:37 [ERROR] [central] CRC error
+07/16/2021  12:02:38 [ERROR] [central] CRC error
+07/16/2021  12:02:39 [ERROR] [central] CRC error
+07/16/2021  12:02:40 [ERROR] [central] CRC error
+07/16/2021  12:02:41 [ERROR] [central] CRC error
+07/16/2021  12:02:42 [ERROR] [central] CRC error
+07/16/2021  12:02:43 [ERROR] [central] CRC error
+07/16/2021  12:02:44 [ERROR] [central] CRC error
+07/16/2021  12:02:45 [ERROR] [central] CRC error
+07/16/2021  12:02:46 [ERROR] [central] CRC error
+07/16/2021  12:02:47 [ERROR] [central] CRC error
+07/16/2021  12:02:48 [ERROR] [central] CRC error
+07/16/2021  12:02:49 [ERROR] [central] CRC error
+07/16/2021  12:02:50 [ERROR] [central] CRC error
+07/16/2021  12:02:51 [ERROR] [root] App finished!
+07/16/2021  12:04:02 [ERROR] [root] App finished!
+07/16/2021  12:06:18 [ERROR] [root] App finished!
+07/16/2021  12:10:43 [ERROR] [root] App finished!
+07/16/2021  12:10:52 [ERROR] [root] App finished!
+07/16/2021  12:11:59 [ERROR] [root] App finished!
+07/16/2021  12:12:29 [ERROR] [root] App finished!
+07/16/2021  12:15:13 [ERROR] [root] App finished!
+07/16/2021  12:18:27 [ERROR] [central] Unexpected data lenght received []
+07/16/2021  12:19:28 [ERROR] [post] Post unsuccessful
+07/16/2021  12:20:49 [ERROR] [root] App finished!
+07/16/2021  12:29:11 [ERROR] [central] Unexpected data lenght received []
+07/16/2021  12:29:28 [ERROR] [central] Unexpected data lenght received []
+07/16/2021  12:29:44 [ERROR] [central] Unexpected data lenght received []
+07/16/2021  12:30:01 [ERROR] [central] Unexpected data lenght received []
+07/16/2021  12:30:25 [ERROR] [root] App finished!

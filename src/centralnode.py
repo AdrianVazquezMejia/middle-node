@@ -27,6 +27,7 @@ class centralnode:
         config_file.close()
 
         self.id = config_dic['ID']
+        self.key = config_dic["write_api_key"]
         self.lora_port = config_dic['Serial Port']
         self.energy_path = config_dic['energy_path']
         self.post_path = config_dic['post_path']

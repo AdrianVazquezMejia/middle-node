@@ -31,32 +31,29 @@ def post_json(file, is_production):
     return 0
 
 
-def post_scada(post_path, is_production):
+def post_scada(data_dic, is_production):
     log.info("Posting to Scada")
     success_code =201
-    with open(post_path, 'r+') as post_file:
-        data_dic = json.load(post_file)
-        log.debug("Data to post: %s", str(data_dic))
-        r_code = post_json(data_dic, is_production)
+    log.debug("Data to post: %s", str(data_dic))
+    r_code = post_json(data_dic, is_production)
 
-        if r_code == success_code:
-            with open("output/send_later.txt", "w+") as file:
-                lines = file.readlines()
-                count = 0
-                for line in lines:
-                    count += 1
-                    log.debug("Line{}: {}".format(count, line))
-                    dic = json.loads(line)
-                    post_json(dic)
-                file.seek(0)
-                file.truncate()
-
-        else:
-            log.error("Post unsuccessful")
-            text = json.dumps(data_dic) + "\n"
-            with open("output/send_later.txt", "a") as file:
-                file.write(text)
-            file.close()
+    if r_code == success_code:
+        with open("output/send_later.txt", "w+") as file:
+            lines = file.readlines()
+            count = 0
+            for line in lines:
+                count += 1
+                log.debug("Line{}: {}".format(count, line))
+                dic = json.loads(line)
+                post_json(dic)
+            file.seek(0)
+            file.truncate()
+    else:
+        log.error("Post unsuccessful")
+        text = json.dumps(data_dic) + "\n"
+        with open("output/send_later.txt", "a") as file:
+            file.write(text)
+        file.close()
 
 
 if __name__ == "__main__":

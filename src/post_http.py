@@ -7,20 +7,20 @@ from distutils.log import debug
 log = logging.getLogger('post')
 ch = logging.NullHandler()
 ch.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 ch.setFormatter(formatter)
 log.addHandler(ch)
+
 
 def post_json(file, is_production):
     headers = {'Content-type': 'application/json'}
     scada_url = 'https://postman-echo.com/post'
     if is_production:
-        scada_url = "https://apimedidores.ciexpro.com/api/push/custom_create/" 
-    log,debug(scada_url)
+        scada_url = "https://apimedidores.ciexpro.com/api/push/custom_create/"
+    log, debug(scada_url)
     try:
-        r = requests.post(scada_url,
-                          json=file,
-                          headers=headers)
+        r = requests.post(scada_url, json=file, headers=headers)
         log.info("Status code is : %s", str(r.status_code))
         log.debug(str(r))
         return r.status_code
@@ -33,7 +33,7 @@ def post_json(file, is_production):
 
 def post_scada(post_path, is_production):
     log.info("Posting to Scada")
-    success_code =201
+    success_code = 201
     with open(post_path, 'r+') as post_file:
         data_dic = json.load(post_file)
         log.debug("Data to post: %s", str(data_dic))

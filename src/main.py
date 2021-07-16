@@ -16,25 +16,33 @@ from threading import Timer
 from sqlite_manager import *
 
 send_pre = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
- 
-def post_thread(): 
+
+
+def post_thread():
     global counter
     global post_time_s
-    counter+=1
-    log.info("Posting in %s s",str(post_time_s - counter + 1))
-    if counter == post_time_s :
-        post_json = load_json( node.id, node.key)
-        post_scada(post_json,args.production)
+    counter += 1
+    log.info("Posting in %s s", str(post_time_s - counter + 1))
+    if counter == post_time_s:
+        post_json = load_json(node.id, node.key)
+        post_scada(post_json, args.production)
         counter = 0
-    post_timer = Timer(1.0,post_thread)
+    post_timer = Timer(1.0, post_thread)
     post_timer.start()
-    
+
 
 def build_argparser():
     label = subprocess.check_output(["git", "describe"]).strip()
     parser = argparse.ArgumentParser(description="To select production code")
-    parser.add_argument('-p','--production', action='store_true', default=False, help = "Create production code")
-    parser.add_argument('-v','--version', action='version', version=label.decode("utf-8"))
+    parser.add_argument('-p',
+                        '--production',
+                        action='store_true',
+                        default=False,
+                        help="Create production code")
+    parser.add_argument('-v',
+                        '--version',
+                        action='version',
+                        version=label.decode("utf-8"))
     return parser
 
 
@@ -87,7 +95,7 @@ def poll_loras(loras):
                 index = lora.slaves[j]
                 serial_meter = lora_hex + (index).to_bytes(1, 'big')
                 update_date_base(serial_meter.hex(), data[j])
-    
+
     # meter_updates = get_meter_updates()
     # for update in meter_updates:
     #     time.sleep(1)
@@ -114,8 +122,10 @@ def poll_loras(loras):
     #         log.info("Wrote Coils Successfully")
     #     else:
     #         log.info("Something went wrong writing coils")
+
+
 if __name__ == "__main__":
-    
+
     args = build_argparser().parse_args()
     log = build_logger()
 
@@ -130,13 +140,13 @@ if __name__ == "__main__":
         energy_load(node.loras)
         counter = 0
         post_time_s = node.post_time
-        post_timer = Timer(1.0,post_thread)
+        post_timer = Timer(1.0, post_thread)
         post_timer.start()
         node.ser = serial.Serial(node.lora_port, timeout=14)
         wtd_start.stop()
     except Watchdog:
         log.error("Reseting script due to wdt boot")
-    wtd = Watchdog(300) # 5min
+    wtd = Watchdog(300)  # 5min
     try:
         while True:
             poll_loras(node.loras)
@@ -153,4 +163,4 @@ if __name__ == "__main__":
         log.error("App Crashed!")
         log.error("Problems? %s", sys.exc_info())
         log.info("Restarting...")
-        os.execv(sys.executable, ['python'] + sys.argv)        
+        os.execv(sys.executable, ['python'] + sys.argv)

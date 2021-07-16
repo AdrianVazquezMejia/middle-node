@@ -1,14 +1,19 @@
 {
 	"ID": "0001",
-	"Serial Port": "/dev/ttyUSB2",
+	"Serial Port": "/dev/ttyUSB0",
 	"Networkid" : 1,
 	"Baudarate": 9600,
 	"Cipher payload": "true",
 	"loras":[ { 
 		"loraid":255,
-		"slaves":[1,2,3]
+		"slaves":[1,2,3,4]
+		},
+		{ 
+		"loraid":254,
+		"slaves":[0]
 		}
 	],
+	"write_api_key" : "PYF7YMZNOM3TJVSM",
 	"energy_path":"output/energy.json",
 	"post_path":"json/post.json",
 	"post_time":120	

@@ -12,6 +12,13 @@ ch.setFormatter(formatter)
 log.addHandler(ch)
 
 def post_json(file, is_production):
+    """! Get the status of the data
+
+    @param file             dictionary to assign in the json
+    @param is_production    chech if there is a new data to add
+
+    @return success or error code    
+    """
     headers = {'Content-type': 'application/json'}
     scada_url = 'https://postman-echo.com/post'
     if is_production:
@@ -32,6 +39,11 @@ def post_json(file, is_production):
 
 
 def post_scada(data_dic, is_production):
+    """! Create a text file with meters information
+
+    @param data_dic         dictionary with meters' information
+    @param is_production    chech if there is a new data to add      
+    """
     log.info("Posting to Scada")
     success_code =201
     log.debug("Data to post: %s", str(data_dic))
@@ -57,7 +69,9 @@ def post_scada(data_dic, is_production):
 
 
 if __name__ == "__main__":
-
+    """! Main program entry
+    
+    """
     print("Start")
     aux_dic = {
         "id":

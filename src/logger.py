@@ -1,14 +1,17 @@
 import logging
 import sys
 
-
 dateformat = "%m/%d/%Y  %H:%M:%S"
 logformat = "%(asctime)s [%(levelname)-5.5s] [%(name)s] %(message)s"
 consoleforma = "[%(levelname)-5.5s] [%(name)s] %(message)s"
 
 
 def build_logger():
-    
+    """! Design the structure of the logger and the 
+        way is going to be registered
+
+    @return log         register of information and the message
+    """
     logFormatter = logging.Formatter(logformat,datefmt = dateformat)
     consoleFormatter = logging.Formatter("[%(levelname)-5.5s] [%(name)s] %(message)s")
     log = logging.getLogger()
@@ -24,4 +27,5 @@ def build_logger():
     log.addHandler(consoleHandler)
 
     log.setLevel(logging.DEBUG)
+    print(type(log))
     return log

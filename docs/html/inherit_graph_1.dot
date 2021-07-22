@@ -1,11 +1,12 @@
 digraph "Graphical Class Hierarchy"
 {
+ // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node1 [label="Exception",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
-  Node1 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node0 [label="src.centralnode.ConfigError",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsrc_1_1centralnode_1_1ConfigError.html"];
-  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node3 [label="src.watchdog.Watchdog",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsrc_1_1watchdog_1_1Watchdog.html"];
+  Node2 [label="Exception",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node2 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node0 [label="src.centralnode.ConfigError",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsrc_1_1centralnode_1_1ConfigError.html",tooltip="Set error message."];
+  Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="src.watchdog.Watchdog",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsrc_1_1watchdog_1_1Watchdog.html",tooltip="Restart the system if there are some errors."];
 }

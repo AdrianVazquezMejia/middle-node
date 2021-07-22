@@ -12,5 +12,6 @@
 	],
 	"energy_path":"output/energy.json",
 	"post_path":"json/post.json",
+	"write_api_key" : "PYF7YMZNOM3TJVSM",
 	"post_time":5	
 }

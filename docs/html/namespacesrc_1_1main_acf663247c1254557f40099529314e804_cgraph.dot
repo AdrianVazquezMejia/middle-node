@@ -1,17 +1,18 @@
 digraph "src.main.poll_loras"
 {
+ // LATEX_PDF_SIZE
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node4 [label="src.main.poll_loras",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
-  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node5 [label="src.modbus_process.get\l_modbus_adu",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespacesrc_1_1modbus__process.html#a7a4611f49d9066b8588d63e5ab743878"];
-  Node4 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node6 [label="src.cipher.encrypt_md",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespacesrc_1_1cipher.html#aa2440f45023cfcde9f18cc121ef3a535"];
-  Node4 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node7 [label="src.cipher.decrypt_md",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespacesrc_1_1cipher.html#a0feb7666e8dca270776aaa838d296fa1"];
-  Node4 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node8 [label="src.modbus_process.parse\l_modbus",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespacesrc_1_1modbus__process.html#ac873ec5b6dfaca15bb26b591994c89f0"];
-  Node4 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node9 [label="src.sqlite_manager.update\l_date_base",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespacesrc_1_1sqlite__manager.html#a41c154630a4dbd4ba9f106ebd85e880f",tooltip="Actualize information in the database. "];
+  Node1 [label="src.main.poll_loras",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Search and set meters characteristics and then update them in the database."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="src.cipher.decrypt_md",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespacesrc_1_1cipher.html#a0feb7666e8dca270776aaa838d296fa1",tooltip="Decrypt the information from the node."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="src.cipher.encrypt_md",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespacesrc_1_1cipher.html#aa2440f45023cfcde9f18cc121ef3a535",tooltip="Encrypts nodes' information."];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="src.modbus_process.get\l_modbus_adu",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespacesrc_1_1modbus__process.html#a7a4611f49d9066b8588d63e5ab743878",tooltip="Organize the data in a list and return it."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="src.modbus_process.parse\l_modbus",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespacesrc_1_1modbus__process.html#ac873ec5b6dfaca15bb26b591994c89f0",tooltip="Verify errors in the data unity and send the received data."];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="src.sqlite_manager.update\l_date_base",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$namespacesrc_1_1sqlite__manager.html#a41c154630a4dbd4ba9f106ebd85e880f",tooltip="Actualize information in the database."];
 }

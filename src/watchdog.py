@@ -3,11 +3,11 @@ import sys
 import logging
 from threading import Timer
 
-
 log = logging.getLogger('watchdog')
 ch = logging.NullHandler()
 ch.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 ch.setFormatter(formatter)
 log.addHandler(ch)
 
@@ -22,7 +22,7 @@ class Watchdog(Exception):
         @param timeout            establish timeout time
         @param userHandler        define the value of the handler
 
-        """     
+        """
         message = "Error wdt"
         super().__init__(message)
         self.timeout = timeout

@@ -6,13 +6,14 @@ import serial
 import logging
 from Crypto.Util.number import size
 
-
 log = logging.getLogger('central')
 ch = logging.NullHandler()
 ch.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 ch.setFormatter(formatter)
 log.addHandler(ch)
+
 
 class ConfigError(Exception):
     """! Set error message
@@ -79,7 +80,7 @@ class centralnode:
         frame.append(check_sum)
         return frame
 
-    def send(self, payload, dest_slave, quant = 0):
+    def send(self, payload, dest_slave, quant=0):
         """! Send received information of the pool 
 
         @param payload       charge of the meter
@@ -87,14 +88,14 @@ class centralnode:
         @param quant         maximum size of the poll
 
         @return result       information of the data
-        """   
+        """
         frame = self.build_send_frame(payload, dest_slave)
         #self.ser = serial.Serial(self.lora_port, timeout=14)
         self.ser.write(bytearray(frame))
-        result = self.ser.read(size = 8)
+        result = self.ser.read(size=8)
         log.debug("Data sent : %s", str(frame))
-        self.expected_size = 22 + 2 * quant -8
-        if quant == 0 :
+        self.expected_size = 22 + 2 * quant - 8
+        if quant == 0:
             self.expected_size = 17
 
         return result
@@ -135,8 +136,7 @@ class centralnode:
 
         @return True or False value of the Lora configuration
         """
-        expect = [
-            1, 0, 129, 12, 165, 165, 108, 64, 18, 7, 0, 0, 1, 1, 0, 3, 0]
+        expect = [1, 0, 129, 12, 165, 165, 108, 64, 18, 7, 0, 0, 1, 1, 0, 3, 0]
         try:
             expect[12] = self.networkid
             check_sum = reduce(lambda x, y: x ^ y, expect)
@@ -155,11 +155,11 @@ class centralnode:
             os._exit(0)
         if list(response) != expect:
             expect[3] = 13
-            expect[17] = expect[17]+1
+            expect[17] = expect[17] + 1
             if list(response) == expect:
-                    self.ser.close()
-                    log.info("Lora Config Successfull")
-                    return True
+                self.ser.close()
+                log.info("Lora Config Successfull")
+                return True
             return False
         self.ser.close()
         log.info("Lora Config Successfull")
@@ -188,5 +188,3 @@ class loranode:
         if self.lastpollsize != 0:
             n += 1
         return n
-
-    

@@ -12,11 +12,12 @@ def build_logger():
 
     @return log         register of information and the message
     """
-    logFormatter = logging.Formatter(logformat,datefmt = dateformat)
-    consoleFormatter = logging.Formatter("[%(levelname)-5.5s] [%(name)s] %(message)s")
+    logFormatter = logging.Formatter(logformat, datefmt=dateformat)
+    consoleFormatter = logging.Formatter(
+        "[%(levelname)-5.5s] [%(name)s] %(message)s")
     log = logging.getLogger()
 
-    fileHandler = logging.FileHandler("{0}/{1}.log".format(".","logs"))
+    fileHandler = logging.FileHandler("{0}/{1}.log".format(".", "logs"))
     fileHandler.setFormatter(logFormatter)
     fileHandler.setLevel(logging.WARNING)
     log.addHandler(fileHandler)

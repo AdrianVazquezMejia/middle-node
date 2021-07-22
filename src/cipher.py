@@ -1,6 +1,5 @@
 from Crypto.Cipher import AES
 import logging
-
 """! 
     @var Key               secret key to use in the cipher  
     @var iv                vector to use for encryption or decryption
@@ -9,11 +8,11 @@ import logging
 key = b'\xff\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\xff\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'
 iv = b'\xff\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f'
 
-
 log = logging.getLogger('cipher')
 ch = logging.NullHandler()
 ch.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 ch.setFormatter(formatter)
 log.addHandler(ch)
 

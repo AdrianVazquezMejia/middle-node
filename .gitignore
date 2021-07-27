@@ -2,3 +2,4 @@
 *.pyc
 *.log
 src/__pycache__/
+*.sqlite

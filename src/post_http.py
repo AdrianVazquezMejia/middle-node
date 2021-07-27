@@ -66,8 +66,46 @@ def post_scada(data_dic, is_production):
         with open("output/send_later.txt", "a") as file:
             file.write(text)
         file.close()
+class MeterUpdate(object):
+    def __init__(self, object_dic):
+        self.lora_id =int(object_dic["meterid"][0:4],16)
+        self.address = int(object_dic["meterid"][4:6],16)
+        if self.address==0:
+            self.address = self.lora_id
+        if object_dic["isPowered"]:
+            self.function = "Relay"
+            self.value = object_dic["powerValue"]
+        else:
+            self.function = "Reset"
+            self.value = True        
+    
+def get_meter_updates():
+    #get json from cloud
+    with open("json/states.json","r+") as status_file:
+        status_dic = json.load(status_file)
+        updates = status_dic["updates"]
+        updates_list = []
+        #log.debug(status_dic)s
 
-
+        log.debug(updates)
+        
+        for update in updates:
+            meter_update_object = MeterUpdate(update)
+            log.debug(meter_update_object.lora_id)
+            log.debug(meter_update_object.address)
+            log.debug(meter_update_object.function)
+            log.debug(meter_update_object.value)
+            updates_list.append(meter_update_object)
+            print(update["powerValue"])
+            update["powerValue"] = True if update["powerValue"]== False else False
+            #payload = get_modbus_adu_update(meter_update_object.lora_id, meter_update_object.function,meter_update_object.address,meter_update_object.value)
+            #log.debug(updates_list)
+        status_dic["updates"] = updates
+        status_file.seek(0)
+        status_file.truncate()
+        json.dump(status_dic, status_file)
+        
+        return updates_list
 if __name__ == "__main__":
     """! Main program entry
     

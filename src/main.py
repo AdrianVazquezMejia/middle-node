@@ -5,7 +5,7 @@ import sys
 from centralnode import *
 from cipher import *
 from modbus_process import *
-from post_http import post_scada
+from post_http import *
 import serial
 from watchdog import Watchdog
 from logger import build_logger
@@ -101,33 +101,33 @@ def poll_loras(loras):
                 index = lora.slaves[j]
                 serial_meter = lora_hex + (index).to_bytes(1, 'big')
                 update_date_base(serial_meter.hex(), data[j])
+    time.sleep(5)
+    meter_updates = get_meter_updates()
+    for update in meter_updates:
+        time.sleep(3)
     
-    # meter_updates = get_meter_updates()
-    # for update in meter_updates:
-    #     time.sleep(1)
-    #
-    #     payload = get_modbus_adu_update(update.lora_id, update.function,update.address,update.value)
-    #     unencripted_payload = payload
-    #     log.debug(payload)
-    #     dest_slave = payload[0]
-    #     if node.cipher:
-    #              payload = encrypt_md(payload, "CFB")
-    #     result = node.send(payload, dest_slave)
-    #     log.debug("Result %s", str(list(result)))
-    #     log.info("Result code from sent [%d] ", result[6])
-    #
-    #     response = node.receive()
-    #     if response is None:
-    #          continue
-    #     if node.cipher:
-    #         response = decrypt_md(response, "CFB")
-    #
-    #     log.debug("message received: %s", str(unencripted_payload))
-    #
-    #     if set(unencripted_payload) == set(response):
-    #         log.info("Wrote Coils Successfully")
-    #     else:
-    #         log.info("Something went wrong writing coils")
+        payload = get_modbus_adu_update(update.lora_id, update.function,update.address,update.value)
+        unencripted_payload = payload
+        log.debug(payload)
+        dest_slave = payload[0]
+        if node.cipher:
+                 payload = encrypt_md(payload, "CFB")
+        result = node.send(payload, dest_slave)
+        log.debug("Result %s", str(list(result)))
+        log.info("Result code from sent [%d] ", result[6])
+    
+        response = node.receive()
+        if response is None:
+             continue
+        if node.cipher:
+            response = decrypt_md(response, "CFB")
+    
+        log.debug("message received: %s", str(unencripted_payload))
+    
+        if set(unencripted_payload) == set(response):
+            log.info("Wrote Coils Successfully")
+        else:
+            log.info("Something went wrong writing coils")
 if __name__ == "__main__":
     """! Main program entry
     

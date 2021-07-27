@@ -1,5 +1,6 @@
 from libscrc import modbus
 import logging
+from functools import reduce
 
 log = logging.getLogger('central')
 ch = logging.NullHandler()
@@ -31,10 +32,13 @@ def get_modbus_adu_update(id,function,address, value):
         adu.append(255)
     else:
         adu.append(0)
-    adu.append(0)
+    hash = reduce(lambda x, y: x ^ y, adu)
+    adu.append(hash)
     crc = (modbus(bytearray(adu))).to_bytes(2, 'big')
     adu.append(crc[1])
     adu.append(crc[0])
+
+    log.debug("hash to write: %s", str(hash))
     log.debug("modbus adu to send: %s", str(adu))
     return adu
 

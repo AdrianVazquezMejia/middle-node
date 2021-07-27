@@ -23,7 +23,7 @@ def build_logger():
 
     consoleHandler = logging.StreamHandler(sys.stdout)
     consoleHandler.setFormatter(consoleFormatter)
-    consoleHandler.setLevel(logging.INFO)
+    consoleHandler.setLevel(logging.DEBUG)
     log.addHandler(consoleHandler)
 
     log.setLevel(logging.DEBUG)

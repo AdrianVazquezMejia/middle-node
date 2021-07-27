@@ -9,6 +9,16 @@ ch.setFormatter(formatter)
 log.addHandler(ch)
 
 def get_modbus_adu_update(id,function,address, value):
+    """! Organize and update the data unity 
+        of the application and send it
+
+    @param id           ID of the unity
+    @param function     the function of the application 
+    @param address      station address 
+    @param value        value of the received data
+
+    @return adu         list of data unity of application 
+    """
     adu = []
     adu.append(id)
     adu.append(5) #Write single coil
@@ -29,6 +39,15 @@ def get_modbus_adu_update(id,function,address, value):
     return adu
 
 def get_modbus_adu(id_slave, function_code, start_add, quantity):
+    """! Organize the data in a list and return it
+
+    @param id_slave           ID of the unity's slave     
+    @param function_code      function application code
+    @param start_add          initial value to add
+    @param quantity           quantity of data
+
+    @return adu               list of data unity of application
+    """    
     if quantity > 125:
         return None
     adu = []
@@ -49,6 +68,13 @@ def get_modbus_adu(id_slave, function_code, start_add, quantity):
 
 # Verifico el crc y creo una lista con los datos recibidos de salida
 def parse_modbus(frame):
+    """! Verify errors in the data unity and send the 
+    received data
+
+    @param frame       data frame received                    
+
+    @return data       list of data frame received             
+    """
     crc_r = modbus(frame)
     data = []
     if crc_r == 0:

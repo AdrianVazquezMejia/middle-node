@@ -18,6 +18,9 @@ from sqlite_manager import *
 send_pre = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
  
 def post_thread(): 
+    """! Post meters information
+   
+    """
     global counter
     global post_time_s
     counter+=1
@@ -31,6 +34,10 @@ def post_thread():
     
 
 def build_argparser():
+    """! Set command line interface
+
+    @return parser       usages messages  
+    """
     label = subprocess.check_output(["git", "describe"]).strip()
     parser = argparse.ArgumentParser(description="To select production code")
     parser.add_argument('-p','--production', action='store_true', default=False, help = "Create production code")
@@ -39,6 +46,9 @@ def build_argparser():
 
 
 def init_serial_port(Port):
+    """! Initialize serial port
+   
+    """
     try:
         ser = serial.Serial(Port, timeout=0.6)
     except serial.SerialException:
@@ -49,6 +59,10 @@ def init_serial_port(Port):
 
 
 def poll_loras(loras):
+    """! Search and set meters characteristics
+    and then update them in the database
+   
+    """
     log.info("Start polling")
     for lora_dic in loras:
         time.sleep(1)
@@ -115,7 +129,9 @@ def poll_loras(loras):
     #     else:
     #         log.info("Something went wrong writing coils")
 if __name__ == "__main__":
+    """! Main program entry
     
+    """
     args = build_argparser().parse_args()
     log = build_logger()
 

@@ -29,7 +29,7 @@ class TestUpdate(unittest.TestCase):
     def testUpdateExistingMeter(self):
 
         expected_data = 1234
-        update_date_base("00ff01", expected_data)
+        update_date_base("00fe00", expected_data)
         conn = sqlite3.connect("meter_db.sqlite")
         cur = conn.cursor()
         cur.execute('SELECT * FROM meter_table WHERE meter_id = ?', ("00fe00",))
@@ -40,7 +40,7 @@ class TestUpdate(unittest.TestCase):
     def testUpdateNonExistingMeter(self):
 
         expected_data = 1234
-        update_date_base("00fe01", expected_data)
+        update_date_base("00ff00", expected_data)
         conn = sqlite3.connect("meter_db.sqlite")
         cur = conn.cursor()
         cur.execute('SELECT * FROM meter_table WHERE meter_id = ?', ("00ff00",))

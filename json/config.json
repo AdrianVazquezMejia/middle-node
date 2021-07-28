@@ -6,6 +6,10 @@
 	"Cipher payload": "true",
 	"loras":[ { 
 		"loraid":255,
+		"slaves":[1,2,3,4]
+		},
+		 { 
+		"loraid":254,
 		"slaves":[0]
 		}
 	],

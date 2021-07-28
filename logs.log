@@ -1338,3 +1338,25 @@
 07/27/2021  17:21:00 [ERROR] [root] App finished!
 07/27/2021  18:18:16 [ERROR] [post] Post unsuccessful
 07/27/2021  18:18:35 [ERROR] [root] App finished!
+07/28/2021  09:42:37 [ERROR] [root] Problems: could not open port  /dev/ttyUSB1 
+07/28/2021  09:43:46 [ERROR] [root] App finished!
+07/28/2021  09:49:38 [ERROR] [root] App finished!
+07/28/2021  13:09:30 [ERROR] [central] Unexpected data lenght received []
+07/28/2021  13:10:36 [ERROR] [central] Unexpected data lenght received []
+07/28/2021  13:11:14 [ERROR] [post] Post unsuccessful
+07/28/2021  13:12:29 [ERROR] [central] CRC error
+07/28/2021  13:12:30 [ERROR] [central] CRC error
+07/28/2021  13:12:45 [ERROR] [central] CRC error
+07/28/2021  13:12:46 [ERROR] [central] CRC error
+07/28/2021  13:13:01 [ERROR] [central] CRC error
+07/28/2021  13:13:02 [ERROR] [central] CRC error
+07/28/2021  13:13:17 [ERROR] [central] CRC error
+07/28/2021  13:13:17 [ERROR] [post] Post unsuccessful
+07/28/2021  13:13:18 [ERROR] [central] CRC error
+07/28/2021  13:13:33 [ERROR] [central] CRC error
+07/28/2021  13:13:34 [ERROR] [central] CRC error
+07/28/2021  13:13:39 [ERROR] [root] App finished!
+07/28/2021  13:14:11 [ERROR] [central] Unexpected data lenght received []
+07/28/2021  13:14:35 [ERROR] [root] App finished!
+07/28/2021  13:37:17 [ERROR] [central] Unexpected data lenght received []
+07/28/2021  13:38:19 [ERROR] [root] App finished!

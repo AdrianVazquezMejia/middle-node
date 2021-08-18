@@ -73,9 +73,9 @@ class MeterUpdate(object):
         self.address = int(object_dic["meter"][4:6],16)
         if self.address==0:
             self.address = self.lora_id
-        if "power" in object_dic:
+        if "next_state" in object_dic:
             self.function = "Relay"
-            self.value = object_dic["power"]
+            self.value = object_dic["next_state"]
         else:
             self.function = "Reset"
             self.value = True        
@@ -96,6 +96,9 @@ def get_meter_updates():
 
     log.debug(updates)
     
+    json_back = {}
+    dic_back = []
+    
     for update in updates:
         meter_update_object = MeterUpdate(update)
         log.debug(meter_update_object.lora_id)
@@ -103,8 +106,13 @@ def get_meter_updates():
         log.debug(meter_update_object.function)
         log.debug(meter_update_object.value)
         updates_list.append(meter_update_object)
-        print(update["power"])
-    
+        
+        dic_back.append(update["meter"])
+        print(update["next_state"])
+        
+    json_back["meters"] = dic_back
+    URL = "https://apimedidores.ciexpro.com/api/meter_conection/change_state/"
+    r = requests.post(url = URL, headers = PARAMS,json=json_back)
     return updates_list
 if __name__ == "__main__":
     """! Main program entry

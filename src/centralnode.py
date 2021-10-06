@@ -39,8 +39,6 @@ class centralnode:
         self.id = config_dic['ID']
         self.key = config_dic["write_api_key"]
         self.lora_port = config_dic['Serial Port']
-        self.energy_path = config_dic['energy_path']
-        self.post_path = config_dic['post_path']
         self.loras = config_dic['loras']
         self.networkid = config_dic['Networkid']
         self.baudarate = config_dic['Baudarate']
@@ -53,8 +51,6 @@ class centralnode:
             self.cipher = False
         log.info("This node ID: %s ", str(config_dic['ID']))
         log.debug("Lora Serial Port: %s ", str(config_dic['Serial Port']))
-        log.debug("Energy path: %s", str(self.energy_path))
-
         self.lora_list = []
 
         for i in self.loras:

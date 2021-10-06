@@ -14,8 +14,6 @@
 		}
 	],
 	"write_api_key" : "PYF7YMZNOM3TJVSM",
-	"energy_path":"output/energy.json",
-	"post_path":"json/post.json",
 	"post_time":120	
 }
 

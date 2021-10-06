@@ -14,9 +14,18 @@ import subprocess
 import logging
 from threading import Timer
 from sqlite_manager import *
+from gpiozero import LED
 
 send_pre = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
  
+def restart_lora():
+    log.info("Restart LoRa module")
+    if args.production:
+        restart_button = LED(23)
+        restart.off()
+        time.sleep(1)
+        restart.on()
+    
 def post_thread(): 
     """! Post meters information
    
@@ -29,6 +38,7 @@ def post_thread():
         post_json = load_json( node.id, node.key)
         post_scada(post_json,args.production)
         counter = 0
+        restart_lora()
     post_timer = Timer(1.0,post_thread)
     post_timer.start()
     
@@ -139,6 +149,7 @@ if __name__ == "__main__":
     wtd_start = Watchdog(20)
     node = centralnode("json/config.json")
     init_serial_port(node.lora_port)
+    restart_lora()
     if not node.init_lora():
         log.error("Could not config LoRa")
         os._exit(0)

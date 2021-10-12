@@ -7,9 +7,11 @@ from distutils.log import debug
 log = logging.getLogger('post')
 ch = logging.NullHandler()
 ch.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 ch.setFormatter(formatter)
 log.addHandler(ch)
+
 
 def post_json(file, is_production):
     """! Get the status of the data
@@ -22,12 +24,10 @@ def post_json(file, is_production):
     headers = {'Content-type': 'application/json'}
     scada_url = 'https://postman-echo.com/post'
     if is_production:
-        scada_url = "https://apimedidores.ciexpro.com/api/push/custom_create/" 
-    log,debug(scada_url)
+        scada_url = "https://apimedidores.ciexpro.com/api/push/custom_create/"
+    log, debug(scada_url)
     try:
-        r = requests.post(scada_url,
-                          json=file,
-                          headers=headers)
+        r = requests.post(scada_url, json=file, headers=headers)
         log.info("Status code is : %s", str(r.status_code))
         log.debug(str(r))
         return r.status_code
@@ -45,7 +45,7 @@ def post_scada(data_dic, is_production):
     @param is_production    chech if there is a new data to add      
     """
     log.info("Posting to Scada")
-    success_code =201
+    success_code = 201
     log.debug("Data to post: %s", str(data_dic))
     r_code = post_json(data_dic, is_production)
 
@@ -66,28 +66,30 @@ def post_scada(data_dic, is_production):
         with open("output/send_later.txt", "a") as file:
             file.write(text)
         file.close()
-        
+
+
 class MeterUpdate(object):
     def __init__(self, object_dic):
-        self.lora_id =int(object_dic["meter"][0:4],16)
-        self.address = int(object_dic["meter"][4:6],16)
-        if self.address==0:
+        self.lora_id = int(object_dic["meter"][0:4], 16)
+        self.address = int(object_dic["meter"][4:6], 16)
+        if self.address == 0:
             self.address = self.lora_id
         if "next_state" in object_dic:
             self.function = "Relay"
             self.value = object_dic["next_state"]
         else:
             self.function = "Reset"
-            self.value = True        
-    
+            self.value = True
+
+
 def get_meter_updates():
     #get json from cloud
-    
+
     update_endpoint = "https://apimedidores.ciexpro.com/api/meter_conection/reconnect"
     location = "Estelio_CA"
-    PARAMS = {'address':location}
+    PARAMS = {'address': location}
 
-    r = requests.get(url = update_endpoint, params = PARAMS)
+    r = requests.get(url=update_endpoint, params=PARAMS)
     status_dic = r.json()
     print(status_dic)
     updates = status_dic["meters"]
@@ -95,10 +97,10 @@ def get_meter_updates():
     #log.debug(status_dic)s
 
     log.debug(updates)
-    
+
     json_back = {}
     dic_back = []
-    
+
     for update in updates:
         meter_update_object = MeterUpdate(update)
         log.debug(meter_update_object.lora_id)
@@ -106,14 +108,16 @@ def get_meter_updates():
         log.debug(meter_update_object.function)
         log.debug(meter_update_object.value)
         updates_list.append(meter_update_object)
-        
+
         dic_back.append(update["meter"])
         print(update["next_state"])
-        
+
     json_back["meters"] = dic_back
     URL = "https://apimedidores.ciexpro.com/api/meter_conection/change_state/"
-    r = requests.post(url = URL, headers = PARAMS,json=json_back)
+    r = requests.post(url=URL, headers=PARAMS, json=json_back)
     return updates_list
+
+
 if __name__ == "__main__":
     """! Main program entry
     
@@ -140,4 +144,3 @@ if __name__ == "__main__":
     }
     #post_scada(aux_dic)
     print(get_meter_updates())
-    

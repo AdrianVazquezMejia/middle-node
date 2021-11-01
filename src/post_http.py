@@ -2,7 +2,7 @@ import json
 import sys
 import logging
 import requests
-from distutils.log import debug
+
 
 log = logging.getLogger('post')
 ch = logging.NullHandler()
@@ -11,7 +11,7 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 ch.setFormatter(formatter)
 log.addHandler(ch)
 
-def post_json(file, is_production):
+def post_json(file, is_production, token):
     """! Get the status of the data
 
     @param file             dictionary to assign in the json
@@ -19,17 +19,20 @@ def post_json(file, is_production):
 
     @return success or error code    
     """
+
     headers = {'Content-type': 'application/json'}
+    headers["Authorization"] = "Bearer "+token
     scada_url = 'https://postman-echo.com/post'
     if is_production:
         scada_url = "https://apimedidores.ciexpro.com/api/push/custom_create/" 
-    log,debug(scada_url)
+    log.debug(scada_url)
     try:
         r = requests.post(scada_url,
                           json=file,
                           headers=headers)
         log.info("Status code is : %s", str(r.status_code))
-        log.debug(str(r))
+        log.debug(str(r.json()))
+        print(r.json())
         return r.status_code
     except requests.exceptions.ConnectionError:
         log.error("Connection Error!")
@@ -38,7 +41,7 @@ def post_json(file, is_production):
     return 0
 
 
-def post_scada(data_dic, is_production):
+def post_scada(data_dic, is_production, token):
     """! Create a text file with meters information
 
     @param data_dic         dictionary with meters' information
@@ -47,8 +50,9 @@ def post_scada(data_dic, is_production):
     log.info("Posting to Scada")
     success_code =201
     log.debug("Data to post: %s", str(data_dic))
-    r_code = post_json(data_dic, is_production)
-
+    r_code = post_json(data_dic, is_production, token)
+    print(r_code)
+    
     if r_code == success_code:
         with open("output/send_later.txt", "w+") as file:
             lines = file.readlines()
@@ -80,15 +84,16 @@ class MeterUpdate(object):
             self.function = "Reset"
             self.value = True        
     
-def get_meter_updates():
+def get_meter_updates(token):
     #get json from cloud
     
     update_endpoint = "https://apimedidores.ciexpro.com/api/meter_conection/reconnect"
-    location = "Estelio_CA"
-    PARAMS = {'address':location}
+    headers = {'Content-type': 'application/json'}
+    headers["Authorization"] = "Bearer "+token
 
-    r = requests.get(url = update_endpoint, params = PARAMS)
+    r = requests.get(url = update_endpoint, headers = headers)
     status_dic = r.json()
+    print("Meter updates request result: ", status_dic)
     print(status_dic)
     updates = status_dic["meters"]
     updates_list = []
@@ -112,8 +117,17 @@ def get_meter_updates():
         
     json_back["meters"] = dic_back
     URL = "https://apimedidores.ciexpro.com/api/meter_conection/change_state/"
-    r = requests.post(url = URL, headers = PARAMS,json=json_back)
+    r = requests.post(url = URL, headers = headers,json=json_back)
     return updates_list
+
+def get_token():
+    PARAMS = {'address': "Estelio"}
+    token_endpoint = "https://apimedidores.ciexpro.com/api/login/"
+    print("Getting Token")
+    credencial_dic = {"email":"braulio.chavez@estelio.com", "password": "123456789"}
+    r = requests.post(url = token_endpoint, headers = PARAMS, json=credencial_dic)
+    token = r.json()
+    return token['access']
 if __name__ == "__main__":
     """! Main program entry
     
@@ -121,23 +135,23 @@ if __name__ == "__main__":
     print("Start")
     aux_dic = {
         "id":
-        "0001",
+        "0003",
         "write_api_key":
         "PYF7YMZNOM3TJVSM",
         "updates": [{
-            "meterid": "000201",
+            "meterid": "00ff01",
             "energy": 0,
             "date": "2021-01-21 12:11:26.090530 -0400"
         }, {
-            "meterid": "000202",
+            "meterid": "00ff02",
             "energy": 0,
             "date": "2021-01-21 12:11:26.090768 -0400"
         }, {
-            "meterid": "000200",
+            "meterid": "00ff03",
             "energy": 8,
             "date": "2021-01-05 13:24:38.587472 -0400"
         }]
     }
-    #post_scada(aux_dic)
-    print(get_meter_updates())
-    
+    #post_scada(aux_dic,True)
+    #print(get_meter_updates())
+    print(get_token())

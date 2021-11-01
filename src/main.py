@@ -15,16 +15,24 @@ import logging
 from threading import Timer
 from sqlite_manager import *
 from gpiozero import LED
+from post_http import get_token
 
 send_pre = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
  
+def refresh_token():
+    global token
+    log.info("Getting a brand new token")
+    token_timer = Timer(24*3600,refresh_token)
+    token_timer.start()
+    token = get_token()
+
 def restart_lora():
     log.info("Restart LoRa module")
-    if args.production:
+    '''if args.production:
         restart_button = LED(23)
         restart.off()
         time.sleep(1)
-        restart.on()
+        restart.on()'''
     
 def post_thread(): 
     """! Post meters information
@@ -36,7 +44,7 @@ def post_thread():
     log.info("Posting in %s s",str(post_time_s - counter + 1))
     if counter == post_time_s :
         post_json = load_json( node.id, node.key)
-        post_scada(post_json,args.production)
+        post_scada(post_json,args.production, token)
         counter = 0
         restart_lora()
     post_timer = Timer(1.0,post_thread)
@@ -112,7 +120,7 @@ def poll_loras(loras):
                 serial_meter = lora_hex + (index).to_bytes(1, 'big')
                 update_date_base(serial_meter.hex(), data[j])
     time.sleep(5)
-    meter_updates = get_meter_updates()
+    meter_updates = get_meter_updates(token)
     for update in meter_updates:
         time.sleep(3)
     
@@ -159,6 +167,11 @@ if __name__ == "__main__":
         post_time_s = node.post_time
         post_timer = Timer(1.0,post_thread)
         post_timer.start()
+        
+        token = ''
+        token_timer = Timer(1.0,refresh_token)
+        token_timer.start()
+        
         node.ser = serial.Serial(node.lora_port, timeout=14)
         wtd_start.stop()
     except Watchdog:

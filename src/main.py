@@ -16,6 +16,7 @@ from threading import Timer
 from sqlite_manager import *
 from gpiozero import LED
 from post_http import get_token
+restart_button = LED(23)
 
 send_pre = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
  
@@ -28,12 +29,14 @@ def refresh_token():
 
 def restart_lora():
     log.info("Restart LoRa module")
-    '''if args.production:
-        restart_button = LED(23)
-        restart.off()
+    if args.production:
+        restart_button.off()
         time.sleep(1)
-        restart.on()'''
-    
+        restart_button.on()
+        time.sleep(5)
+
+def restart_script():
+    os.execv(sys.executable, ['python'] + sys.argv)   
 def post_thread(): 
     """! Post meters information
    
@@ -41,12 +44,14 @@ def post_thread():
     global counter
     global post_time_s
     counter+=1
+    counter_restart+=1
     log.info("Posting in %s s",str(post_time_s - counter + 1))
     if counter == post_time_s :
         post_json = load_json( node.id, node.key)
         post_scada(post_json,args.production, token)
-        counter = 0
-        restart_lora()
+    if counter_start == restart_time:
+        restart_script()
+        
     post_timer = Timer(1.0,post_thread)
     post_timer.start()
     
@@ -165,11 +170,11 @@ if __name__ == "__main__":
         energy_load(node.loras)
         counter = 0
         post_time_s = node.post_time
-        post_timer = Timer(1.0,post_thread)
+        post_timer = Timer(1.0, post_thread)
         post_timer.start()
         
         token = ''
-        token_timer = Timer(1.0,refresh_token)
+        token_timer = Timer(1.0, refresh_token)
         token_timer.start()
         
         node.ser = serial.Serial(node.lora_port, timeout=14)

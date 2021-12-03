@@ -19,7 +19,8 @@ from post_http import get_token
 restart_button = LED(23)
 
 send_pre = [5, 0, 1, 14, 0, 2, 0, 7, 1, 8]
- 
+MAX_ALL_FAIL_TOLERANCE = 5
+RESTART_TIME = 3600
 def refresh_token():
     global token
     log.info("Getting a brand new token")
@@ -43,13 +44,15 @@ def post_thread():
     """
     global counter
     global post_time_s
+    global counter_restart
     counter+=1
     counter_restart+=1
     log.info("Posting in %s s",str(post_time_s - counter + 1))
     if counter == post_time_s :
         post_json = load_json( node.id, node.key)
         post_scada(post_json,args.production, token)
-    if counter_start == restart_time:
+        counter = 0
+    if counter_restart == RESTART_TIME:
         restart_script()
         
     post_timer = Timer(1.0,post_thread)
@@ -87,11 +90,14 @@ def poll_loras(loras):
    
     """
     log.info("Start polling")
+    lora_index = 0
+    fail_array = [False]*len(loras)
     for lora_dic in loras:
         time.sleep(1)
         lora = loranode(lora_dic)
         log.debug("slaves members: %s", str(lora.slaves))
         n = lora.quantity_poll()
+        global all_failed_counter
         for i in range(n):
             log.info("Poll %s %s in LoRa %s", str(i + 1), "th", lora.id)
             max_num_reg = lora.maxpoll_size
@@ -112,6 +118,7 @@ def poll_loras(loras):
 
             response = node.receive()
             if response is None:
+                fail_array[lora_index] = True
                 continue
             if node.cipher:
                 response = decrypt_md(response, "CFB")
@@ -124,6 +131,16 @@ def poll_loras(loras):
                 index = lora.slaves[j]
                 serial_meter = lora_hex + (index).to_bytes(1, 'big')
                 update_date_base(serial_meter.hex(), data[j])
+        lora_index += 1
+    if False not in fail_array:
+        log.error("All nodes not responding!")
+        all_failed_counter+=1
+    
+    
+    if all_failed_counter == MAX_ALL_FAIL_TOLERANCE:
+        log.debug("Maximum Fail Tolerance Reached")
+        restart_script()
+        
     time.sleep(5)
     meter_updates = get_meter_updates(token)
     for update in meter_updates:
@@ -163,12 +180,15 @@ if __name__ == "__main__":
     node = centralnode("json/config.json")
     init_serial_port(node.lora_port)
     restart_lora()
+    all_failed_counter = 0
+    
     if not node.init_lora():
         log.error("Could not config LoRa")
         os._exit(0)
     try:
         energy_load(node.loras)
         counter = 0
+        counter_restart = 0
         post_time_s = node.post_time
         post_timer = Timer(1.0, post_thread)
         post_timer.start()

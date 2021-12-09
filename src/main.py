@@ -114,6 +114,9 @@ def poll_loras(loras):
                 payload = encrypt_md(payload, "CFB")
             result = node.send(payload, dest_slave, quant)
             log.debug("Result %s", str(list(result)))
+            if len(result) < 7:
+                log.error("Inconsistent frame from LoRa")
+                continue
             log.info("Result code from sent [%d] ", result[6])
 
             response = node.receive()
